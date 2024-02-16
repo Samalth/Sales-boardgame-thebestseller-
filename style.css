@@ -1,5 +1,5 @@
 .body {
-	font-family: Arial, sans-serif;
+	font-family: 'Itim', Arial, sans-serif;
 	text-align: center;
 	margin: 200px;
 	background-color: #195678;
@@ -11,6 +11,7 @@
 	object-fit: cover;
 	position: absolute;
 	bottom: 3cm;
+	font-size: 25px;
 }
 
 /*Denmark flag*/
@@ -32,15 +33,18 @@
 }
 
 .button {
-	border-radius: 20px;
+	border-radius: 30px;
+	width: 6cm;
 	padding: 30px;
-	font-size: 16px;
-	margin: 10px;
+	font-size: 25px;
+	margin: 90px;
 	cursor: zoom-in;
 	background-color: #195678;
 	color: #F9E513;
 	border-color: antiquewhite;
+	font-family: 'Itim', Arial, sans-serif;
 }
+
 .button:hover {
 	background-color: #5E676D;
 	font-weight: bold;
@@ -48,15 +52,18 @@
 
 .Qbutton {
 	position: absolute;
-	top: 3cm;
-	right: 5cm;
+	top: 4cm;
+	right: 7cm;
+	width: 2cm;
+	height: 2cm;
 	border-radius: 16px;
 	padding: 16px;
-	font-size: 16px;
+	font-size: 40px;
 	margin: 10px;
 	background-color: #195678;
 	color: #F9E513;
-	border-color: antiquewhite;
+	border-color: white;
+	font-family: 'Itim', Arial, sans-serif;
 }
 
 .Qbutton:hover {
@@ -66,7 +73,7 @@
 
 .content {
 	padding: 30px;
-	color: white;
+	color: antiquewhite;
 
 }
 
