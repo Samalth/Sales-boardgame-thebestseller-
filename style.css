@@ -1,7 +1,7 @@
 .body {
 	font-family: Arial, sans-serif;
 	text-align: center;
-	margin: 50px;
+	margin: 200px;
 	background-color: #195678;
 }
 
@@ -41,8 +41,25 @@
 	color: #F9E513;
 	border-color: antiquewhite;
 }
-
 .button:hover {
+	background-color: #5E676D;
+	font-weight: bold;
+}
+
+.Qbutton {
+	position: absolute;
+	top: 3cm;
+	right: 5cm;
+	border-radius: 16px;
+	padding: 16px;
+	font-size: 16px;
+	margin: 10px;
+	background-color: #195678;
+	color: #F9E513;
+	border-color: antiquewhite;
+}
+
+.Qbutton:hover {
 	background-color: #5E676D;
 	font-weight: bold;
 }
