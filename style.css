@@ -1,13 +1,30 @@
-body {
+.body {
 	font-family: Arial, sans-serif;
 	text-align: center;
 	margin: 50px;
 	background-color: #195678;
 }
 
-button {
-	padding: 10px;
+.button {
+	border-radius: 20px;
+	padding: 30px;
 	font-size: 16px;
 	margin: 10px;
 	cursor: zoom-in;
+}
+
+.button:hover {
+	background-color: yellow;
+	font-weight: bold;
+}
+
+.content {
+	padding: 30px;
+	color: white;
+
+}
+
+.yes {
+	font-weight: bold;
+	color: white;
 }

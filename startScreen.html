@@ -4,37 +4,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Startscherm</title>
 	<link rel="stylesheet" href="style.css">
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			text-align: center;
-			margin: 50px;
-		}
-		button {
-			padding: 10px;
-			font-size: 16px;
-			margin: 10px;
-			cursor: auto;
-		}
-	</style>
 </head>
-<body>
 
-<h1>The Best Seller</h1>
+<body class="body">
 
-<button id="joinGameButton">Join game</button>
-<button id="createGameButton">Create game</button>
+<h1 class="yes" >The Best Seller</h1>
 
-<script>
+<input type="button" class="button" onclick="location.href='joinGameScreen.html'" value="Join Game">
+<input type="button" class="button" onclick="location.href='CreateGameScreen.html'" value="Create Game">
 
-	document.getElementById('joinGameButton').addEventListener('click', function() {
-		alert('Join game');
-	});
+<div class="content">Click a button to change the screen.</div>
 
-	document.getElementById('createGameButton').addEventListener('click', function() {
-		alert('Create game');
-	});
-</script>
 
 </body>
 </html>
