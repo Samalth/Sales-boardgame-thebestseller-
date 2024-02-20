@@ -1,43 +1,15 @@
 .body {
 	font-family: 'Itim', Arial, sans-serif;
 	text-align: center;
-	margin: 200px;
 	background-color: #195678;
 }
 
-#container img {
-	width: auto;
-	height: auto;
-	object-fit: cover;
-	position: absolute;
-	bottom: 3cm;
-	font-size: 25px;
-}
-
-/*Denmark flag*/
-#container img:nth-child(1) {
-	right: 10cm;
-	border-radius: 10px;
-}
-
-/*Engeland flag*/
-#container img:nth-child(2) {
-	right: 5cm;
-	border-radius: 10px;
-}
-
-/*Holland flag*/
-#container img:nth-child(3) {
-	right: 7.5cm;
-	border-radius: 5px;
-}
-
 .button {
-	border-radius: 30px;
-	width: 6cm;
-	padding: 30px;
-	font-size: 25px;
-	margin: 90px;
+	border-radius: 10px;
+	width: 400px;
+	padding: 10px;
+	font-size: 60px;
+	margin: 10px;
 	cursor: zoom-in;
 	background-color: #195678;
 	color: #F9E513;
@@ -46,18 +18,19 @@
 }
 
 .button:hover {
-	background-color: #5E676D;
+	background-color: #3f6072;
 	font-weight: bold;
 }
 
+.game {
+	margin: 50px;
+}
+
 .Qbutton {
-	position: absolute;
-	top: 4cm;
-	right: 7cm;
-	width: 2cm;
-	height: 2cm;
-	border-radius: 16px;
-	padding: 16px;
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	padding: 10px;
 	font-size: 40px;
 	margin: 10px;
 	background-color: #195678;
@@ -67,17 +40,37 @@
 }
 
 .Qbutton:hover {
-	background-color: #5E676D;
+	background-color: #3f6072;
 	font-weight: bold;
 }
 
-.content {
-	padding: 30px;
-	color: antiquewhite;
-
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .yes {
 	font-weight: bold;
 	color: white;
+}
+
+img{
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.languages{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.manual {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 15px;
+	margin-right: 30px;
 }
