@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="JoinScreenStyle.css">
+</head>
+<body class="body">
+
+<div class="parent-container">
+    <div class="row gamepin">
+        <label>Gamepin:</label>
+        <input type="text" onfocus="this.value=''" value="#12345"><br><br>
+    </div>
+
+    <div class="row strategy">
+        <label for="strategy">Strategy:</label><br>
+        <select name="strategy" id="strategy">
+            <option value="Random category" selected>Random category</option>
+            <option value="Primark">1. Primark</option>
+            <option value="2. Louis Vuitton">2. Louis Vuitton</option>
+            <option value="3. Zeeman">3. Zeeman</option>
+            <option value="4. H&M">4. H&M</option>
+            <option value="5. Nike">5. Nike</option>
+            <option value="6. Moncler">6. Moncler</option>
+        </select>
+    </div>
+
+    <div class="row name">
+        <label for="fullName">Full name:</label><br>
+        <input type="text" id="fullName" name="fullName" onfocus="this.value=''" value="Edsger Dijkstra"><br><br>
+    </div>
+
+    <div class="row">
+        <button class="startbutton">Start!</button>
+        <button class="back" onclick="location.href='startScreen.html'">Back to Home</button>
+    </div>
+</div>
+</body>
+</html>
