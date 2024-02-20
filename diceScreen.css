@@ -6,7 +6,7 @@
 
 body{
     height: 100vh;
-    background: rgb(103, 92, 255);
+    background-color: #195678;
     background-size: 100% 50%;
 }
 
@@ -15,20 +15,32 @@ img{
     margin: 25px;
     border-radius: 8px;
 }
+.bordImage{
+    max-width: 60%;
+    margin: 0;
+    margin-left: 15px;
+    border: 3px solid black;
+}
 
 .container{
-    width: 400px;
+    width: 300px;
     padding: 50px;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
+    top: 20%;
+    right: 1%;
     background-color: black;
     box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.board{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    
 }
 
 .dice-wrapper{
@@ -57,6 +69,10 @@ button{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     cursor: pointer;
+}
+.home{
+    max-width: 10%;
+    margin: 10px;
 }
 button:hover{
     background-color: gold;

@@ -1,6 +1,6 @@
 let images = ["Dia1.JPG","Dia2.JPG","Dia3.JPG","Dia4.JPG","Dia5.JPG","Dia6.JPG"]
 
-let dice = document.querySelector("img")
+let dice = document.querySelector("#die-1")
 
 function roll(){
     dice.classList.add("shake")
