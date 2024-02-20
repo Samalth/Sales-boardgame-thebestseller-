@@ -24,6 +24,7 @@ input, select{
 
 select{
     width: 410px;
+    cursor: pointer;
 }
 
 .gamepin{
@@ -51,6 +52,7 @@ button{
     font-family: itim;
     padding: 20px;
     margin: 20px ;
+    cursor: pointer;
 }
 
 button:hover{

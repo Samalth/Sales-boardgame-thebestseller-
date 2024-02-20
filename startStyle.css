@@ -10,7 +10,7 @@
 	padding: 10px;
 	font-size: 60px;
 	margin: 10px;
-	cursor: zoom-in;
+	cursor: pointer;
 	background-color: #195678;
 	color: #F9E513;
 	border-color: antiquewhite;
@@ -37,6 +37,7 @@
 	color: #F9E513;
 	border-color: white;
 	font-family: 'Itim', Arial, sans-serif;
+	cursor: pointer;
 }
 
 .Qbutton:hover {
@@ -59,6 +60,7 @@
 img{
 	padding: 5px;
 	border-radius: 10px;
+	cursor: pointer;
 }
 
 .languages{
