@@ -9,8 +9,25 @@
 </head>
 
 <body class="body">
-	<div class="row">
+	<div class="row" id="data-container" >
 		<h1 class="yes" >The Best Seller</h1>
+	<!--	<ul id="user-list"></ul>-->
+		<script>
+			// Fetch users from the API and display them on the page
+			function fetchData() {
+				// Fetch data from the API
+				fetch('http://localhost:3000/api/questionstable')
+
+						.then(response => response.json())
+						.then(data => {
+							const dataContainer = document.getElementById('data-container');
+							dataContainer.innerHTML = `<p>Column Value: ${data[0].QDutch}</p>`;
+						})
+						.catch(error => console.error('Error:', error));
+			}
+			// Call the function to fetch data when the page loads
+			document.addEventListener('DOMContentLoaded', fetchData);
+		</script>
 		<input type="button" class="Qbutton" value="?" type=submit onclick="window.open('manual.pdf'); return true;">
 	</div>
 
