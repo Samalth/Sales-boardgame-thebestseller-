@@ -1,6 +1,6 @@
 // import { getQuestion } from "./dataBase.js"
 
-let images = ["Dia1.JPG","Dia2.JPG","Dia3.JPG","Dia4.JPG","Dia5.JPG","Dia6.JPG"]
+let images = ["images/Dia1.JPG","images/Dia2.JPG","images/Dia3.JPG","images/Dia4.JPG","images/Dia5.JPG","images/Dia6.JPG"]
 
 let dice = document.querySelector("#die-1")
 
