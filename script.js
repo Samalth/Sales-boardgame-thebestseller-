@@ -1,6 +1,10 @@
+// import { getQuestion } from "./dataBase.js"
+
 let images = ["Dia1.JPG","Dia2.JPG","Dia3.JPG","Dia4.JPG","Dia5.JPG","Dia6.JPG"]
 
 let dice = document.querySelector("#die-1")
+
+
 
 function roll(){
     dice.classList.add("shake")
@@ -15,6 +19,8 @@ function roll(){
         dice.classList.remove("shake")
         let diceValue = Math.floor(Math.random()*6)
         document.querySelector("#die-1").setAttribute("src", images[diceValue])
-        document.querySelector("#total").innerHTML = "You rolled: " + (diceValue + 1)
+        document.querySelector("#total").innerHTML = "You rolled:  " + (diceValue + 1)
     }, 1000)
+//+ (diceValue + 1) + getQuestion() + getQuestion();
+
 }
