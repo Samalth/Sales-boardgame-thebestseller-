@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join a Game</title>
+    <link rel="stylesheet" href="CSS/JoinScreenStyle.css">
+</head>
+<body class="body">
+
+<div class="parent-container">
+    <div class="row gamepin">
+        <label>Gamepin:</label>
+        <input type="text" onfocus="this.value=''" value="#12345"><br><br>
+    </div>
+
+    <div class="row strategy">
+        <label for="strategy">Strategy:</label><br>
+        <select name="strategy" id="strategy">
+            <option value="" hidden="hidden">Pick a strategy</option>
+            <option value="Lunar">1. Lunar</option>
+            <option value="Top of the World">2. Top of the World</option>
+            <option value="Safeline">3. Safeline</option>
+            <option value="Strat 4">4. Strat 4</option>
+            <option value="Strat 5">5. Strat 5</option>
+            <option value="Strat 6">6. Strat 6</option>
+        </select>
+    </div>
+
+    <div class="row name">
+        <label for="fullName">Full name:</label><br>
+        <input type="text" id="fullName" name="fullName" onfocus="this.value=''" value="Edsger Dijkstra"><br><br>
+    </div>
+
+    <div class="row">
+        <button class="startbutton" onclick="location.href='dice.html'">Start!</button>
+        <button class="back" onclick="location.href='startScreen.html'">Back to Home</button>
+    </div>
+</div>
+</body>
+</html>

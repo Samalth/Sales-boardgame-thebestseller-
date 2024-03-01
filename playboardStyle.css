@@ -1,0 +1,58 @@
+body{
+    margin: 0;
+    background: #195678;
+    position: relative;
+}
+
+.board-grid {
+    width: 65%;
+    float: left;
+    display: grid;
+    grid-template-columns: repeat(15, 60px); /* Adjust the number and size of columns as needed */
+    grid-template-rows: repeat(9, 60px); /* Adjust the number and size of rows as needed */
+    /*    margin: 120px auto; /* Adjust the margin as needed */
+    margin-top: 80px;
+    justify-content: center;
+    align-content: center;
+}
+
+.tile {
+    background-color: #ffffff00; /* Default color */
+    margin: 2px;
+}
+
+.pawn {
+    border: 1px solid black;
+}
+
+.pawn.yellow {
+    background-color: #FAFF03;
+}
+
+.pawn.blue {
+    background-color: #A8E0FF;
+}
+
+.pawn.red {
+    background-color: #FC4D4D;
+}
+
+.pawn.green {
+    background-color: #8AFF53;
+}
+
+.pawn.orange {
+    background-color: #FFA500;
+}
+
+.pawn.purple {
+    background-color: #CA96FF;
+}
+
+.pawn.doubledice {
+    background-color: white;
+}
+
+.pawn.start {
+    background: linear-gradient(to right, #195678, #FAFF03,red, purple);
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice roller</title>
+    <link rel="stylesheet" href="CSS/diceScreen.css">
+</head>
+<body>
+    <div class="board">
+        <button class="home" onclick="location.href='startScreen.html'">Home</button>
+        <img class="bordImage" src="bord.png">
+    </div>
+    <div class="container">
+        <div class="dice-wrapper">
+            <img src="images/Dia1.JPG" id="die-1">
+        </div>
+        <p id="total"></p>
+        <button onclick="roll()">Roll the dice</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
