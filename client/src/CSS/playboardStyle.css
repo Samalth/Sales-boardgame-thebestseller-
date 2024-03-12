@@ -1,0 +1,134 @@
+body{
+    margin: 0;
+    background: #195678;
+    position: relative;
+}
+
+.board-grid {
+    width: 65%;
+    float: left;
+    display: grid;
+    grid-template-columns: repeat(15, 60px); /* Alle vakjes zijn 56px breed */
+    grid-template-rows: repeat(9, 60px); /* Alle vakjes zijn 56px hoog */
+    margin-top: 80px;
+    margin-right: 80px;
+    justify-content: center;
+    align-content: center;
+}
+
+img {
+    width: 55px;
+    height: 55px;
+    margin: 2px;
+}
+
+.tile {
+    background-color: #ffffff00; /* Default color */
+    margin: 2px;
+}
+
+.pawn {
+    border: 1px solid black;
+}
+
+.pawn.yellow {
+    background-color: #DAB24B;
+}
+
+.pawn.blue {
+    background-color: #47A1C8;
+}
+
+.pawn.red {
+    background-color: #BA4040;
+}
+
+.pawn.green {
+    background-color: #53A65B;
+}
+
+.pawn.orange {
+    background-color: #C66732;
+}
+
+.pawn.purple {
+    background-color: #A83E8A;
+}
+
+.pawn.start {
+    background-color: #000000;
+}
+
+.tile.pawn.start {
+    color: white;
+    text-align: center;
+    margin: 2px;
+    line-height: 50px;
+}
+
+.diceImage{
+    max-width: 100px;
+    margin: 25px;
+    border-radius: 8px;
+}
+
+.container{
+    width: 300px;
+    padding: 50px;
+    position: absolute;
+    top: 20%;
+    background-color: black;
+    box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dice-wrapper{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+label{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    color: white;
+    font-weight: 500;
+}
+
+button{
+    background-color: goldenrod;
+    border: none;
+    outline: none;
+    color: black;
+    padding: 15px;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: gold;
+}
+
+.shake{
+    animation: shake 0.5s infinite;
+}
+@keyframes shake{
+    0%{
+        transform: rotate(10deg);
+    }
+    50%{
+        transform: rotate(-10deg);
+    }
+    100%{
+        transform: rotate(10deg);
+    }
+}
