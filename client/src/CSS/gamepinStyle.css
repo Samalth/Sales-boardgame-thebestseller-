@@ -1,0 +1,49 @@
+body{
+    background-color: #195678;
+    font-family: itim;
+    font-size: 60px;
+}
+
+.text{
+    color: #F9E513;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.button {
+    background-color: #195678;
+    color: #F9E513;
+    border: 3px solid white;
+    border-radius: 10px;
+    font-family: itim;
+    font-size: 42px;
+    padding-left: 20%;
+    padding-right: 20%;
+    cursor: pointer;
+}
+.button:hover{
+    background-color: #3f6072;
+}
+
+output{
+    background-color: white;
+    border-radius: 10px;
+    padding: 0px 25px;
+}
+
+.gamepin{
+    margin-top: 8%;
+}
+
+label {
+    position: absolute;
+    left: 25%
+}
+output {
+    margin-left: 30%;
+}
