@@ -32,9 +32,9 @@ export function HomeScreen() {
           </div>
     
           <div className="row languages">
-            <img className='denmark' src='../den_flag.png' alt=''/>
-            <img className='unitedkingdom' src='../uk_flag.png' alt=''/>
-            <img className='netherlands' src='../nl_flag.png' alt=''/>
+            <img className='flagImg' src='../den_flag.png' alt=''/>
+            <img className='flagImg' src='../uk_flag.png' alt=''/>
+            <img className='flagImg' src='../nl_flag.png' alt=''/>
           </div>
         </div>
     );
