@@ -23,47 +23,63 @@ img {
 }
 
 .tile {
-    background-color: #ffffff00; /* Default color */
-    margin: 2px;
+ margin: 2px;
+ position: relative;
 }
 
-.pawn {
-    border: 1px solid black;
+.yellow {
+background-color: #DAB24B;
 }
 
-.pawn.yellow {
-    background-color: #DAB24B;
+.blue {
+background-color: #47A1C8;
 }
 
-.pawn.blue {
-    background-color: #47A1C8;
+.red {
+background-color: #BA4040;
 }
 
-.pawn.red {
-    background-color: #BA4040;
+.green {
+background-color: #53A65B;
 }
 
-.pawn.green {
-    background-color: #53A65B;
+.orange {
+background-color: #C66732;
 }
 
-.pawn.orange {
-    background-color: #C66732;
+.purple {
+background-color: #A83E8A;
 }
 
-.pawn.purple {
-    background-color: #A83E8A;
+.start {
+background-color: #000000;
+background-size: 60px;
 }
 
-.pawn.start {
-    background-color: #000000;
+.people {
+background-image: url('../images/Mensen.png');
+background-size: cover;
 }
 
-.tile.pawn.start {
-    color: white;
-    text-align: center;
-    margin: 2px;
-    line-height: 50px;
+.mask{
+background-image: url('../images/Masker.png');
+background-size: cover;
+}
+
+.rainbow{
+background-image: url('../images/Rainbow.png');
+background-size: cover;
+}
+
+.world{
+background-image: url('../images/Wereld.png');
+background-size: cover;
+}
+
+img {
+width: 55px;
+height: 55px;
+margin: 2px;
 }
 
 .diceImage{
@@ -73,24 +89,22 @@ img {
 }
 
 .container{
-    width: 300px;
-    padding: 50px;
-    position: absolute;
-    top: 20%;
-    background-color: black;
-    box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+ width: 300px;
+ padding: 30px;
+ position: absolute;
+ top: 80%;
+ right: 3%;
+ box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
+ border-radius: 8px;
+ display: flex;
+ flex-direction: column;
+
 }
 
 .dice-wrapper{
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+ width: 90%;
+ display: flex;
+ justify-content: space-around;
 }
 
 

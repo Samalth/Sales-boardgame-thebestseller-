@@ -7,155 +7,135 @@ import io from 'socket.io-client'
 const socket = io.connect("http://localhost:3001")
 
 const BoardGrid = () => {
+
+const playerDisplay = document.querySelector("#player");
+const infoDisplay = document.querySelector("#info-display");
+
+const lunar = '<div class = "startpieces" id= "lunar"><img src="../images/LUNAR.png"></div>';
+const world = '<div class = "startpieces" id= "world"><img src="../images/WORLD.png"></div>';
+const [startpieces] = useState([ 'lunar', 'world']);
+
+const width = 15;
+const length = 9;
+const totalTiles = width * length;
+
+
+const [draggedElement, setDraggedElement] = useState(null);
+const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+
+useEffect(() => {
+        createBoard();
+    }, []);
+
+function createBoard() {
+const gameboard = document.getElementById('gameboard');
+
+    if(!gameboard){
+    console.error('Gameboard element not found');
+    return;
+    }
+
+    const tiles = [
+    'people','yellow','red','world','rainbow','blue','mask', 'purple', 'yellow', 'people','rainbow', 'green','world','blue','purple',
+    'green','blank','blank','blank', 'blank','blank', 'blank', 'world', 'blank', 'blank','blank', 'blank', 'blank', 'blank','mask',
+    'mask','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
+    'orange','blank','blank','blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
+    'rainbow','people','purple','mask', 'yellow','world', 'blue', 'start', 'rainbow', 'people','blue', 'world', 'yellow','green', 'people',
+    'world','blank','blank', 'blank', 'blank','blank', 'blank', 'people', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
+    'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
+    'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'world',
+    'people', 'rainbow', 'orange', 'mask', 'purple','yellow', 'world', 'rainbow', 'red', 'people','purple','green', 'mask', 'rainbow', 'orange'
+];
+
+    // Loop through the tiles and create elements dynamically
+   for (let i = 0; i < totalTiles; i++) {
+       const tile = document.createElement('div');
+       tile.classList.add('tile')
+       tile.className = `tile ${tiles[i]}`;
+       tile.setAttribute('tile-id', i );
+       gameboard.append(tile);
+
+       if (tiles[i] === 'start') {
+           const pawnContainer = document.createElement('div');
+           pawnContainer.classList.add('startpieces');
+           pawnContainer.innerHTML = startpieces.map(piece => piece).join('');
+           tile.appendChild(pawnContainer);
+
+           tile.firstChild.childNodes.forEach(node => {
+               if (node.nodeName === 'DIV') {
+                   node.setAttribute('draggable', true);
+                   gameboard.addEventListener('dragstart', dragStart);
+                   gameboard.addEventListener('dragover', dragOver);
+                   gameboard.addEventListener('drop', dragDrop);
+
+               }
+           });
+       }
+   }
+}
+createBoard();
+
+function dragStart (e) {
+    if(e.target.parentNode.classList.contains('startpieces')){
+        draggedElement = e.target.parentNode
+    }
+}
+
+function dragOver(e) {
+    e.preventDefault()
+}
+
+function dragDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const targetTile = e.target.closest('.tile');
+
+
+        if (targetTile && !targetTile.classList.contains('blank')) {
+            const LunarTurn = getCurrentPlayer() == 'lunar';
+            const WorldTurn = getCurrentPlayer() == 'world';
+        if((LunarTurn && draggedElement.id == 'lunar') || (WorldTurn && draggedElement.id == 'world')){
+        // Als de doeltile al pionnen bevat
+            if (targetTile.querySelector('.startpieces')) {
+            // Voeg de gesleepte pion toe naast de bestaande pionnen
+            targetTile.querySelector('.startpieces').appendChild(draggedElement);
+            draggedElement = null
+        } else {
+            // Plaats de gesleepte pion in de doeltile
+            const pawnContainer = document.createElement('div');
+            pawnContainer.classList.add('startpieces')
+            targetTile.appendChild(pawnContainer);
+
+            pawnContainer.appendChild(draggedElement);
+            draggedElement = null;
+        }
+        switchTurns();
+     }
+   }
+}
+
+function getCurrentPlayer() {
+    const currentPlayerHTML = startpieces[currentPlayerIndex];
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = currentPlayerHTML;
+    const playerElement = tempDiv.querySelector('.startpieces');
+
+    return playerElement ? playerElement.id : '';
+}
+
+
+
+function switchTurns(){
+    currentPlayerIndex = (currentPlayerIndex + 1) % startpieces.length;
+    playerDisplay.innerText = 'It is ' + getCurrentPlayer() + '\'s turn';
+    }
+
     return (
-        <div className="board-grid">
-        {/* <!-- Top row --> */}
-        <img src="../Mensen.png"/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn red"/>
-        <img src="../Wereld.png"/>
-        <img src="../Rainbow.png"/>
-        <div className="tile pawn blue"/>
-        <img src="../Masker.png"/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Mensen.png"/>
-        <img src="../Rainbow.png"/>
-        <div className="tile pawn green"/>
-        <img src="../Wereld.png"/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn purple"/>
-        {/* <!-- first row --> */}
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png"/>
-        {/* <!-- second row --> */}
-        <img src="../Masker.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn orange"/>
-        {/* <!-- third row --> */}
-        <div className="tile pawn orange"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Rainbow.png"/>
-        {/* <!-- fourth and middle row--> */}
-        <img src="../Rainbow.png"/>
-        <img src="../Mensen.png"/>
-        <div className="tile pawn purple"/>
-        <img src="../Masker.png"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png"/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn start">
-            START
-        </div>
-        <img src="../Rainbow.png"/>
-        <img src="../Mensen.png"/>
-        <div className="tile pawn blue"/>
-        <img src="../Wereld.png"/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn green"/>
-        <img src="../Mensen.png"/>
-        {/* <!-- fifth row--> */}
-        <img src="../Wereld.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Mensen.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        {/* <!-- sixth row --> */}
-        <div className="tile pawn blue"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn blue"/>
-        {/* <!-- seventh row --> */}
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png"/>
-        {/* <!-- Bottom row --> */}
-        <img src="../Mensen.png"/>
-        <img src="../Rainbow.png"/>
-        <div className="tile pawn orange"/>
-        <img src="../Masker.png"/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png"/>
-        <img src="../Rainbow.png"/>
-        <div className="tile pawn red"/>
-        <img src="../Mensen.png"/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn green"/>
-        <img src="../Masker.png"/>
-        <img src="../Rainbow.png"/>
-        <div className="tile pawn orange"/>
-    </div>
+    <>
+    <div id="gameboard" className="board-grid"></div>
+    <p className="info-display"></p>
+    <span className="player">{currentPlayerIndex}</span>
+    </>
     );
 };
     
