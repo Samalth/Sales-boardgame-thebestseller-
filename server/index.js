@@ -4,8 +4,8 @@ const path = require('path')
 const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
-
 const databaseQuestion  = require("./database")
+const path = require('path')
 
 app.use(cors())
 

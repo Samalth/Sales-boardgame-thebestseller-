@@ -11,9 +11,10 @@ const BoardGrid = () => {
 const playerDisplay = document.querySelector("#player");
 const infoDisplay = document.querySelector("#info-display");
 
-const lunar = '<div class = "startpieces" id= "lunar"><img src="../images/LUNAR.png"></div>';
-const world = '<div class = "startpieces" id= "world"><img src="../images/WORLD.png"></div>';
-const [startpieces] = useState([lunar, world]);
+const [startpieces] = useState([
+     '<div class = "startpieces" id= "lunar"><img src="LUNAR.png"></div>',
+     '<div class = "startpieces" id= "world"><img src="WORLD.png"></div>'
+]);
 
 const width = 15;
 const length = 9;
@@ -28,13 +29,6 @@ useEffect(() => {
     }, []);
 
 function createBoard() {
-const gameboard = document.getElementById('gameboard');
-
-    if(!gameboard){
-    console.error('Gameboard element not found');
-    return;
-    }
-
     const tiles = [
     'people','yellow','red','world','rainbow','blue','mask', 'purple', 'yellow', 'people','rainbow', 'green','world','blue','purple',
     'green','blank','blank','blank', 'blank','blank', 'blank', 'world', 'blank', 'blank','blank', 'blank', 'blank', 'blank','mask',
@@ -45,7 +39,15 @@ const gameboard = document.getElementById('gameboard');
     'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
     'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'world',
     'people', 'rainbow', 'orange', 'mask', 'purple','yellow', 'world', 'rainbow', 'red', 'people','purple','green', 'mask', 'rainbow', 'orange'
-];
+   ];
+
+
+    const gameboard = document.getElementById('gameboard');
+
+    if(!gameboard){
+    console.error('Gameboard element not found');
+    return;
+    }
 
     // Loop through the tiles and create elements dynamically
    for (let i = 0; i < totalTiles; i++) {
@@ -73,11 +75,11 @@ const gameboard = document.getElementById('gameboard');
        }
    }
 }
-createBoard();
+
 
 function dragStart (e) {
     if(e.target.parentNode.classList.contains('startpieces')){
-        draggedElement = e.target.parentNode
+        e.dataTransfer.setData('text/HTML', e.target.parentNode.id);
     }
 }
 
@@ -90,11 +92,10 @@ function dragDrop(e) {
     e.stopPropagation();
     const targetTile = e.target.closest('.tile');
 
-
         if (targetTile && !targetTile.classList.contains('blank')) {
             const LunarTurn = getCurrentPlayer() == 'lunar';
             const WorldTurn = getCurrentPlayer() == 'world';
-        if((LunarTurn && draggedElement.id == 'lunar') || (WorldTurn && draggedElement.id == 'world')){
+        if((LunarTurn && draggedElement == 'lunar') || (WorldTurn && draggedElement == 'world')){
         // Als de doeltile al pionnen bevat
             if (targetTile.querySelector('.startpieces')) {
             // Voeg de gesleepte pion toe naast de bestaande pionnen
@@ -134,7 +135,7 @@ function switchTurns(){
     <>
     <div id="gameboard" className="board-grid"></div>
     <p className="info-display"></p>
-    <span className="player">{currentPlayerIndex}</span>
+    <span id="player" className="player">It is {getCurrentPlayer()}'s turn </span>
     </>
     );
 };
