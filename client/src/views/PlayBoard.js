@@ -13,7 +13,7 @@ const infoDisplay = document.querySelector("#info-display");
 
 const lunar = '<div class = "startpieces" id= "lunar"><img src="../images/LUNAR.png"></div>';
 const world = '<div class = "startpieces" id= "world"><img src="../images/WORLD.png"></div>';
-const [startpieces] = useState([ 'lunar', 'world']);
+const [startpieces] = useState([lunar, world]);
 
 const width = 15;
 const length = 9;
