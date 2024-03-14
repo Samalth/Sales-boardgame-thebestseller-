@@ -58,6 +58,19 @@ const updateUser = (userId, newData) => {
     }
 };
 
+function getRoom(socketid) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.room;
+    } else {
+        console.error('User not found.');
+        return null;
+    }
+}
+
 //   // Example usage
 //   console.log('Initial data:');
 //   console.log(readData());
@@ -91,6 +104,8 @@ function userLogger(method, socketid, info='temp'){
         case 'updateStrategy':
             updateUser(socketid, {strategy: info})
             break
+        case 'getRoom':
+            return getRoom(socketid)
     }    
 }
 

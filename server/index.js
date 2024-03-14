@@ -29,7 +29,7 @@ io.on('connection', (socket)=>{
     })
 
     socket.on("join_room", (data) =>{
-        // socket.join(data)
+        socket.join(data.room)
         userLogger('updateName', socket.id, data.name)
         userLogger('updateRoom', socket.id, data.room)
         userLogger('updateStrategy', socket.id, data.strategy)
@@ -44,7 +44,10 @@ io.on('connection', (socket)=>{
         console.log(data.questionNumber)
         var questionText = await databaseQuestion(data.questionNumber);
         // console.log(JSON.stringify(questionText))
-        socket.emit('receive_question', JSON.stringify(questionText))
+        // socket.to(userLogger('getRoom', socket.id)).emit('receive_question', JSON.stringify(questionText))
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('receive_question', JSON.stringify(questionText));
+        socket.emit('receive_question', JSON.stringify(questionText));
     })
 })
 
