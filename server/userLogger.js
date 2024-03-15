@@ -58,6 +58,34 @@ const updateUser = (userId, newData) => {
     }
 };
 
+function getRoom(socketid) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.room;
+    } else {
+        console.error('User not found.');
+        return null;
+    }
+}
+
+function availability(socketid, userName, userRoom, userStrat) {
+    let data = readData();
+    if (!data) return 'available';
+
+    for (let user of data.users) {
+        if (user.name === userName && user.room === userRoom) {
+            return 'Name already in use';
+        }
+        if (user.strategy === userStrat && user.room === userRoom) {
+            return 'Strategy already in use';
+        }
+    }
+    return 'available';
+}
+
 //   // Example usage
 //   console.log('Initial data:');
 //   console.log(readData());
@@ -91,6 +119,10 @@ function userLogger(method, socketid, info='temp'){
         case 'updateStrategy':
             updateUser(socketid, {strategy: info})
             break
+        case 'getRoom':
+            return getRoom(socketid)
+        case 'checkAvailability':
+            return availability(socketid, info.name, info.room, info.strategy)
     }    
 }
 

@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import '../CSS/JoinScreenStyle.css';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {socket} from '../client'
 
 export function JoinGame() {
     const [gamepin, setGamepin] = useState("");
     const [username, setUsername] = useState("");
-    const [strategy, setStrategy] = useState("")
+    const [strategy, setStrategy] = useState("");
+    const [information, setInformation] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,9 +15,19 @@ export function JoinGame() {
     socket.emit("join_room", { name: username, room: gamepin, strategy: strategy});
   };
 
+  useEffect(() =>{
+    socket.on('join_succes', (data) => {
+        if (data === 'available'){
+            handleGame()
+        } else {
+            setInformation(data)
+        }
+    })
+  })
+
   const handleGame = () => {
       // Navigate to the '/game' route
-      setName(username, gamepin, strategy)
+    //   setName(username, gamepin, strategy)
 
       navigate('/game');
   };
@@ -26,6 +37,7 @@ export function JoinGame() {
 
     return (
         <div className="parent-container">
+        <div className='row error'>{information}</div>
         <div className="row gamepin">
             <label>Gamepin:</label>
             <input type="text" className='input' value={gamepin} placeholder='54123' onChange={event => setGamepin(event.target.value)}/>
@@ -50,7 +62,7 @@ export function JoinGame() {
         </div>
 
         <div className="row">
-            <input type="submit" className="start button" value="Start!" onClick={handleGame}/>
+            <input type="submit" className="start button" value="Start!" onClick={() => setName(username, gamepin, strategy)}/>
             <input type="submit" className="back button" value="Home" onClick={handleHome}/>
         </div>
     </div>

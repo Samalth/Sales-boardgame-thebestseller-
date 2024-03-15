@@ -29,22 +29,26 @@ io.on('connection', (socket)=>{
     })
 
     socket.on("join_room", (data) =>{
-        // socket.join(data)
-        userLogger('updateName', socket.id, data.name)
-        userLogger('updateRoom', socket.id, data.room)
-        userLogger('updateStrategy', socket.id, data.strategy)
+        var availability = userLogger('checkAvailability', socket.id, data)
+        console.log(availability)
+        if ( availability === 'available'){
+            socket.join(data.room)
+            userLogger('updateName', socket.id, data.name)
+            userLogger('updateRoom', socket.id, data.room)
+            userLogger('updateStrategy', socket.id, data.strategy)
+            socket.emit('join_succes', availability);
+        } else{
+            socket.emit('join_succes', availability);
+        }
+        
     })
 
-    // socket.on("send_message", (data) =>{
-    //     // socket.broadcast.emit("receive_message", data)
-    //     socket.to(data.room).emit("receive_message", data)
-    // })
-
     socket.on('send_question_request', async (data) => {
-        // console.log(data.questionColor)
-        var questionText = await databaseQuestion(data.questionColor);
-        // console.log(JSON.stringify(questionText))
-        socket.emit('receive_question', JSON.stringify(questionText))
+        var questionText = await databaseQuestion(data.questionNumber);
+        
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('receive_question', JSON.stringify(questionText));
+        socket.emit('receive_question', JSON.stringify(questionText));
     })
 })
 
