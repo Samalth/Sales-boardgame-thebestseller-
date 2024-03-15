@@ -41,8 +41,8 @@ io.on('connection', (socket)=>{
     // })
 
     socket.on('send_question_request', async (data) => {
-        console.log(data.questionNumber)
-        var questionText = await databaseQuestion(data.questionNumber);
+        console.log(data.questionColor)
+        var questionText = await databaseQuestion(data.questionColor);
         // console.log(JSON.stringify(questionText))
         socket.emit('receive_question', JSON.stringify(questionText))
     })

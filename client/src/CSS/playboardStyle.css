@@ -56,12 +56,12 @@ background-color: #000000;
 background-size: 60px;
 }
 
-.people {
+.sales {
 background-image: url('../images/Mensen.png');
 background-size: cover;
 }
 
-.mask{
+.chance{
 background-image: url('../images/Masker.png');
 background-size: cover;
 }
@@ -71,7 +71,7 @@ background-image: url('../images/Rainbow.png');
 background-size: cover;
 }
 
-.world{
+.megatrends{
 background-image: url('../images/Wereld.png');
 background-size: cover;
 }

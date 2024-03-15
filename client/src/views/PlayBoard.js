@@ -10,15 +10,15 @@ const BoardGrid = () => {
     const totalTiles = boardWidth * boardHeight;
 
     const tileInfo = [
-        'people','yellow','red','world','rainbow','blue','mask', 'purple', 'yellow', 'people','rainbow', 'green','world','blue','purple',
-        'green','blank','blank','blank', 'blank','blank', 'blank', 'world', 'blank', 'blank','blank', 'blank', 'blank', 'blank','mask',
-        'mask','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
-        'orange','blank','blank','blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
-        'rainbow','people','purple','mask', 'yellow','world', 'blue', 'start', 'rainbow', 'people','blue', 'world', 'yellow','green', 'people',
-        'world','blank','blank', 'blank', 'blank','blank', 'blank', 'people', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
+        'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
+        'green','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
+        'chance','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
+        'orange','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
+        'rainbow','sales','purple','chance', 'yellow','megatrends', 'blue', 'start', 'rainbow', 'sales','blue', 'megatrends', 'yellow','green', 'sales',
+        'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
         'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
-        'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'world',
-        'people', 'rainbow', 'orange', 'mask', 'purple','yellow', 'world', 'rainbow', 'red', 'people','purple','green', 'mask', 'rainbow', 'orange'
+        'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
+        'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
     ];
 
     const tiles = [];
@@ -29,6 +29,10 @@ const BoardGrid = () => {
         return startPieces.map((piece, index) => (
             <div key={index} className={`startpieces piece${piece}`} id={`${piece}`} draggable={true}/>
         ));
+    };
+
+    const sendQuestionRequest = (color) => {
+        socket.emit("send_question_request", { questionColor: color });
     };
 
     useEffect(() => {
@@ -53,6 +57,10 @@ const BoardGrid = () => {
 
             if (targetTile && targetTile.className !== 'tile blank') {
                 targetTile.appendChild(document.getElementById(event.dataTransfer.getData('text/plain')));
+
+                const words = targetTile.className.split(' ');
+                const color = words[words.length - 1];
+                sendQuestionRequest(color)
             }
         };
 
@@ -91,21 +99,6 @@ const BoardGrid = () => {
     
 const DiceContainer = () => {
     const [diceValue, setDiceValue] = useState(1);
-    const [question, setQuestion] = useState("");
-
-    useEffect(() => {
-        socket.on("receive_question", (data) =>{
-            // console.log("question received")
-            setQuestion(data);
-        });
-        return () => {
-            socket.off('receive_question');
-        };
-    }, []);
-
-    const sendQuestionRequest = (number) => {
-        socket.emit("send_question_request", { questionNumber: number });
-    };
     
     const roll = () => {
         const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
@@ -123,7 +116,6 @@ const DiceContainer = () => {
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
-            sendQuestionRequest(newDiceValue); // Pass the new dice value directly
             // console.log(newDiceValue)
         }, 1000);
     };
@@ -134,16 +126,28 @@ const DiceContainer = () => {
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
             <button type='button' onClick={roll}>Roll the dice</button>
-            <label className='total-text'>{question}</label>
         </div>
     );
 };
 
 export function PlayBoard() {
+    const [question, setQuestion] = useState("");
+
+    useEffect(() => {
+        socket.on("receive_question", (data) =>{
+            // console.log("question received")
+            setQuestion(data);
+        });
+        return () => {
+            socket.off('receive_question');
+        };
+    }, []);
+
     return (
         <>
             <BoardGrid />
             <DiceContainer />
+            <div>{question}</div>
         </>
     );
 };
