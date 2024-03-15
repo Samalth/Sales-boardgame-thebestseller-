@@ -5,155 +5,87 @@ import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
 const BoardGrid = () => {
+    const boardWidth = 15;
+    const boardHeight = 9;
+    const totalTiles = boardWidth * boardHeight;
+
+    const tileInfo = [
+        'people','yellow','red','world','rainbow','blue','mask', 'purple', 'yellow', 'people','rainbow', 'green','world','blue','purple',
+        'green','blank','blank','blank', 'blank','blank', 'blank', 'world', 'blank', 'blank','blank', 'blank', 'blank', 'blank','mask',
+        'mask','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
+        'orange','blank','blank','blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
+        'rainbow','people','purple','mask', 'yellow','world', 'blue', 'start', 'rainbow', 'people','blue', 'world', 'yellow','green', 'people',
+        'world','blank','blank', 'blank', 'blank','blank', 'blank', 'people', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
+        'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
+        'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'mask', 'blank', 'blank','blank', 'blank', 'blank','blank', 'world',
+        'people', 'rainbow', 'orange', 'mask', 'purple','yellow', 'world', 'rainbow', 'red', 'people','purple','green', 'mask', 'rainbow', 'orange'
+    ];
+
+    const tiles = [];
+
+    // Function to render start pieces
+    const renderStartPieces = () => {
+        const startPieces = ['lunar', 'world'];
+        return startPieces.map((piece, index) => (
+            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`} draggable={true}/>
+        ));
+    };
+
+    useEffect(() => {
+        const boardGrid = document.querySelector('.board-grid');
+
+        const dragStart = event => {
+            event.target.classList.add('dragging');
+            event.dataTransfer.setData('text/plain', event.target.id);
+        };
+
+        const dragOver = event => {
+            event.preventDefault();
+        };
+
+        const dragDrop = event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const targetTile = event.target.closest('.tile');
+
+            console.log(targetTile.className)
+
+            if (targetTile && targetTile.className !== 'tile blank') {
+                targetTile.appendChild(document.getElementById(event.dataTransfer.getData('text/plain')));
+            }
+        };
+
+        boardGrid.addEventListener('dragstart', dragStart);
+        boardGrid.addEventListener('dragover', dragOver);
+        boardGrid.addEventListener('drop', dragDrop);
+
+        // Cleanup function to remove event listeners when the component unmounts
+        return () => {
+            boardGrid.removeEventListener('dragstart', dragStart);
+            boardGrid.removeEventListener('dragover', dragOver);
+            boardGrid.removeEventListener('drop', dragDrop);
+        };
+    }, []);
+
+    for (let i = 0; i < totalTiles; i++) {
+        if (tileInfo[i] === 'start') {
+            // If the tile is a start tile, render start pieces
+            tiles.push(
+                <div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}>
+                    {renderStartPieces()}
+                </div>
+            );
+        } else {
+            // Otherwise, just render the tile
+            tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}></div>);
+        }
+    }
+
     return (
-        <div className="board-grid">
-        {/* <!-- Top row --> */}
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn red"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn green"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn purple"/>
-        {/* <!-- first row --> */}
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        {/* <!-- second row --> */}
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn orange"/>
-        {/* <!-- third row --> */}
-        <div className="tile pawn orange"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        {/* <!-- fourth and middle row--> */}
-        <img src="../Rainbow.png" alt='notfound'/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn start">
-            START
+        <div className='board-grid'>
+            {tiles}
         </div>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn green"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        {/* <!-- fifth row--> */}
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        {/* <!-- sixth row --> */}
-        <div className="tile pawn blue"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn blue"/>
-        {/* <!-- seventh row --> */}
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        {/* <!-- Bottom row --> */}
-        <img src="../Mensen.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn orange"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn red"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn green"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn orange"/>
-    </div>
     );
 };
     

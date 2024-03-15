@@ -76,6 +76,15 @@ background-image: url('../images/Wereld.png');
 background-size: cover;
 }
 
+.pieceworld{
+    background-image: url('../images/LUNAR.png');
+    background-size: cover;
+}
+.piecelunar{
+    background-image: url('../images/WORLD.png');
+    background-size: cover;
+}
+
 img {
 width: 55px;
 height: 55px;
