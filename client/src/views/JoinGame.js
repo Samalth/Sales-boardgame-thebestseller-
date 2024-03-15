@@ -31,7 +31,7 @@ export function JoinGame() {
         </div>
 
         <div className="row strategy">
-            <label for="strategy">Strategy:</label>
+            <label htmlFor="strategy">Strategy:</label>
             <select name="strategy" id="strategy">
                 <option value="" hidden="hidden">Pick a strategy</option>
                 <option value="Lunar">1. Lunar</option>
@@ -44,13 +44,13 @@ export function JoinGame() {
         </div>
 
         <div className="row name">
-            <label for="fullName">Full name:</label>
+            <label htmlFor="fullName">Full name:</label>
             <input type="text" id="fullName" className='input' name="fullName" value={username} onClick={emptyUsername} onChange={event => setUsername(event.target.value)}/>
         </div>
 
-        <div class="row">
-            <input type="submit" className="start button" value="Start!" onClick={handleGame}/>
-            <input type="submit" className="back button" value="Home" onClick={handleHome}/>
+        <div className="row">
+            <input type="submit" className="joinScreenButton" value="Start!" onClick={handleGame}/>
+            <input type="submit" className="joinScreenButton" value="Home" onClick={handleHome}/>
         </div>
     </div>
     );

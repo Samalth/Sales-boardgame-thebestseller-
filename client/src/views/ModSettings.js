@@ -10,7 +10,7 @@ export function ModSettings() {
 
   const handleGame = () => {
       // Navigate to the '/game' route
-      navigate('/game');
+      navigate('/Gamepin');
   };
 
   const handlePlayerCountChange = (event) => {

@@ -18,6 +18,7 @@ const io = new Server(server, {
     }
 })
 
+//join game, to create game look at views folder
 io.on('connection', (socket)=>{
     console.log(`User connected: ${socket.id}`)
 
