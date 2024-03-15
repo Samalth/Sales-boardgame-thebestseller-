@@ -29,18 +29,6 @@ export function Gamepin() {
         setPlayerCount(parseInt(event.target.value));
     };
 
-    const decrementPlayerCount = () => {
-        if (playerCount > 2) {
-            setPlayerCount(playerCount - 1);
-        }
-    };
-
-    const incrementPlayerCount = () => {
-        if (playerCount < 6) {
-            setPlayerCount(playerCount + 1);
-        }
-    };
-
     return (
         <div className="parent-container">
             <div className="row gamepin">
