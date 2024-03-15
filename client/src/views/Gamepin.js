@@ -1,46 +1,46 @@
 import { useNavigate } from 'react-router-dom';
 import '../CSS/gamepinStyle.css';
-import React, { useEffect, useState } from "react"
 
+import React, { useEffect, useState } from "react"
 
 export function Gamepin() {
     const [gamepin, setGamepin] = useState("#07063");
-    const [username, setUsername] = useState("MarketMogul");
+    const [username, setUsername] = useState("Username");
 
     const navigate = useNavigate();
 
     const handleGame = () => {
-        // Navigate to the '/game' route
         navigate('/game');
     };
     const handleHome = () => {
         navigate('/home')
     }
-    const emptyPin = () => {
-        setGamepin("")
-    }
-    const emptyUsername = () => {
-        setUsername("")
-    }
+
 
     const [playerCount, setPlayerCount] = useState(0);
 
     const handlePlayerCountChange = (event) => {
         setPlayerCount(parseInt(event.target.value));
     };
+    const copygamepin = (event) => {
+        event.target.select();
+        // Copy the selected text
+        document.execCommand('copy');
+        alert('copied gamepin');
+    };
 
     return (
         <div className="parent-container">
             <div className="row gamepin">
                 <label>Gamepin:</label>
-                <input type="text" className='gamepinGenerate' value={gamepin} onClick={emptyPin}
+                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
                        onChange={event => setGamepin(event.target.value)}/>
             </div>
 
             <div className="row">
                 <label>Players:</label>
                 <div className="row gamepin"></div>
-                <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount}
+                <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
                        onChange={handlePlayerCountChange}/>
             </div>
 
