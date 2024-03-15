@@ -1,28 +1,26 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
-import io from 'socket.io-client'
-// import '../CSS/diceScreen.css'
 
-const socket = io.connect("http://localhost:3001")
+import {socket} from '../client'
 
 const BoardGrid = () => {
     return (
         <div className="board-grid">
         {/* <!-- Top row --> */}
-        <img src="../Mensen.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
         <div className="tile pawn yellow"/>
         <div className="tile pawn red"/>
-        <img src="../Wereld.png"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
+        <img src="../Rainbow.png" alt='notfound'/>
         <div className="tile pawn blue"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile pawn purple"/>
         <div className="tile pawn yellow"/>
-        <img src="../Mensen.png"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
+        <img src="../Rainbow.png" alt='notfound'/>
         <div className="tile pawn green"/>
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         <div className="tile pawn blue"/>
         <div className="tile pawn purple"/>
         {/* <!-- first row --> */}
@@ -33,16 +31,16 @@ const BoardGrid = () => {
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         {/* <!-- second row --> */}
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
@@ -65,41 +63,41 @@ const BoardGrid = () => {
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Rainbow.png" alt='notfound'/>
         {/* <!-- fourth and middle row--> */}
-        <img src="../Rainbow.png"/>
-        <img src="../Mensen.png"/>
+        <img src="../Rainbow.png" alt='notfound'/>
+        <img src="../Mensen.png" alt='notfound'/>
         <div className="tile pawn purple"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile pawn yellow"/>
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         <div className="tile pawn blue"/>
         <div className="tile pawn start">
             START
         </div>
-        <img src="../Rainbow.png"/>
-        <img src="../Mensen.png"/>
+        <img src="../Rainbow.png" alt='notfound'/>
+        <img src="../Mensen.png" alt='notfound'/>
         <div className="tile pawn blue"/>
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         <div className="tile pawn yellow"/>
         <div className="tile pawn green"/>
-        <img src="../Mensen.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
         {/* <!-- fifth row--> */}
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Mensen.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
@@ -131,29 +129,29 @@ const BoardGrid = () => {
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
         <div className="tile"/>
-        <img src="../Wereld.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
         {/* <!-- Bottom row --> */}
-        <img src="../Mensen.png"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
+        <img src="../Rainbow.png" alt='notfound'/>
         <div className="tile pawn orange"/>
-        <img src="../Masker.png"/>
+        <img src="../Masker.png" alt='notfound'/>
         <div className="tile pawn purple"/>
         <div className="tile pawn yellow"/>
-        <img src="../Wereld.png"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Wereld.png" alt='notfound'/>
+        <img src="../Rainbow.png" alt='notfound'/>
         <div className="tile pawn red"/>
-        <img src="../Mensen.png"/>
+        <img src="../Mensen.png" alt='notfound'/>
         <div className="tile pawn purple"/>
         <div className="tile pawn green"/>
-        <img src="../Masker.png"/>
-        <img src="../Rainbow.png"/>
+        <img src="../Masker.png" alt='notfound'/>
+        <img src="../Rainbow.png" alt='notfound'/>
         <div className="tile pawn orange"/>
     </div>
     );
@@ -171,7 +169,7 @@ const DiceContainer = () => {
         return () => {
             socket.off('receive_question');
         };
-    }, [socket]);
+    }, []);
 
     const sendQuestionRequest = (number) => {
         socket.emit("send_question_request", { questionNumber: number });
