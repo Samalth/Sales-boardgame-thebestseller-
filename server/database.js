@@ -12,36 +12,35 @@ connection.connect();
 async function databaseQuestion(color) {
     let number = 1
     switch (color){
-        case 'yellow':
+        case 'yellow': // Lunar
+            number = Math.floor(Math.random()*2) + 10;
+            break
+        case 'blue': // Domino House
             number = 1
-            // let number = Math.floor(Math.random() * 1) + 1;
             break
-        case 'blue':
-            number = 2
+        case 'purple': // Klaphatten
+            number = 1
             break
-        case 'purple':
-            number = 3
+        case 'red': // Safeline
+            number = Math.floor(Math.random()*2) + 14;
             break
-        case 'red':
-            number = 4
+        case 'green': // Top of the world
+            number = Math.floor(Math.random()*2) + 12;
             break
-        case 'green':
-            number = 5
-            break
-        case 'orange':
-            number = 6
+        case 'orange': // jysk
+            number = 1
             break
         case 'rainbow':
-            number = 7
+            number = 1
             break
         case 'chance':
-            number = 8
+            number = Math.floor(Math.random() * 3) + 7;
             break
         case 'sales':
-            number = 9
+            number = Math.floor(Math.random() * 3) + 1;
             break
         case 'megatrends':
-            number = 10
+            number = Math.floor(Math.random() * 3) + 4;
             break
     }
     const query = 'SELECT QEnglish FROM questionstable where ID=?';
