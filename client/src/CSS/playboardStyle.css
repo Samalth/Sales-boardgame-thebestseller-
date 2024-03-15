@@ -57,6 +57,7 @@ img {
 
 .pawn.start {
     background-color: #000000;
+    font-size: 18px;
 }
 
 .tile.pawn.start {

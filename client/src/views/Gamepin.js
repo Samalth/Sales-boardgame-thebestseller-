@@ -3,9 +3,19 @@ import '../CSS/gamepinStyle.css';
 
 import React, { useEffect, useState } from "react"
 
+function generateGamepin() {
+    const characters = '01234A5S6789M';
+    const length = 5; // Lengte gamepin
+    let pin = '#';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        pin += characters[randomIndex];
+    }
+    return pin;
+}
+
 export function Gamepin() {
-    const [gamepin, setGamepin] = useState("#07063");
-    const [username, setUsername] = useState("Username");
+    const [gamepin, setGamepin] = useState(generateGamepin());
 
     const navigate = useNavigate();
 

@@ -90,7 +90,7 @@ function getRoom(socketid) {
 function userLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
-            addUser({id: socketid, language: 'NL', room: '0', user: '', name: '', points: 0, strategy:''})
+            addUser({id: socketid, language: 'NL', room: '', user: '', name: '', points: 0, strategy:''})
             break
         case 'delete':
             deleteUser(socketid)
