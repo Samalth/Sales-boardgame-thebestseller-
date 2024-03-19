@@ -35,28 +35,22 @@
       "name": "",
       "points": 0,
       "strategy": ""
+    },
+    {
+      "id": "TK2Zkv5UISc6_7G4AAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
     }
   ],
   "mods": [
     {
-      "id": "t4rzZICiPLnKmXcLAAAD",
+      "id": "TK2Zkv5UISc6_7G4AAAD",
       "language": "NL",
-      "room": ""
-    },
-    {
-      "id": "zWfOZxF2yA7q7tZyAAAB",
-      "language": "NL",
-      "room": ""
-    },
-    {
-      "id": "EpcTDIiGnNPZ5dbmAAAB",
-      "language": "NL",
-      "room": "#87381"
-    },
-    {
-      "id": "aZ8enX2hkIixLIADAAAB",
-      "language": "NL",
-      "room": "#68871"
+      "room": "#35M38"
     }
   ]
 }

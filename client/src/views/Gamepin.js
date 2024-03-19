@@ -4,11 +4,14 @@ import {socket} from '../client'
 import React, { useEffect, useState } from "react"
 
 export function Gamepin() {
-    const [gamepin, setGamepin] = useState(generateGamepin());
+    const [gamepin, setGamepin] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-
+        socket.on("send_gamepin", (data) => {
+            // console.log("question received")
+            setGamepin(data);
+        });
     }, []);
 
     const handleGame = () => {
