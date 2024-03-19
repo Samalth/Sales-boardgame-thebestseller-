@@ -35,6 +35,7 @@ io.on('connection', (socket)=>{
             socket.join(data.room)
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
+            userLogger('updatePoints', socket.id, data.points)
             userLogger('updateStrategy', socket.id, data.strategy)
             socket.emit('join_succes', availability);
         } else{
@@ -49,6 +50,11 @@ io.on('connection', (socket)=>{
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('receive_question', JSON.stringify(questionText));
         socket.emit('receive_question', JSON.stringify(questionText));
+    })
+
+    socket.on('send_points', (data) => {
+        const oldPoints = userLogger('getPoints', socket.id);
+        const points = userLogger('updatePoints', socket.id,  parseInt(oldPoints + data.points));
     })
 })
 

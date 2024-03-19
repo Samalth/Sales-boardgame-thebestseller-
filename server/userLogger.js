@@ -50,7 +50,7 @@ const updateUser = (userId, newData) => {
     if (!data) return;
 
     const index = data.users.findIndex(user => user.id === userId);
-    if (index !== -1) {
+        if (index !== -1) {
         data.users[index] = { ...data.users[index], ...newData };
         writeData(data);
     } else {
@@ -65,6 +65,19 @@ function getRoom(socketid) {
     const user = data.users.find(user => user.id === socketid);
     if (user) {
         return user.room;
+    } else {
+        console.error('User not found.');
+        return null;
+    }
+};
+
+function getPoints(socketid) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.points;
     } else {
         console.error('User not found.');
         return null;
@@ -102,16 +115,19 @@ function availability(socketid, userName, userRoom, userStrat) {
 //   console.log('Data after manipulation:');
 //   console.log(readData());
 
-function userLogger(method, socketid, info='temp'){
+function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
-            addUser({id: socketid, language: 'NL', room: '0', user: '', name: '', points: 0, strategy:''})
+            addUser({id: socketid, language: 'NL', room: '0', user: '', name: '', points: '', strategy:''})
             break
         case 'delete':
             deleteUser(socketid)
             break
         case 'updateName':
             updateUser(socketid, {name: info})
+            break
+        case 'updatePoints':
+            updateUser(socketid, {points: info})
             break
         case 'updateRoom':
             updateUser(socketid, {room: info})
@@ -121,6 +137,8 @@ function userLogger(method, socketid, info='temp'){
             break
         case 'getRoom':
             return getRoom(socketid)
+        case 'getPoints':
+            return getPoints(socketid)
         case 'checkAvailability':
             return availability(socketid, info.name, info.room, info.strategy)
     }    
