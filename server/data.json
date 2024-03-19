@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "gxpjhUjwz6nh6c7JAAAh",
+      "id": "t4rzZICiPLnKmXcLAAAD",
       "language": "NL",
       "room": "",
       "user": "",
@@ -10,7 +10,7 @@
       "strategy": ""
     },
     {
-      "id": "OBNceOWqLtPb5ZufAAAH",
+      "id": "zWfOZxF2yA7q7tZyAAAB",
       "language": "NL",
       "room": "",
       "user": "",
@@ -19,7 +19,7 @@
       "strategy": ""
     },
     {
-      "id": "VAyKXFDbBxYXK0MNAAAB",
+      "id": "EpcTDIiGnNPZ5dbmAAAB",
       "language": "NL",
       "room": "",
       "user": "",
@@ -28,79 +28,7 @@
       "strategy": ""
     },
     {
-      "id": "DUmi1V-kK3-NoyFKAAAH",
-      "language": "NL",
-      "room": "ghuyvbuy",
-      "user": "",
-      "name": "hjb",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "0QQRpELH8k_OYNkQAAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "5-QTPJzk3M51GMbBAAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "ONofY-pmdodVD4T4AAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "_4WSVsxWhqQHYhgqAAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "UfXIWNp8f4mqjib-AAAD",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "1da-kuROhgrkhcz9AAAF",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "26oRKjOB7qRFQI_GAAAF",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "DaXPDlLTpLoq8H65AAAD",
+      "id": "aZ8enX2hkIixLIADAAAB",
       "language": "NL",
       "room": "",
       "user": "",
@@ -111,19 +39,24 @@
   ],
   "mods": [
     {
-      "id": "1da-kuROhgrkhcz9AAAF",
+      "id": "t4rzZICiPLnKmXcLAAAD",
       "language": "NL",
       "room": ""
     },
     {
-      "id": "26oRKjOB7qRFQI_GAAAF",
+      "id": "zWfOZxF2yA7q7tZyAAAB",
       "language": "NL",
       "room": ""
     },
     {
-      "id": "DaXPDlLTpLoq8H65AAAD",
+      "id": "EpcTDIiGnNPZ5dbmAAAB",
       "language": "NL",
-      "room": ""
+      "room": "#87381"
+    },
+    {
+      "id": "aZ8enX2hkIixLIADAAAB",
+      "language": "NL",
+      "room": "#68871"
     }
   ]
 }

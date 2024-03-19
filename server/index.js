@@ -31,14 +31,15 @@ io.on('connection', (socket)=>{
     })
 
     socket.on("create_room", (data) =>{
-        socket.join(data.room)
-        modLogger('updateRoom', socket.id, data.room)
+        // modLogger('updateRoom', socket.id, data.room)
+        const room = modLogger('getRoom', socket.id);
+        socket.join(room)
+        socket.emit("send_gamepin", room);
     })
-
 
     //join game
     userLogger("log", socket.id)
-    
+
     socket.on("disconnect", (reason) =>{
         // console.log(reason)
         userLogger("delete", socket.id)
@@ -54,8 +55,6 @@ io.on('connection', (socket)=>{
     socket.on('send_question_request', async (data) => {
         console.log(data.questionNumber)
         var questionText = await databaseQuestion(data.questionNumber);
-        // console.log(JSON.stringify(questionText))
-        // socket.to(userLogger('getRoom', socket.id)).emit('receive_question', JSON.stringify(questionText))
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('receive_question', JSON.stringify(questionText));
         socket.emit('receive_question', JSON.stringify(questionText));

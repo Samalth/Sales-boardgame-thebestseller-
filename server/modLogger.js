@@ -1,6 +1,17 @@
 const { json } = require('express');
 const fs = require('fs');
 
+function generateGamepin() {
+    const characters = '01234A5S6789M';
+    const length = 5; // Lengte gamepin
+    let pin = '#';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        pin += characters[randomIndex];
+    }
+    return pin;
+}
+
 const readData = () => {
     try {
         const data = fs.readFileSync('data.json', 'utf8');
@@ -70,9 +81,9 @@ function getRoom(socketid) {
 function modLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
-            addMods({id: socketid, language: 'NL', room: ''
-                // , user: '', name: '', points: 0, strategy:''
-            })
+            // addMods({id: socketid, language: 'NL', room: ''
+            const gamepin = generateGamepin(); // Assuming generateGamepin() is accessible here
+            addMods({id: socketid, language: 'NL', room: gamepin});
             break
         case 'delete':
             deleteMods(socketid)
@@ -82,7 +93,9 @@ function modLogger(method, socketid, info='temp'){
             break
 
         case 'getRoom':
-            return getRoom(socketid)
+            const roomCode = generateGamepin();
+            updateMods(socketid, {room: roomCode})
+            return roomCode
     }
 }
 
