@@ -7,6 +7,8 @@ const cors = require('cors')
 
 const databaseQuestion  = require("./database")
 const userLogger = require('./userLogger')
+const modLogger = require('./modLogger')
+
 
 app.use(cors())
 
@@ -19,9 +21,22 @@ const io = new Server(server, {
     }
 })
 
-//join game, to create game look at views folder
+//create game
 io.on('connection', (socket)=>{
-    // console.log(`User connected: ${socket.id}`)
+   modLogger("log", socket.id)
+
+    socket.on("disconnect", (reason) =>{
+        // console.log(reason)
+        modLogger("delete", socket.id)
+    })
+
+    socket.on("create_room", (data) =>{
+        socket.join(data.room)
+        modLogger('updateRoom', socket.id, data.room)
+    })
+
+
+    //join game
     userLogger("log", socket.id)
     
     socket.on("disconnect", (reason) =>{
@@ -35,11 +50,6 @@ io.on('connection', (socket)=>{
         userLogger('updateRoom', socket.id, data.room)
         userLogger('updateStrategy', socket.id, data.strategy)
     })
-
-    // socket.on("send_message", (data) =>{
-    //     // socket.broadcast.emit("receive_message", data)
-    //     socket.to(data.room).emit("receive_message", data)
-    // })
 
     socket.on('send_question_request', async (data) => {
         console.log(data.questionNumber)

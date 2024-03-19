@@ -19,13 +19,17 @@ export function Gamepin() {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const newGamepin = generateGamepin();
+        setGamepin(newGamepin);
+    }, []);
+
     const handleGame = () => {
         navigate('/game');
     };
     const handleHome = () => {
         navigate('/home')
     }
-
 
     const [playerCount, setPlayerCount] = useState(0);
 
@@ -34,7 +38,6 @@ export function Gamepin() {
     };
     const copygamepin = (event) => {
         event.target.select();
-        // Copy the selected text
         document.execCommand('copy');
         alert('copied gamepin');
     };
@@ -60,4 +63,5 @@ export function Gamepin() {
             </div>
         </div>
     );
+
 }
