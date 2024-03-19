@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../CSS/startStyle.css';
 
-
 export function HomeScreen() {
   const navigate = useNavigate();
 

@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "uvHz1l5_mNi76oypAAAN",
+      "language": "NL",
+      "room": "124",
+      "user": "",
+      "name": "Test",
+      "points": 65,
+      "strategy": "Lunar"
+    },
+    {
+      "id": "4IzlggyxuxpLuddfAAAP",
+      "language": "NL",
+      "room": "0",
+      "user": "",
+      "name": "",
+      "points": "",
+      "strategy": ""
+    }
+  ]
+}
