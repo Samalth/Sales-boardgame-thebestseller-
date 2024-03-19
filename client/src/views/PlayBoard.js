@@ -1,179 +1,156 @@
 // import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
-
 import {socket} from '../client'
 
+
+const filePath = 'data.json';
+const newData = { points: 5 }; // Assume this is the new points for Samuel
+//import { updateDataInFile } from '../server' // Assuming you have defined updateDataInFile function in a separate file
+
+
+
+/*const updateDataInFile = (filePath, newData) => {
+
+    console.log("Check")
+    // Fetch the existing data from the file
+    fetch(filePath)
+        .then(response => response.json())
+        .then(data => {
+            // Find the user with the name 'Samuel'
+            const samuelUser = data.users.find(user => user.name === 'Samuel');
+
+            // If Samuel exists, update his points
+            if (samuelUser) {
+                samuelUser.points = newData.points;
+
+                // Now, write the updated data back to the file
+                fetch(filePath, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(updatedData => console.log('Data updated successfully:', updatedData))
+                    .catch(error => console.error('Error updating data:', error));
+            } else {
+                console.error('User Samuel not found in the data.');
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    console.log("Henkie")
+};*/
+
+
 const BoardGrid = () => {
-    return (
-        <div className="board-grid">
-        {/* <!-- Top row --> */}
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn red"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn green"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn purple"/>
-        {/* <!-- first row --> */}
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        {/* <!-- second row --> */}
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn orange"/>
-        {/* <!-- third row --> */}
-        <div className="tile pawn orange"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        {/* <!-- fourth and middle row--> */}
-        <img src="../Rainbow.png" alt='notfound'/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <div className="tile pawn start">
-            START
-        </div>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn blue"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile pawn yellow"/>
-        <div className="tile pawn green"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        {/* <!-- fifth row--> */}
-        <img src="../Wereld.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn red"/>
-        {/* <!-- sixth row --> */}
-        <div className="tile pawn blue"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn green"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile pawn blue"/>
-        {/* <!-- seventh row --> */}
-        <div className="tile pawn red"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <div className="tile"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        {/* <!-- Bottom row --> */}
-        <img src="../Mensen.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn orange"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn yellow"/>
-        <img src="../Wereld.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn red"/>
-        <img src="../Mensen.png" alt='notfound'/>
-        <div className="tile pawn purple"/>
-        <div className="tile pawn green"/>
-        <img src="../Masker.png" alt='notfound'/>
-        <img src="../Rainbow.png" alt='notfound'/>
-        <div className="tile pawn orange"/>
-    </div>
-    );
-};
-    
-const DiceContainer = () => {
-    const [diceValue, setDiceValue] = useState(1);
-    const [question, setQuestion] = useState("");
+    const boardWidth = 15;
+    const boardHeight = 9;
+    const totalTiles = boardWidth * boardHeight;
+
+    const tileInfo = [
+        'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
+        'green','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
+        'chance','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
+        'orange','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
+        'rainbow','sales','purple','chance', 'yellow','megatrends', 'blue', 'start', 'rainbow', 'sales','blue', 'megatrends', 'yellow','green', 'sales',
+        'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
+        'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
+        'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
+        'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
+    ];
+
+    const tiles = [];
+
+    // Function to render start pieces
+    const renderStartPieces = () => {
+        const startPieces = ['lunar', 'world'];
+        return startPieces.map((piece, index) => (
+            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`} draggable={true}/>
+        ));
+    };
+
+    const sendQuestionRequest = (color) => {
+        socket.emit("send_question_request", { questionColor: color });
+    };
+
+    const handlePoints = (userID, points) => {
+        socket.emit("send-points",userID,points);
+
+    };
+//id verzenden
+
+
+/*    updateDataInFile(filePath, newData);*/
 
     useEffect(() => {
-        socket.on("receive_question", (data) =>{
-            // console.log("question received")
-            setQuestion(data);
-        });
+        const boardGrid = document.querySelector('.board-grid');
+
+        const dragStart = event => {
+            event.target.classList.add('dragging');
+            event.dataTransfer.setData('text/plain', event.target.id);
+        };
+
+        const dragOver = event => {
+            event.preventDefault();
+        };
+
+        const dragDrop = event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const targetTile = event.target.closest('.tile');
+
+            console.log(targetTile.className)
+
+            if (targetTile && targetTile.className !== 'tile blank') {
+                targetTile.appendChild(document.getElementById(event.dataTransfer.getData('text/plain')));
+
+                const words = targetTile.className.split(' ');
+                const color = words[words.length - 1];
+                sendQuestionRequest(color)
+            }
+        };
+
+        boardGrid.addEventListener('dragstart', dragStart);
+        boardGrid.addEventListener('dragover', dragOver);
+        boardGrid.addEventListener('drop', dragDrop);
+
+        // Cleanup function to remove event listeners when the component unmounts
         return () => {
-            socket.off('receive_question');
+            boardGrid.removeEventListener('dragstart', dragStart);
+            boardGrid.removeEventListener('dragover', dragOver);
+            boardGrid.removeEventListener('drop', dragDrop);
         };
     }, []);
 
-    const sendQuestionRequest = (number) => {
-        socket.emit("send_question_request", { questionNumber: number });
-    };
+    for (let i = 0; i < totalTiles; i++) {
+        if (tileInfo[i] === 'start') {
+            // If the tile is a start tile, render start pieces
+            tiles.push(
+                <div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}>
+                    {renderStartPieces()}
+                </div>
+            );
+        } else {
+            // Otherwise, just render the tile
+            tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}></div>);
+        }
+    }
+
+    return (
+        <div className='board-grid'>
+            {tiles}
+        </div>
+    );
+};
+
+// end board
+
+
+const DiceContainer = () => {
+    const [diceValue, setDiceValue] = useState(1);
     
     const roll = () => {
         const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
@@ -191,7 +168,6 @@ const DiceContainer = () => {
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
-            sendQuestionRequest(newDiceValue); // Pass the new dice value directly
             // console.log(newDiceValue)
         }, 1000);
     };
@@ -202,16 +178,55 @@ const DiceContainer = () => {
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
             <button type='button' onClick={roll}>Roll the dice</button>
-            <label className='total-text'>{question}</label>
         </div>
     );
 };
 
 export function PlayBoard() {
+    const [question, setQuestion] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+
+    useEffect(() => {
+        socket.on("receive_question", (data) => {
+            setQuestion(data);
+        });
+        return () => {
+            socket.off('receive_question');
+        };
+    }, []);
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
+    };
+
+    const handleUpdatePoints = (buttonPoints) => {
+        // Call the updateDataInFile function to update points for Samuel
+        console.log(buttonPoints);
+        socket.emit("send_points",{points: buttonPoints})
+        console.log("Log1");
+       // updateDataInFile(filePath, newData);
+    };
+
     return (
         <>
             <BoardGrid />
             <DiceContainer />
+            <div>{question}</div>
+            <button onClick={togglePopup}>Open Popup</button>
+            {/* Popup container */}
+            {showPopup && (
+                <div className="popup-container">
+                    <div className="popup">
+                        <div className="button-container">
+                            {/* Linking the updateDataInFile function to the button */}
+                            <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
+                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
+                            <button className="button button-derde" onClick={() =>handleUpdatePoints(15)}>15 points</button>
+                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(20)}>20 points</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

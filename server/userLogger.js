@@ -50,7 +50,7 @@ const updateUser = (userId, newData) => {
     if (!data) return;
 
     const index = data.users.findIndex(user => user.id === userId);
-    if (index !== -1) {
+        if (index !== -1) {
         data.users[index] = { ...data.users[index], ...newData };
         writeData(data);
     } else {
@@ -69,6 +69,34 @@ function getRoom(socketid) {
         console.error('User not found.');
         return null;
     }
+};
+
+function getPoints(socketid) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.points;
+    } else {
+        console.error('User not found.');
+        return null;
+    }
+}
+
+function availability(socketid, userName, userRoom, userStrat) {
+    let data = readData();
+    if (!data) return 'available';
+
+    for (let user of data.users) {
+        if (user.name === userName && user.room === userRoom) {
+            return 'Name already in use';
+        }
+        if (user.strategy === userStrat && user.room === userRoom) {
+            return 'Strategy already in use';
+        }
+    }
+    return 'available';
 }
 
 //   // Example usage
@@ -87,7 +115,7 @@ function getRoom(socketid) {
 //   console.log('Data after manipulation:');
 //   console.log(readData());
 
-function userLogger(method, socketid, info='temp'){
+function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
             addUser({id: socketid, language: 'NL', room: '', user: '', name: '', points: 0, strategy:''})
@@ -98,6 +126,9 @@ function userLogger(method, socketid, info='temp'){
         case 'updateName':
             updateUser(socketid, {name: info})
             break
+        case 'updatePoints':
+            updateUser(socketid, {points: info})
+            break
         case 'updateRoom':
             updateUser(socketid, {room: info})
             break
@@ -106,7 +137,11 @@ function userLogger(method, socketid, info='temp'){
             break
         case 'getRoom':
             return getRoom(socketid)
-    }    
+        case 'getPoints':
+            return getPoints(socketid)
+        case 'checkAvailability':
+            return availability(socketid, info.name, info.room, info.strategy)
+    }
 }
 
 module.exports=userLogger;

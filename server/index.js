@@ -47,18 +47,32 @@ io.on('connection', (socket)=>{
 
     socket.on("join_room", (data) =>{
         socket.join(data.room)
-        userLogger('updateName', socket.id, data.name)
-        userLogger('updateRoom', socket.id, data.room)
-        userLogger('updateStrategy', socket.id, data.strategy)
+        var availability = userLogger('checkAvailability', socket.id, data)
+        console.log(availability)
+        if ( availability === 'available'){
+            socket.join(data.room)
+            userLogger('updateName', socket.id, data.name)
+            userLogger('updateRoom', socket.id, data.room)
+            userLogger('updatePoints', socket.id, data.points)
+            userLogger('updateStrategy', socket.id, data.strategy)
+            socket.emit('join_succes', availability);
+        } else{
+            socket.emit('join_succes', availability);
+        }
     })
 
     socket.on('send_question_request', async (data) => {
-        console.log(data.questionNumber)
         var questionText = await databaseQuestion(data.questionNumber);
+
+
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('receive_question', JSON.stringify(questionText));
         socket.emit('receive_question', JSON.stringify(questionText));
     })
+
+    socket.on('send_points', (data) => {
+        const oldPoints = userLogger('getPoints', socket.id);
+        const points = userLogger('updatePoints', socket.id,  parseInt(oldPoints + data.points));
 })
 
 server.listen(3001, () => {
