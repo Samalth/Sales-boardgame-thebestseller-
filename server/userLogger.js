@@ -118,7 +118,7 @@ function availability(socketid, userName, userRoom, userStrat) {
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
-            addUser({id: socketid, language: 'NL', room: '0', user: '', name: '', points: '', strategy:''})
+            addUser({id: socketid, language: 'NL', room: '', user: '', name: '', points: 0, strategy:''})
             break
         case 'delete':
             deleteUser(socketid)
@@ -141,7 +141,7 @@ function userLogger(method, socketid, info=""){
             return getPoints(socketid)
         case 'checkAvailability':
             return availability(socketid, info.name, info.room, info.strategy)
-    }    
+    }
 }
 
 module.exports=userLogger;
