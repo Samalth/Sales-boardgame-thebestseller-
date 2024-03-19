@@ -1,47 +1,4 @@
 {
-  "users": [
-    {
-      "id": "i9_ZnnnRu9clDZHOAAAr",
-      "language": "NL",
-      "room": "6969",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "EpcTDIiGnNPZ5dbmAAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "aZ8enX2hkIixLIADAAAB",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "TK2Zkv5UISc6_7G4AAAD",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    }
-  ],
-  "mods": [
-    {
-      "id": "TK2Zkv5UISc6_7G4AAAD",
-      "language": "NL",
-      "room": "#35M38"
-    }
-  ]
+  "users": [],
+  "mods": []
 }

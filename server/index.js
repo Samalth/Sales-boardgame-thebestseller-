@@ -62,7 +62,7 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_question_request', async (data) => {
-        var questionText = await databaseQuestion(data.questionNumber);
+        var questionText = await databaseQuestion(data.questionColor);
 
 
         const room = userLogger('getRoom', socket.id);
@@ -74,8 +74,8 @@ io.on('connection', (socket)=> {
         const oldPoints = userLogger('getPoints', socket.id);
         const points = userLogger('updatePoints', socket.id, parseInt(oldPoints + data.points));
     })
+})
 
-    server.listen(3001, () => {
-        console.log("server is running on port 3001")
-    })
+server.listen(3001, () => {
+    console.log("server is running on port 3001")
 })
