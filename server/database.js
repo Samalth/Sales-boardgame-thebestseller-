@@ -43,7 +43,7 @@ async function databaseQuestion(color) {
             number = Math.floor(Math.random() * 3) + 4;
             break
     }
-    const query = 'SELECT QEnglish FROM questionstable where ID=?';
+    const query = 'SELECT QEnglish FROM questions where ID=?';
 
     // Wrap the query in a Promise
     return new Promise((resolve, reject) => {
