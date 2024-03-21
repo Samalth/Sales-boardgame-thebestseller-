@@ -85,8 +85,8 @@ background-size: cover;
     background-size: cover;
 }
 
-.tile.highlight {
-    border: 3px solid yellow;
+.highlight {
+    border: 2px solid yellow;
 }
 
 img {

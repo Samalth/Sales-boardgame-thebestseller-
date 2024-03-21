@@ -55,7 +55,43 @@
       "strategy": ""
     },
     {
-      "id": "GLXpZEftpZsHy0M2AAAB",
+      "id": "F0k5p1_jIly8tKyAAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "lPubCoYUHrTsJUwvAAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "mvlOEFI0bKT0I8KwAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "zh9urwN6CnIrc3h2AAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "MTPkVQSnTstNITpuAAAD",
       "language": "NL",
       "room": "",
       "user": "",
@@ -69,6 +105,11 @@
       "id": "k06I8VI_QW_vbGSvAAAF",
       "language": "NL",
       "room": "44013"
+    },
+    {
+      "id": "lPubCoYUHrTsJUwvAAAB",
+      "language": "NL",
+      "room": "899S2"
     }
   ]
 }
