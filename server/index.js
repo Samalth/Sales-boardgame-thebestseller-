@@ -32,7 +32,7 @@ io.on('connection', (socket)=> {
 
     socket.on("create_room", (data) => {
         // modLogger('updateRoom', socket.id, data.room)
-        const room = modLogger('log', socket.id);
+        const room = modLogger('getRoom', socket.id);
         socket.join(room)
         socket.emit("send_gamepin", room);
     })
