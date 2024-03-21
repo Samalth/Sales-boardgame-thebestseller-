@@ -23,7 +23,6 @@ const io = new Server(server, {
 
 //create game
 io.on('connection', (socket)=> {
-    modLogger("log", socket.id)
 
     socket.on("disconnect", (reason) => {
         // console.log(reason)
@@ -31,7 +30,6 @@ io.on('connection', (socket)=> {
     })
 
     socket.on("create_room", (data) => {
-        // modLogger('updateRoom', socket.id, data.room)
         const room = modLogger('getRoom', socket.id);
         socket.join(room)
         socket.emit("send_gamepin", room);
