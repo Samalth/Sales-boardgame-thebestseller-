@@ -1,13 +1,10 @@
 import './App.css';
-import io from 'socket.io-client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import { useEffect, useState } from "react"
 import { HomeScreen } from './views/HomeScreen';
 import { ModSettings } from './views/ModSettings'
 import { PlayBoard } from './views/PlayBoard';
 import { JoinGame } from './views/JoinGame';
-
-const socket = io.connect("http://localhost:3001")
+import { Gamepin } from './views/Gamepin'
 
 function App() {
 
@@ -20,6 +17,7 @@ function App() {
           <Route path='/configuration' element={<ModSettings/>} />
           <Route path='/game' element={<PlayBoard/>} />
           <Route path='/joingame' element={<JoinGame/>} />
+          <Route path='/gamepin' element={<Gamepin/>} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,111 @@
+{
+  "users": [
+    {
+      "id": "NvGj032FPkFSKrdLAAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "nU8FC8pXwXv4tRLjAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "wIN4MrHbIa4jI6XBAAAF",
+      "language": "NL",
+      "room": "6M131",
+      "user": "",
+      "name": "",
+      "points": "",
+      "strategy": "Top of the World"
+    },
+    {
+      "id": "L070f0j-QS_ZDNnUAAAC",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "KVPzmAqzxPuSojGpAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "z89shrjSabYcCW6wAAAH",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "vDlG-CasDDdW43_4AAAF",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "-FgpDLWSt99je4LiAAAH",
+      "language": "NL",
+      "room": "64MM8",
+      "user": "",
+      "name": "Susmita",
+      "points": "",
+      "strategy": ""
+    },
+    {
+      "id": "S6h39SLpUoYW7nV2AAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "rSvBk3W9fteWPeswAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
+  ],
+  "mods": [
+    {
+      "id": "NvGj032FPkFSKrdLAAAB",
+      "language": "NL",
+      "room": "22148"
+    },
+    {
+      "id": "nU8FC8pXwXv4tRLjAAAD",
+      "language": "NL",
+      "room": "6M131"
+    },
+    {
+      "id": "vDlG-CasDDdW43_4AAAF",
+      "language": "NL",
+      "room": "64MM8"
+    }
+  ]
+}

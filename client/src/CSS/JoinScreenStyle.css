@@ -4,12 +4,13 @@ body{
     color: #F9E513;
 }
 
-.row{
+.joinscreen-row{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
 }
+
 
 .input, select{
     position: absolute;
@@ -36,7 +37,7 @@ label{
     font-size: 48px;
 }
 
-.button{
+.joinScreenButton{
     border: 3px solid white;
     background-color: #195678;
     width: auto;
@@ -53,6 +54,6 @@ label{
     cursor: pointer;
 }
 
-.button:hover{
+.joinScreenButton:hover{
     background-color: #3f6072;
 }

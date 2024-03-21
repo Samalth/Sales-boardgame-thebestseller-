@@ -23,47 +23,72 @@ img {
 }
 
 .tile {
-    background-color: #ffffff00; /* Default color */
-    margin: 2px;
+ margin: 2px;
+ position: relative;
 }
 
-.pawn {
-    border: 1px solid black;
+.yellow {
+background-color: #DAB24B;
 }
 
-.pawn.yellow {
-    background-color: #DAB24B;
+.blue {
+background-color: #47A1C8;
 }
 
-.pawn.blue {
-    background-color: #47A1C8;
+.red {
+background-color: #BA4040;
 }
 
-.pawn.red {
-    background-color: #BA4040;
+.green {
+background-color: #53A65B;
 }
 
-.pawn.green {
-    background-color: #53A65B;
+.orange {
+background-color: #C66732;
 }
 
-.pawn.orange {
-    background-color: #C66732;
+.purple {
+background-color: #A83E8A;
 }
 
-.pawn.purple {
-    background-color: #A83E8A;
+.start {
+background-color: #000000;
+background-size: 60px;
 }
 
-.pawn.start {
-    background-color: #000000;
+.sales {
+background-image: url('../images/Mensen.png');
+background-size: cover;
 }
 
-.tile.pawn.start {
-    color: white;
-    text-align: center;
-    margin: 2px;
-    line-height: 50px;
+.chance{
+background-image: url('../images/Masker.png');
+background-size: cover;
+}
+
+.rainbow{
+background-image: url('../images/Rainbow.png');
+background-size: cover;
+}
+
+.megatrends{
+background-image: url('../images/Wereld.png');
+background-size: cover;
+}
+
+.pieceworld{
+    background-image: url('../images/LUNAR.png');
+    background-size: cover;
+}
+.piecelunar{
+    background-image: url('../images/WORLD.png');
+    background-size: cover;
+}
+
+img {
+width: 55px;
+height: 55px;
+margin: 2px;
 }
 
 .diceImage{
@@ -72,25 +97,42 @@ img {
     border-radius: 8px;
 }
 
-.container{
-    width: 300px;
-    padding: 50px;
-    position: absolute;
-    top: 20%;
-    background-color: black;
-    box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.dice-container{
+ width: 300px;
+ padding: 20px;
+ position: absolute;
+ top: 70%;
+ right: 3%;
+ box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
+ border-radius: 8px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
 }
 
 .dice-wrapper{
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+ width: 90%;
+ display: flex;
+ justify-content: space-around;
+}
+
+.tile img {
+ width: 20px;
+ height: 20px;
+ position: relative;
+ z-index: auto;
+}
+
+.startpieces {
+ width: 20px;
+ height: 20px;
+ position: relative;
+ z-index: auto;
+}
+
+path {
+ position: relative;
+ z-index: auto;
 }
 
 
@@ -112,6 +154,17 @@ button{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     cursor: pointer;
+}
+
+#player{
+font-family: Arial, Helvetica, sans-serif;
+font-size: 36px;
+color: white;
+margin: 30px 0;
+font-weight: 500;
+position: absolute;
+top: 80%;
+left: 4%;
 }
 
 button:hover{
