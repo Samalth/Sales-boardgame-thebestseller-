@@ -6,12 +6,21 @@ import React, { useEffect, useState } from "react"
 export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
     const navigate = useNavigate();
+    const [playerCount, setPlayerCount] = useState(0);
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
-            // console.log("question received")
             setGamepin(data);
         });
+    
+        socket.on('add_user', () => {
+            setPlayerCount(prevCount => prevCount + 1); // Update playerCount based on previous state
+        });
+    
+        return () => {
+            socket.off("send_gamepin");
+            socket.off("add_user");
+        };
     }, []);
 
     const handleGame = () => {
@@ -21,7 +30,7 @@ export function Gamepin() {
         navigate('/home')
     }
 
-    const [playerCount, setPlayerCount] = useState(0);
+    
 
     const handlePlayerCountChange = (event) => {
         setPlayerCount(parseInt(event.target.value));

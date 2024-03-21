@@ -1,0 +1,156 @@
+body{
+    background: #195678;
+}
+
+.board-grid {
+    margin-top: 3%;
+    display: grid;
+    grid-template-columns: repeat(15, 60px);
+    grid-template-rows: repeat(9, 60px);
+}
+
+img {
+    width: 55px;
+    height: 55px;
+    margin: 2px;
+}
+
+.tile {
+ margin: 2px;
+}
+
+.yellow {
+background-color: #DAB24B;
+}
+
+.blue {
+background-color: #47A1C8;
+}
+
+.red {
+background-color: #BA4040;
+}
+
+.green {
+background-color: #53A65B;
+}
+
+.orange {
+background-color: #C66732;
+}
+
+.purple {
+background-color: #A83E8A;
+}
+
+.start {
+background-color: #000000;
+background-size: 60px;
+}
+
+.sales {
+background-image: url('../images/Mensen.png');
+background-size: cover;
+}
+
+.chance{
+background-image: url('../images/Masker.png');
+background-size: cover;
+}
+
+.rainbow{
+background-image: url('../images/Rainbow.png');
+background-size: cover;
+}
+
+.megatrends{
+background-image: url('../images/Wereld.png');
+background-size: cover;
+}
+
+.pieceworld{
+    background-image: url('../images/LUNAR.png');
+    background-size: cover;
+}
+.piecelunar{
+    background-image: url('../images/WORLD.png');
+    background-size: cover;
+}
+
+.diceImage{
+    border-radius: 8px;
+}
+
+.container{
+ width: 200px;
+ background-color: #000000;
+ padding: 10px;
+ border-radius: 8px;
+}
+
+.dice-wrapper{
+ display: flex;
+ justify-content: space-around;
+}
+
+.tile img {
+ width: 20px;
+ height: 20px;
+ position: relative;
+ z-index: auto;
+}
+
+.startpieces {
+ width: 20px;
+ height: 20px;
+ position: relative;
+ z-index: auto;
+}
+
+path {
+ position: relative;
+ z-index: auto;
+}
+
+
+label{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    color: white;
+    font-weight: 500;
+}
+
+button{
+    background-color: goldenrod;
+    border: none;
+    outline: none;
+    padding: 15px;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#player{
+
+}
+
+button:hover{
+    background-color: gold;
+}
+
+.shake{
+    animation: shake 0.5s infinite;
+}
+@keyframes shake{
+    0%{
+        transform: rotate(10deg);
+    }
+    50%{
+        transform: rotate(-10deg);
+    }
+    100%{
+        transform: rotate(10deg);
+    }
+}

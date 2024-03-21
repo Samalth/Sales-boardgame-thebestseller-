@@ -51,6 +51,7 @@ io.on('connection', (socket)=> {
         if (exists === 'exists'){
             socket.join(data.room)
             var availability = userLogger('checkAvailability', socket.id, data)
+            socket.to(data.room).emit('add_user', "adding")
         } else{
             availability = 'Room does not exist'
         }
