@@ -97,11 +97,11 @@ margin: 2px;
     border-radius: 8px;
 }
 
-.container{
+.dice-container{
  width: 300px;
  padding: 20px;
  position: absolute;
- top: 80%;
+ top: 70%;
  right: 3%;
  box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
  border-radius: 8px;

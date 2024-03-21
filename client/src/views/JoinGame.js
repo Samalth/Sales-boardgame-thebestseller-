@@ -37,13 +37,13 @@ export function JoinGame() {
 
     return (
         <div className="parent-container">
-        <div className='row error'>{information}</div>
-        <div className="row gamepin">
+        <div className='joinscreen-row error'>{information}</div>
+        <div className="joinscreen-row gamepin">
             <label>Gamepin:</label>
             <input type="text" className='input' value={gamepin} placeholder='54123' onChange={event => setGamepin(event.target.value)}/>
         </div>
 
-        <div className="row strategy">
+        <div className="joinscreen-row strategy">
             <label htmlFor="strategy">Strategy:</label>
             <select name="strategy" id="strategy" onChange={event => setStrategy(event.target.value)}>
                 <option value="" hidden="hidden">Pick a strategy</option>
@@ -56,12 +56,12 @@ export function JoinGame() {
             </select>
         </div>
 
-        <div className="row name">
+        <div className="joinscreen-row name">
             <label htmlFor="fullName">Full name:</label>
             <input type="text" id="fullName" className='input' name="fullName" value={username} placeholder='MarketMogul' onChange={event => setUsername(event.target.value)}/>
         </div>
 
-        <div className="row">
+        <div className="joinscreen-row">
             <input type="submit" className="start button" value="Start!" onClick={() => setName(username, gamepin, strategy)}/>
             <input type="submit" className="back button" value="Home" onClick={handleHome}/>
         </div>

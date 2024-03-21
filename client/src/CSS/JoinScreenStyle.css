@@ -4,7 +4,7 @@ body{
     color: #F9E513;
 }
 
-.row{
+.joinscreen-row{
     display: flex;
     justify-content: center;
     align-items: center;

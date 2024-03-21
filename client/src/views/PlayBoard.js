@@ -125,7 +125,7 @@ const DiceContainer = () => {
     };
 
     return (
-        <div className="container">
+        <div className="dice-container">
             <div className="dice-wrapper">
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
