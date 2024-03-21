@@ -52,7 +52,9 @@ async function databaseQuestion(color) {
                 reject(error);
                 return;
             }
-            resolve(results);
+            // resolve(results);
+            const texts = results.map(result => result.QEnglish.replace(/["\[\]\/\n]/g, ''));
+            resolve(texts);
         });
     });
 }

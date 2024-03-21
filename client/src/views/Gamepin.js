@@ -38,7 +38,7 @@ export function Gamepin() {
     const copygamepin = (event) => {
         event.target.select();
         document.execCommand('copy');
-        alert('copied gamepin');
+        // alert('copied gamepin');
     };
 
     return (

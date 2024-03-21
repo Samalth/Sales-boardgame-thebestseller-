@@ -142,6 +142,11 @@ label{
     color: white;
     font-weight: 500;
 }
+.questionpopup{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;
+}
 
 button{
     background-color: goldenrod;

@@ -163,7 +163,7 @@ export function PlayBoard() {
         <>
             <BoardGrid />
             <DiceContainer />
-            <div>{question}</div>
+            <div className='questionpopup'>{question}</div>
             <button onClick={togglePopup}>Open Popup</button>
             {/* Popup container */}
             {showPopup && (
