@@ -84,7 +84,7 @@ function modLogger(method, socketid, info='temp'){
             // addMods({id: socketid, language: 'NL', room: ''
             const gamepin = generateGamepin(); // Assuming generateGamepin() is accessible here
             addMods({id: socketid, language: 'NL', room: gamepin});
-            break
+            return gamepin
         case 'delete':
             deleteMods(socketid)
             break
@@ -94,6 +94,7 @@ function modLogger(method, socketid, info='temp'){
 
         case 'getRoom':
             const roomCode = generateGamepin();
+            addMods(socketid)
             updateMods(socketid, {room: roomCode})
             return roomCode
     }
