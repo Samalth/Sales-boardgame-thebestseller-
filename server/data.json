@@ -1,20 +1,4 @@
 {
-  "users": [
-    {
-      "id": "pz8OiuqqEhLx00-ZAAAD",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    }
-  ],
-  "mods": [
-    {
-      "id": "pz8OiuqqEhLx00-ZAAAD",
-      "language": "NL",
-      "room": "#SA053"
-    }
-  ]
+  "users": [],
+  "mods": []
 }
