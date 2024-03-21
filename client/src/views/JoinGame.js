@@ -40,7 +40,7 @@ export function JoinGame() {
         <div className='joinscreen-row error'>{information}</div>
         <div className="joinscreen-row gamepin">
             <label>Gamepin:</label>
-            <input type="text" className='input' value={gamepin} placeholder='54123' onChange={event => setGamepin(event.target.value)}/>
+            <input type="text" className='input' value={gamepin} placeholder='Enter gamepin' onChange={event => setGamepin(event.target.value)}/>
         </div>
 
         <div className="joinscreen-row strategy">
@@ -50,15 +50,15 @@ export function JoinGame() {
                 <option value="Lunar">1. Lunar</option>
                 <option value="Top of the World">2. Top of the World</option>
                 <option value="Safeline">3. Safeline</option>
-                <option value="Strat 4">4. Strat 4</option>
-                <option value="Strat 5">5. Strat 5</option>
-                <option value="Strat 6">6. Strat 6</option>
+                <option value="Jysk Telepartner">4. Jysk Telepartner</option>
+                <option value="Domino House">5. Domino House</option>
+                <option value="Klaphatten">6. Klaphatten</option>
             </select>
         </div>
 
         <div className="joinscreen-row name">
             <label htmlFor="fullName">Full name:</label>
-            <input type="text" id="fullName" className='input' name="fullName" value={username} placeholder='MarketMogul' onChange={event => setUsername(event.target.value)}/>
+            <input type="text" id="fullName" className='input' name="fullName" value={username} placeholder='Enter name' onChange={event => setUsername(event.target.value)}/>
         </div>
 
         <div className="joinscreen-row">
