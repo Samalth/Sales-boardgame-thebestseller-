@@ -85,6 +85,10 @@ background-size: cover;
     background-size: cover;
 }
 
+.tile.highlight {
+    border: 3px solid yellow;
+}
+
 img {
 width: 55px;
 height: 55px;

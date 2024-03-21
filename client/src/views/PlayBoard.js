@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
+const startPieces = ['lunar'];
+let selectedPawn = null;
 
-
-const BoardGrid = () => {
+const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPosition, currentPlayer, setCurrentPlayer, selectedPawn, setSelectedPawn}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
+    const [validTiles, setValidTiles] = useState([])
 
     const tileInfo = [
         'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
@@ -22,15 +24,35 @@ const BoardGrid = () => {
         'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
     ];
 
+    const pawnPath = [
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 29,
+            44, 59, 74, 89, 104, 119, 134, 133, 132, 131, 130, 129,
+            128, 127, 126, 125, 124, 123, 122, 121, 120, 105, 90, 75,
+            60, 45, 30, 15],
+        [7, 22, 37, 52, 67, 82, 97, 112, 127],
+        [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74]
+    ];
+
     const tiles = [];
 
     // Function to render start pieces
     const renderStartPieces = () => {
-        const startPieces = ['lunar', 'world'];
         return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`} draggable={true}/>
+            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
         ));
     };
+
+    const calcValidTiles = (currentPosition, steps) => {
+        const validTiles = [];
+
+        for (let newPosition = 0; newPosition < totalTiles; newPosition++) {
+            if (Math.abs(newPosition - currentPosition) === steps ||
+                Math.abs(newPosition - currentPosition) === steps * boardWidth) {
+                validTiles.push(newPosition);
+            }
+        }
+        return validTiles;
+    }
 
     const sendQuestionRequest = (color) => {
         socket.emit("send_question_request", { questionColor: color });
@@ -39,45 +61,41 @@ const BoardGrid = () => {
     useEffect(() => {
         const boardGrid = document.querySelector('.board-grid');
 
-        const dragStart = event => {
-            event.target.classList.add('dragging');
-            event.dataTransfer.setData('text/plain', event.target.id);
-        };
-
-        const dragOver = event => {
-            event.preventDefault();
-        };
-
-        const dragDrop = event => {
-            event.preventDefault();
-            event.stopPropagation();
-
+        const handleCLick = event => {
             const targetTile = event.target.closest('.tile');
+        if (startPieces.includes(event.target.id)){
+            event.target.classList.add('highlight');
+            selectedPawn = event.target;
+        } else if (selectedPawn && event.target.className !== 'tile blank' && !moveMade) {
+            const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
+            const newPosition = parseInt(event.target.getAttribute('tile-id'));
+            const validTiles = calcValidTiles(currentPosition, steps);
 
-            console.log(targetTile.className)
-
-            if (targetTile && targetTile.className !== 'tile blank') {
-                targetTile.appendChild(document.getElementById(event.dataTransfer.getData('text/plain')));
-
+            if (validTiles.includes(newPosition)){
+                event.target.appendChild(selectedPawn);
                 const words = targetTile.className.split(' ');
                 const color = words[words.length - 1];
                 sendQuestionRequest(color)
-            }
-        };
+                setMoveMade(true);
 
-        boardGrid.addEventListener('dragstart', dragStart);
-        boardGrid.addEventListener('dragover', dragOver);
-        boardGrid.addEventListener('drop', dragDrop);
+            }
+        }
+    }
+        boardGrid.addEventListener('click', handleCLick);
 
         // Cleanup function to remove event listeners when the component unmounts
         return () => {
-            boardGrid.removeEventListener('dragstart', dragStart);
-            boardGrid.removeEventListener('dragover', dragOver);
-            boardGrid.removeEventListener('drop', dragDrop);
+            boardGrid.removeEventListener('click', handleCLick);
         };
-    }, []);
+    }, [steps, moveMade, currentPosition]);
 
     for (let i = 0; i < totalTiles; i++) {
+//    const CurrentPosition = 67;
+        const validTiles = calcValidTiles(currentPosition, steps);
+        let style = {};
+        if(validTiles.includes(i)){
+            style = {backgroundColor: 'yellow'};
+        }
         if (tileInfo[i] === 'start') {
             // If the tile is a start tile, render start pieces
             tiles.push(
@@ -101,7 +119,7 @@ const BoardGrid = () => {
 // end board
 
 
-const DiceContainer = () => {
+const DiceContainer = ({setSteps, setMoveMade}) => {
     const [diceValue, setDiceValue] = useState(1);
     
     const roll = () => {
@@ -113,14 +131,15 @@ const DiceContainer = () => {
             let diceValue = Math.floor(Math.random() * 6) + 1;
             dice.setAttribute("src", images[diceValue - 1]);
         }, 100);
-    
+
         setTimeout(function(){
             clearInterval(interval);
             dice.classList.remove("shake");
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
-            // console.log(newDiceValue)
+            setSteps(newDiceValue);
+            setMoveMade(false);
         }, 1000);
     };
 
@@ -136,6 +155,11 @@ const DiceContainer = () => {
 
 export function PlayBoard() {
     const [question, setQuestion] = useState("");
+    const [steps , setSteps] = useState(0);
+    const [moveMade, setMoveMade] = useState(false);
+    const [currentPosition, setCurrentPosition] = useState (0)
+    const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
@@ -161,8 +185,9 @@ export function PlayBoard() {
 
     return (
         <>
-            <BoardGrid />
-            <DiceContainer />
+            <BoardGrid steps={steps} moveMade={moveMade} setMoveMade= {setMoveMade}
+                       currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} />
+            <DiceContainer setSteps={setSteps} setMoveMade= {setMoveMade} />
             <div className='questionpopup'>{question}</div>
             <button onClick={togglePopup}>Open Popup</button>
             {/* Popup container */}

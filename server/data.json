@@ -1,8 +1,74 @@
 {
   "users": [
-   
+    {
+      "id": "98ou4Q0xGOI1ObkOAAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "-C-Oakj4emZ0u5TUAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "k06I8VI_QW_vbGSvAAAF",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "9A5ogRf0dmuTKeLfAAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "uCvEfdMn0bfr6IYHAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "iAcvhnU3P-Ta5n6tAAAP",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "GLXpZEftpZsHy0M2AAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
   ],
   "mods": [
-    
+    {
+      "id": "k06I8VI_QW_vbGSvAAAF",
+      "language": "NL",
+      "room": "44013"
+    }
   ]
 }
