@@ -1,0 +1,26 @@
+Index: startScreen.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html lang=\"en\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n\t<title>Startscherm</title>\r\n\t<link rel=\"stylesheet\" href=\"style.css\">\r\n\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Itim:wght@400;700&display=swap\">\r\n</head>\r\n\r\n<body class=\"body\">\r\n\r\n<h1 class=\"yes\" >The Best Seller</h1>\r\n\r\n<input type=\"button\" class=\"button\" onclick=\"location.href='index.html'\" value=\"Dice Game\">\r\n<input type=\"button\" class=\"button\" onclick=\"location.href='CreateGameScreen.html'\" value=\"Create Game\">\r\n<input type=\"button\" class=\"button\" onclick=\"location.href='joinGameScreen.html'\" value=\"Join Game\">\r\n<input type=\"button\" class=\"button\" onclick=\"location.href='mod-settings.html'\" value=\"Mod Settings\">\r\n\r\n<input type=\"button\" class=\"Qbutton\" value=\"?\" type=submit onclick=\"window.open('Handleiding_SetUp.pdf'); return true;\">\r\n\r\n<div class=\"content\">Click a button to change the screen.</div>\r\n<br> <br>\r\n<div id=\"container\" >\r\n\t<img src=\"den_flag.png\" alt=\"Denmark Flag\">\r\n\t<img src=\"uk_flag.png\" alt=\"UK Flag\">\r\n\t<img src=\"nl_flag.png\" alt=\"Netherlands Flag\">\r\n</div>\r\n\r\n</body>\r\n</html>
+===================================================================
+diff --git a/startScreen.html b/startScreen.html
+--- a/startScreen.html	
++++ b/startScreen.html	
+@@ -13,14 +13,14 @@
+ 
+ <input type="button" class="button" onclick="location.href='index.html'" value="Dice Game">
+ <input type="button" class="button" onclick="location.href='CreateGameScreen.html'" value="Create Game">
+-<input type="button" class="button" onclick="location.href='joinGameScreen.html'" value="Join Game">
++<input type="button" class="button" onclick="location.href='JoinScreen.html'" value="Join Game">
+ <input type="button" class="button" onclick="location.href='mod-settings.html'" value="Mod Settings">
+ 
+ <input type="button" class="Qbutton" value="?" type=submit onclick="window.open('Handleiding_SetUp.pdf'); return true;">
+ 
+ <div class="content">Click a button to change the screen.</div>
+-<br> <br>
+-<div id="container" >
++
++<div id="container">
+ 	<img src="den_flag.png" alt="Denmark Flag">
+ 	<img src="uk_flag.png" alt="UK Flag">
+ 	<img src="nl_flag.png" alt="Netherlands Flag">

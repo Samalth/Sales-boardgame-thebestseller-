@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e42f62fa-f980-4fb8-a2b3-39f22d4eaea6" name="Changes" comment="Pop up met points update in JSON werkende." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="samuelvde &lt;samuel.vandeneijnde@student.hu.nl&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/F2P1-57-strategy-chooser" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/server.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/views/JoinScreen.ejs" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2cOaW9DBWnrUk9XjEPeowomIQJN" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Production&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kees vd Zandschulp/Documents/Study/Fase2/DanishDomino&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2.5\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e42f62fa-f980-4fb8-a2b3-39f22d4eaea6" name="Changes" comment="" />
+      <created>1707985107748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707985107748</updated>
+      <workItem from="1707985108802" duration="61000" />
+      <workItem from="1707985205664" duration="586000" />
+      <workItem from="1708071261690" duration="2041000" />
+      <workItem from="1708076097201" duration="1500000" />
+      <workItem from="1708078818969" duration="385000" />
+      <workItem from="1708079223793" duration="295000" />
+      <workItem from="1708079568276" duration="172000" />
+      <workItem from="1708079763381" duration="1137000" />
+      <workItem from="1708085747323" duration="1758000" />
+      <workItem from="1708096529449" duration="993000" />
+      <workItem from="1708097552589" duration="6713000" />
+      <workItem from="1708356269372" duration="597000" />
+      <workItem from="1708417491478" duration="8874000" />
+      <workItem from="1708429482182" duration="10955000" />
+      <workItem from="1709193146458" duration="381000" />
+      <workItem from="1709195611400" duration="5003000" />
+      <workItem from="1709201077327" duration="21751000" />
+      <workItem from="1709631853987" duration="7192000" />
+      <workItem from="1709799774147" duration="217000" />
+      <workItem from="1709800011794" duration="2040000" />
+      <workItem from="1709889667198" duration="632000" />
+      <workItem from="1710238831538" duration="939000" />
+      <workItem from="1710408066975" duration="6891000" />
+      <workItem from="1710489633722" duration="9791000" />
+      <workItem from="1710835561498" duration="940000" />
+      <workItem from="1710840287061" duration="15463000" />
+      <workItem from="1711017367368" duration="1767000" />
+      <workItem from="1711026885458" duration="752000" />
+    </task>
+    <task id="LOCAL-00001" summary="Schakelen van Sam's beginscherm naar Samuel's dobbelsteen succesvol">
+      <option name="closed" value="true" />
+      <created>1708079968880</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708079968880</updated>
+    </task>
+    <task id="LOCAL-00002" summary="2e merg (Moderatorscherm ook gekoppeld). Basic geraamte applicatie + backbuttons naar beginscherm. Styling nog heel rommelig">
+      <option name="closed" value="true" />
+      <created>1708097489146</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1708097489146</updated>
+    </task>
+    <task id="LOCAL-00003" summary="PopUp met (voorbeeld)pdf handleiding toegevoegd. Categorie dropdown, Username input textfield toegevoed op joinGameScreen.">
+      <option name="closed" value="true" />
+      <created>1708354330035</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1708354330035</updated>
+    </task>
+    <task id="LOCAL-00004" summary="PopUp met (voorbeeld)pdf handleiding toegevoegd. Categorie dropdown, Username input textfield toegevoed op joinGameScreen.">
+      <option name="closed" value="true" />
+      <created>1708354559838</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1708354559838</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Eerste opzet Database.">
+      <option name="closed" value="true" />
+      <created>1709200880882</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709200880882</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Eerste versie API.&#10;Installeer via Prompt 'express'&#10;Voor runnen op http://localhost:3000/api/questionstable, typ 'node server.js' in de terminal.">
+      <option name="closed" value="true" />
+      <created>1709219509390</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709219509390</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Eerste versie API.&#10;Installeer via Prompt 'express'&#10;Voor runnen op http://localhost:3000/api/questionstable, typ 'node server.js' in de terminal.">
+      <option name="closed" value="true" />
+      <created>1709799872943</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1709799872943</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Pop up met points update in JSON werkende.">
+      <option name="closed" value="true" />
+      <created>1710857457555</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710857457556</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature/F2P1-44-werkzame-gamepin--socket.io" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Samenvoegen werk Samuel &amp; Sam succesvol, button op Sam's beginscherm leidt nu naar Samuel's dobbelsteen." />
+    <MESSAGE value="Dice made" />
+    <MESSAGE value="Schakelen van Sam's beginscherm naar Samuel's dobbelsteen succesvol" />
+    <MESSAGE value="2e merg (Moderatorscherm ook gekoppeld). Basic geraamte applicatie + backbuttons naar beginscherm. Styling nog heel rommelig" />
+    <MESSAGE value="PopUp met (voorbeeld)pdf handleiding toegevoegd. Categorie dropdown, Username input textfield toegevoed op joinGameScreen." />
+    <MESSAGE value="Eerste opzet Database." />
+    <MESSAGE value="Eerste versie API.&#10;Installeer via Prompt 'express'&#10;Voor runnen op http://localhost:3000/api/questionstable, typ 'node server.js' in de terminal." />
+    <MESSAGE value="Pop up met points update in JSON werkende." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pop up met points update in JSON werkende." />
+  </component>
+</project>
