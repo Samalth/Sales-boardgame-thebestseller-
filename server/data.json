@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "hMu5expxqzt0KzVEAAAF",
+      "id": "l7UqR50TQmSTBZ-VAAAB",
       "language": "NL",
       "room": "",
       "user": "",
@@ -10,5 +10,11 @@
       "strategy": ""
     }
   ],
-  "mods": []
+  "mods": [
+    {
+      "id": "l7UqR50TQmSTBZ-VAAAB",
+      "language": "NL",
+      "room": "#27353"
+    }
+  ]
 }
