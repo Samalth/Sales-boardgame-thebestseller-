@@ -4,45 +4,6 @@ import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
 
-const filePath = 'data.json';
-const newData = { points: 5 }; // Assume this is the new points for Samuel
-//import { updateDataInFile } from '../server' // Assuming you have defined updateDataInFile function in a separate file
-
-
-
-/*const updateDataInFile = (filePath, newData) => {
-
-    console.log("Check")
-    // Fetch the existing data from the file
-    fetch(filePath)
-        .then(response => response.json())
-        .then(data => {
-            // Find the user with the name 'Samuel'
-            const samuelUser = data.users.find(user => user.name === 'Samuel');
-
-            // If Samuel exists, update his points
-            if (samuelUser) {
-                samuelUser.points = newData.points;
-
-                // Now, write the updated data back to the file
-                fetch(filePath, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(response => response.json())
-                    .then(updatedData => console.log('Data updated successfully:', updatedData))
-                    .catch(error => console.error('Error updating data:', error));
-            } else {
-                console.error('User Samuel not found in the data.');
-            }
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    console.log("Henkie")
-};*/
-
 
 const BoardGrid = () => {
     const boardWidth = 15;
@@ -74,15 +35,6 @@ const BoardGrid = () => {
     const sendQuestionRequest = (color) => {
         socket.emit("send_question_request", { questionColor: color });
     };
-
-    const handlePoints = (userID, points) => {
-        socket.emit("send-points",userID,points);
-
-    };
-//id verzenden
-
-
-/*    updateDataInFile(filePath, newData);*/
 
     useEffect(() => {
         const boardGrid = document.querySelector('.board-grid');

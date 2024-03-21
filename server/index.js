@@ -25,10 +25,10 @@ const io = new Server(server, {
 io.on('connection', (socket)=> {
     // modLogger("log", socket.id)
 
-    socket.on("disconnect", (reason) => {
-        // console.log(reason)
-        modLogger("delete", socket.id)
-    })
+    // socket.on("disconnect", (reason) => {
+    //     // console.log(reason)
+    //     modLogger("delete", socket.id)
+    // })
 
     socket.on("create_room", (data) => {
         // modLogger('updateRoom', socket.id, data.room)
@@ -43,12 +43,20 @@ io.on('connection', (socket)=> {
     socket.on("disconnect", (reason) => {
         // console.log(reason)
         userLogger("delete", socket.id)
+        modLogger("delete", socket.id)
     })
 
     socket.on("join_room", (data) => {
-        socket.join(data.room)
-        var availability = userLogger('checkAvailability', socket.id, data)
-        console.log(availability)
+        var exists = modLogger('checkExists', socket.id, data.room)
+        if (exists === 'exists'){
+            socket.join(data.room)
+            var availability = userLogger('checkAvailability', socket.id, data)
+        } else{
+            availability = 'Room does not exist'
+        }
+
+        
+        // console.log(availability)
         if (availability === 'available') {
             socket.join(data.room)
             userLogger('updateName', socket.id, data.name)

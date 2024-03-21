@@ -4,7 +4,7 @@ const fs = require('fs');
 function generateGamepin() {
     const characters = '01234A5S6789M';
     const length = 5; // Lengte gamepin
-    let pin = '#';
+    let pin = '';
     for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         pin += characters[randomIndex];
@@ -77,6 +77,18 @@ function getRoom(socketid) {
         return null;
     }
 }
+const checkRoom = (roomcode) => {
+    let data = readData();
+    if (!data) return null;
+    // Check if any object in the mods array has the specified room code
+    const roomExists = data.mods.some(mod => mod.room === roomcode);
+    
+    if (roomExists) {
+        return 'exists';
+    } else {
+        return 'does not exist';
+    }
+}
 
 function modLogger(method, socketid, info='temp'){
     switch(method){
@@ -88,9 +100,12 @@ function modLogger(method, socketid, info='temp'){
         case 'delete':
             deleteMods(socketid)
             break
-        case 'updateRoom':
-            updateMods(socketid, {room: info})
-            break
+        // case 'updateRoom':
+        //     updateMods(socketid, {room: info})
+        //     break
+        case 'checkExists':
+            const exists = checkRoom(info)
+            return exists
 
         case 'getRoom':
             const roomCode = generateGamepin();

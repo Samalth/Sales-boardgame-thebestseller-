@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../CSS/startStyle.css';
-import {socket} from '../client'
+// import {socket} from '../client'
 
 export function HomeScreen() {
   const navigate = useNavigate();
