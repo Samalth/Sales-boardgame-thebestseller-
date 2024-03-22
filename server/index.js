@@ -73,10 +73,9 @@ io.on('connection', (socket)=> {
     socket.on('send_question_request', async (data) => {
         var questionText = await databaseQuestion(data.questionColor);
 
-
         const room = userLogger('getRoom', socket.id);
-        socket.to(room).emit('receive_question', JSON.stringify(questionText));
-        socket.emit('receive_question', JSON.stringify(questionText));
+        socket.to(room).emit('receive_question', questionText);
+        socket.emit('receive_question', questionText);
     })
 
     socket.on('send_points', (data) => {

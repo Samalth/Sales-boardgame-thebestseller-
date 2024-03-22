@@ -85,6 +85,10 @@ background-size: cover;
     background-size: cover;
 }
 
+.highlight {
+    border: 2px solid yellow;
+}
+
 img {
 width: 55px;
 height: 55px;
@@ -141,6 +145,11 @@ label{
     font-size: 36px;
     color: white;
     font-weight: 500;
+}
+.questionpopup{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;
 }
 
 button{
