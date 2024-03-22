@@ -8,6 +8,7 @@ const cors = require('cors')
 const databaseQuestion  = require("./database")
 const userLogger = require('./userLogger')
 const modLogger = require('./modLogger')
+const getMovesFromCoordinate = require('./positionCalculator')
 
 
 app.use(cors())
@@ -79,12 +80,12 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_dice_roll_and_position', (data) =>{
-        console.log(data)
-        // const coordinate = data.position.split('-');
-        // const xPos = parseInt(coordinate[0]);
-        // const yPos = parseInt(coordinate[1]);
-        // const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
-        // console.log(moves);
+        // console.log(data)
+        const coordinate = data.position.split('-');
+        const xPos = parseInt(coordinate[0]);
+        const yPos = parseInt(coordinate[1]);
+        const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
+        console.log(moves);
     })
 
     socket.on('send_points', (data) => {

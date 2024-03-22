@@ -83,7 +83,9 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
             const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
             const newPosition = parseInt(event.target.getAttribute('tile-id'));
             const validTiles = calcValidTiles(currentPosition, steps);
+
             const position = targetTile.getAttribute('pos')
+            console.log(position)
             setPosition(position)
 
             if (validTiles.includes(newPosition)){
@@ -120,7 +122,7 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
             );
         } else {
             // Otherwise, just render the tile
-            tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}></div>);
+            tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i} pos={possiblePositions[i]}></div>);
         }
     }
 
@@ -153,7 +155,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
-            socket.emit('send_dice_roll_and_position')
+            socket.emit("send_dice_roll_and_position", { diceValue: newDiceValue, position: position });
             setSteps(newDiceValue);
             setMoveMade(false);
         }, 1000);
@@ -177,6 +179,7 @@ export function PlayBoard() {
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [showPopup, setShowPopup] = useState(false);
+    const [position, setPosition] = useState(null)
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
@@ -202,8 +205,9 @@ export function PlayBoard() {
     return (
         <>
             <BoardGrid steps={steps} moveMade={moveMade} setMoveMade= {setMoveMade}
-                       currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} />
-            <DiceContainer setSteps={setSteps} setMoveMade= {setMoveMade} />
+                       currentPosition={currentPosition} setCurrentPosition={setCurrentPosition}
+                       setPosition={setPosition} />
+            <DiceContainer setSteps={setSteps} setMoveMade= {setMoveMade} position={position}/>
             <div className='questionpopup'>{question}</div>
             <button onClick={togglePopup}>Open Popup</button>
             {/* Popup container */}

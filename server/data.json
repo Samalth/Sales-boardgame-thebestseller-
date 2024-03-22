@@ -1,6 +1,47 @@
 {
   "users": [
-    
+    {
+      "id": "oF2lOQW3jM0XkzGSAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "jG8voDFJLJ1-g7tzAAAF",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "L7XdSeYKkoQR1u2tAAAC",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "ZibsCc8UgOfQd_BIAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
   ],
-  "mods":[]
+  "mods": [
+    {
+      "id": "oF2lOQW3jM0XkzGSAAAD",
+      "language": "NL",
+      "room": "M2A93"
+    }
+  ]
 }
