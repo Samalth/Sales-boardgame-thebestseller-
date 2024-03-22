@@ -78,6 +78,15 @@ io.on('connection', (socket)=> {
         socket.emit('receive_question', questionText);
     })
 
+    socket.on('send_dice_roll_and_position', (data) =>{
+        console.log(data)
+        // const coordinate = data.position.split('-');
+        // const xPos = parseInt(coordinate[0]);
+        // const yPos = parseInt(coordinate[1]);
+        // const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
+        // console.log(moves);
+    })
+
     socket.on('send_points', (data) => {
         const oldPoints = userLogger('getPoints', socket.id);
         const points = userLogger('updatePoints', socket.id, parseInt(oldPoints + data.points));
