@@ -1,4 +1,61 @@
 {
-  "users": [],
-  "mods": []
+  "users": [
+    {
+      "id": "pjDu-8jMz_SCkvptAAAB",
+      "language": "NL",
+      "room": "7694A",
+      "user": "",
+      "name": "aars",
+      "points": "",
+      "strategy": "Lunar"
+    },
+    {
+      "id": "nVmqGnUd2WwP7VPiAAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "eKhwXKWBDStK31EqAAAC",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "MlP89SWYm3qqyho0AAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "aFB99tfT6VlSF7ZhAAAF",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
+  ],
+  "mods": [
+    {
+      "id": "nVmqGnUd2WwP7VPiAAAD",
+      "language": "NL",
+      "room": "7694A"
+    },
+    {
+      "id": "aFB99tfT6VlSF7ZhAAAF",
+      "language": "NL",
+      "room": "8MA30"
+    }
+  ]
 }
