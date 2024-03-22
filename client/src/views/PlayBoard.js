@@ -6,7 +6,7 @@ import {socket} from '../client'
 const startPieces = ['lunar'];
 let selectedPawn = null;
 
-const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPosition, currentPlayer, setCurrentPlayer, selectedPawn, setSelectedPawn}) => {
+const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPosition, currentPlayer, setCurrentPlayer, selectedPawn, setSelectedPawn, setPosition}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
@@ -23,6 +23,19 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
         'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
         'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
     ];
+    const possiblePositions = [
+        "1-9", "2-9", "3-9", "4-9", "5-9", "6-9", "7-9", "8-9", "9-9", "10-9", "11-9", "12-9", "13-9", "14-9", "15-9",
+        "1-8", "", "", "", "", "", "", "8,8", "", "", "", "", "", "", "15-8",
+        "1-7", "", "", "", "", "", "", "8,7", "", "", "", "", "", "", "15-7",
+        "1-6", "", "", "", "", "", "", "8,6", "", "", "", "", "", "", "15-6",
+        "1-5", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5", "8-5", "9-5", "10-5", "11-5", "12-5", "13-5", "14-5", "15-5",
+        "1-4", "", "", "", "", "", "", "8,4", "", "", "", "", "", "", "15-4",
+        "1-3", "", "", "", "", "", "", "8,3", "", "", "", "", "", "", "15-3",
+        "1-2", "", "", "", "", "", "", "8,2", "", "", "", "", "", "", "15-2",
+        "1-1", "2-1", "3-1", "4-1", "5-1", "6-1", "7-1", "8-1", "9-1", "10-1", "11-1", "12-1", "13-1", "14-1", "15-1",
+    ];
+    
+    
 
     const pawnPath = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 29,
@@ -70,6 +83,8 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
             const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
             const newPosition = parseInt(event.target.getAttribute('tile-id'));
             const validTiles = calcValidTiles(currentPosition, steps);
+            const position = targetTile.getAttribute('pos')
+            setPosition(position)
 
             if (validTiles.includes(newPosition)){
                 event.target.appendChild(selectedPawn);
@@ -99,7 +114,7 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
         if (tileInfo[i] === 'start') {
             // If the tile is a start tile, render start pieces
             tiles.push(
-                <div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}>
+                <div key={i} className={`tile ${tileInfo[i]}`} tile-id={i} pos={possiblePositions[i]}>
                     {renderStartPieces()}
                 </div>
             );
@@ -119,7 +134,7 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
 // end board
 
 
-const DiceContainer = ({setSteps, setMoveMade}) => {
+const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
     
     const roll = () => {
@@ -138,6 +153,7 @@ const DiceContainer = ({setSteps, setMoveMade}) => {
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
+            socket.emit('send_dice_roll_and_position')
             setSteps(newDiceValue);
             setMoveMade(false);
         }, 1000);
