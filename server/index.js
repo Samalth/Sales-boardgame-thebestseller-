@@ -85,7 +85,14 @@ io.on('connection', (socket)=> {
         const xPos = parseInt(coordinate[0]);
         const yPos = parseInt(coordinate[1]);
         const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
-        console.log(moves);
+
+        // console.log(moves);
+
+        const formattedPositions = moves.map(pos => `${pos.x}-${pos.y}`)
+        // console.log(formattedPositions);
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('update_valid_positions', formattedPositions);
+        socket.emit('update_valid_positions', formattedPositions);
     })
 
     socket.on('send_points', (data) => {
