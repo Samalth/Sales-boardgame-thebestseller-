@@ -104,9 +104,9 @@ margin: 2px;
 .dice-container{
  width: 300px;
  padding: 20px;
- position: absolute;
+ position: fixed;
  top: 70%;
- right: 3%;
+ right: 5%;
  box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
  border-radius: 8px;
  display: flex;
@@ -145,11 +145,6 @@ label{
     font-size: 36px;
     color: white;
     font-weight: 500;
-}
-.questionpopup{
-    font-family: Itim, Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    color: white;
 }
 
 button{
@@ -194,3 +189,35 @@ button:hover{
         transform: rotate(10deg);
     }
 }
+
+.playboard-container {
+    position: fixed;
+    left: 40%;
+    top: 25%;
+}
+
+.blurred {
+    filter: blur(5px);
+}
+
+.question-popup {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 35%;
+    height: auto;
+    /*transform: translate(-50%, -50%);*/
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-blurred {
+    filter: none; /* Verwijder vervaging voor de popup-container */
+}
+

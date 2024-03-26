@@ -34,8 +34,6 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
         "1-2", "", "", "", "", "", "", "8,2", "", "", "", "", "", "", "15-2",
         "1-1", "2-1", "3-1", "4-1", "5-1", "6-1", "7-1", "8-1", "9-1", "10-1", "11-1", "12-1", "13-1", "14-1", "15-1",
     ];
-    
-    
 
     const pawnPath = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 29,
@@ -107,7 +105,6 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
     }, [steps, moveMade, currentPosition]);
 
     for (let i = 0; i < totalTiles; i++) {
-//    const CurrentPosition = 67;
         const validTiles = calcValidTiles(currentPosition, steps);
         let style = {};
         if(validTiles.includes(i)){
@@ -124,6 +121,7 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
             // Otherwise, just render the tile
             tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i} pos={possiblePositions[i]}></div>);
         }
+
     }
 
     return (
@@ -134,7 +132,6 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
 };
 
 // end board
-
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
@@ -172,58 +169,48 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
 };
 
 export function PlayBoard() {
-    const [question, setQuestion] = useState("");
-    const [steps , setSteps] = useState(0);
+    const [question, setQuestion] = useState('');
+    const [steps, setSteps] = useState(0);
     const [moveMade, setMoveMade] = useState(false);
-    const [currentPosition, setCurrentPosition] = useState (0)
-    const [currentPlayer, setCurrentPlayer] = useState (0)
-    const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
-    const [showPopup, setShowPopup] = useState(false);
-    const [position, setPosition] = useState(null)
+    const [currentPosition, setCurrentPosition] = useState(0);
+    const [selectedPawn, setSelectedPawn] = useState(startPieces[0]);
+    const [position, setPosition] = useState('8-5');
+    const [gamePaused, setGamePaused] = useState(false);
 
     useEffect(() => {
-        socket.on("receive_question", (data) => {
+        socket.on('receive_question', (data) => {
             setQuestion(data);
+            setGamePaused(true); // Pauzeer het spel wanneer een vraag wordt ontvangen
         });
         return () => {
             socket.off('receive_question');
         };
     }, []);
 
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
-    };
-
-    const handleUpdatePoints = (buttonPoints) => {
-        // Call the updateDataInFile function to update points for Samuel
-        console.log(buttonPoints);
-        socket.emit("send_points",{points: buttonPoints})
-        console.log("Log1");
-       // updateDataInFile(filePath, newData);
+    const handleContinue = () => {
+        setGamePaused(false); // Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraag
     };
 
     return (
-        <>
-            <BoardGrid steps={steps} moveMade={moveMade} setMoveMade= {setMoveMade}
-                       currentPosition={currentPosition} setCurrentPosition={setCurrentPosition}
-                       setPosition={setPosition} />
-            <DiceContainer setSteps={setSteps} setMoveMade= {setMoveMade} position={position}/>
-            <div className='questionpopup'>{question}</div>
-            <button onClick={togglePopup}>Open Popup</button>
-            {/* Popup container */}
-            {showPopup && (
-                <div className="popup-container">
-                    <div className="popup">
-                        <div className="button-container">
-                            {/* Linking the updateDataInFile function to the button */}
-                            <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
-                            <button className="button button-derde" onClick={() =>handleUpdatePoints(15)}>15 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(20)}>20 points</button>
-                        </div>
-                    </div>
+        <div className="playboard-container">
+            <div className={gamePaused ? 'board-grid blurred' : 'board-grid'}>
+                <BoardGrid
+                    steps={steps}
+                    moveMade={moveMade}
+                    setMoveMade={setMoveMade}
+                    currentPosition={currentPosition}
+                    setCurrentPosition={setCurrentPosition}
+                    setPosition={setPosition}
+                />
+                <DiceContainer setSteps={setSteps} setMoveMade={setMoveMade} position={position} />
+            </div>
+            {gamePaused && (
+                <div className="question-popup">
+                    <div className="question">{question}</div>
+                    <button onClick={handleContinue}>Continue</button>
                 </div>
             )}
-        </>
+        </div>
     );
-};
+}
+
