@@ -222,13 +222,13 @@ export function PlayBoard() {
             {gamePaused && (
                 <div className='questionBoxPopup'>
                 <div className="questionOrangeBox">
-                    <div className='strategyName'>STRATEGIE <br /> logo <br /></div>
-                    <div className='questionLabel'><br /> Question: </div>
+                    <div className='strategyName'>Strategie <br/> Logo </div>
+                    <div className='questionLabel'> <br/> Question: </div>
                     <div className="questionWhiteBox">{question}</div>
                 </div>
                     <div className="answerPopup">
-                        <div className='AnswerText'>Answer :</div>
-                            <input className={'answerInput'} type="text" value={textBoxContent} onChange={handleTextBoxChange} />
+                        <div className='answerText'> Your answer: </div>
+                            <textarea className={'answerInput'} placeholder='Enter your answer here...' type="text" value={textBoxContent} onChange={handleTextBoxChange} />
                         <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
                     </div>
                 </div>
