@@ -23,8 +23,8 @@ img {
 }
 
 .tile {
- margin: 2px;
- position: relative;
+    margin: 2px;
+    position: relative;
 }
 
 .yellow {
@@ -77,11 +77,11 @@ background-size: cover;
 }
 
 .pieceworld{
-    background-image: url('../images/LUNAR.png');
+    background-image: url('../images/WORLD.png');
     background-size: cover;
 }
 .piecelunar{
-    background-image: url('../images/WORLD.png');
+    background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
 
@@ -150,6 +150,18 @@ label{
     font-family: Itim, Arial, Helvetica, sans-serif;
     font-size: 18px;
     color: white;
+}
+.tile.blink {
+    animation: blink-Border 0.6s infinite alternate;
+}
+
+@keyframes blink-Border {
+    0% {
+        border: 3px solid transparent;
+    }
+    100% {
+        border: 3px solid #ffdfba;
+    }
 }
 
 button{

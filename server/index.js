@@ -8,13 +8,14 @@ const cors = require('cors')
 const databaseQuestion  = require("./database")
 const userLogger = require('./userLogger')
 const modLogger = require('./modLogger')
+const getMovesFromCoordinate = require('./positionCalculator')
 
 
 app.use(cors())
 
 const server = http.createServer(app)
 
-const io = new Server(server, {
+const io = new Server(server, { 
     cors: {
         origin: 'http://localhost:3000',
         methods: ['GET', 'POST']
@@ -76,6 +77,22 @@ io.on('connection', (socket)=> {
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('receive_question', questionText);
         socket.emit('receive_question', questionText);
+    })
+
+    socket.on('send_dice_roll_and_position', (data) =>{
+        // console.log(data)
+        const coordinate = data.position.split('-');
+        const xPos = parseInt(coordinate[0]);
+        const yPos = parseInt(coordinate[1]);
+        const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
+
+        // console.log(moves);
+
+        const formattedPositions = moves.map(pos => `${pos.x}-${pos.y}`)
+        // console.log(formattedPositions);
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('update_valid_positions', formattedPositions);
+        socket.emit('update_valid_positions', formattedPositions);
     })
 
     socket.on('send_points', (data) => {

@@ -6,11 +6,11 @@ import {socket} from '../client'
 const startPieces = ['lunar'];
 let selectedPawn = null;
 
-const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPosition, currentPlayer, setCurrentPlayer, selectedPawn, setSelectedPawn}) => {
+const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
-    const [validTiles, setValidTiles] = useState([])
+    const [validPositions, setValidPositions] = useState([]);
 
     const tileInfo = [
         'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
@@ -23,14 +23,16 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
         'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
         'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
     ];
-
-    const pawnPath = [
-        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 29,
-            44, 59, 74, 89, 104, 119, 134, 133, 132, 131, 130, 129,
-            128, 127, 126, 125, 124, 123, 122, 121, 120, 105, 90, 75,
-            60, 45, 30, 15],
-        [7, 22, 37, 52, 67, 82, 97, 112, 127],
-        [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74]
+    const possiblePositions = [
+        "1-9", "2-9", "3-9", "4-9", "5-9", "6-9", "7-9", "8-9", "9-9", "10-9", "11-9", "12-9", "13-9", "14-9", "15-9",
+        "1-8", "", "", "", "", "", "", "8-8", "", "", "", "", "", "", "15-8",
+        "1-7", "", "", "", "", "", "", "8-7", "", "", "", "", "", "", "15-7",
+        "1-6", "", "", "", "", "", "", "8-6", "", "", "", "", "", "", "15-6",
+        "1-5", "2-5", "3-5", "4-5", "5-5", "6-5", "7-5", "8-5", "9-5", "10-5", "11-5", "12-5", "13-5", "14-5", "15-5",
+        "1-4", "", "", "", "", "", "", "8-4", "", "", "", "", "", "", "15-4",
+        "1-3", "", "", "", "", "", "", "8-3", "", "", "", "", "", "", "15-3",
+        "1-2", "", "", "", "", "", "", "8-2", "", "", "", "", "", "", "15-2",
+        "1-1", "2-1", "3-1", "4-1", "5-1", "6-1", "7-1", "8-1", "9-1", "10-1", "11-1", "12-1", "13-1", "14-1", "15-1",
     ];
 
     const tiles = [];
@@ -42,73 +44,64 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
         ));
     };
 
-    const calcValidTiles = (currentPosition, steps) => {
-        const validTiles = [];
-
-        for (let newPosition = 0; newPosition < totalTiles; newPosition++) {
-            if (Math.abs(newPosition - currentPosition) === steps ||
-                Math.abs(newPosition - currentPosition) === steps * boardWidth) {
-                validTiles.push(newPosition);
-            }
-        }
-        return validTiles;
-    }
-
     const sendQuestionRequest = (color) => {
         socket.emit("send_question_request", { questionColor: color });
     };
 
     useEffect(() => {
+        socket.on("update_valid_positions", (data) => {
+            setValidPositions(data);
+        });
+
         const boardGrid = document.querySelector('.board-grid');
 
-        const handleCLick = event => {
+        const handleClick = event => {
             const targetTile = event.target.closest('.tile');
-        if (startPieces.includes(event.target.id)){
-            event.target.classList.add('highlight');
-            selectedPawn = event.target;
-        } else if (selectedPawn && event.target.className !== 'tile blank' && !moveMade) {
-            const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
-            const newPosition = parseInt(event.target.getAttribute('tile-id'));
-            const validTiles = calcValidTiles(currentPosition, steps);
+            console.log(targetTile)
+            if (startPieces.includes(event.target.id)) {
+                event.target.classList.add('highlight');
+                setSelectedPawn(event.target);
+            } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
+                const newPosition = targetTile.getAttribute('pos');
 
-            if (validTiles.includes(newPosition)){
-                event.target.appendChild(selectedPawn);
-                const words = targetTile.className.split(' ');
-                const color = words[words.length - 1];
-                sendQuestionRequest(color)
-                setMoveMade(true);
-
+                if (validPositions.includes(newPosition) && !moveMade) {
+                    // Append the pawn to the new tile and update game state as necessary
+                    event.target.appendChild(selectedPawn);
+ 
+                    const color = targetTile.className.split(' ')[1];
+                    sendQuestionRequest(color);
+                    setMoveMade(true);
+                    document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
+                    // Update the pawn's position in your state
+                    setPosition(newPosition); // Assuming setPosition updates the pawn's position state
+                }
             }
-        }
-    }
-        boardGrid.addEventListener('click', handleCLick);
-
+        };
+        boardGrid.addEventListener('click', handleClick);
+ 
         // Cleanup function to remove event listeners when the component unmounts
         return () => {
-            boardGrid.removeEventListener('click', handleCLick);
+            boardGrid.removeEventListener('click', handleClick);
         };
-    }, [steps, moveMade, currentPosition]);
+    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
 
     for (let i = 0; i < totalTiles; i++) {
-//    const CurrentPosition = 67;
-        const validTiles = calcValidTiles(currentPosition, steps);
-        let style = {};
-        if(validTiles.includes(i)){
-            style = {backgroundColor: 'yellow'};
-        }
+        const position = possiblePositions[i];
+        const isHighlighted = validPositions.includes(position);
+        const tileClass = `tile ${tileInfo[i]} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
             // If the tile is a start tile, render start pieces
             tiles.push(
-                <div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}>
+                <div key={i} className={tileClass} tile-id={i} pos={position}>
                     {renderStartPieces()}
                 </div>
             );
         } else {
             // Otherwise, just render the tile
-            tiles.push(<div key={i} className={`tile ${tileInfo[i]}`} tile-id={i}></div>);
+            tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
-
+ 
     return (
         <div className='board-grid'>
             {tiles}
@@ -119,7 +112,7 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
 // end board
 
 
-const DiceContainer = ({setSteps, setMoveMade}) => {
+const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
     
     const roll = () => {
@@ -138,7 +131,7 @@ const DiceContainer = ({setSteps, setMoveMade}) => {
             const newDiceValue = Math.floor(Math.random() * 6) + 1;
             setDiceValue(newDiceValue);
             dice.setAttribute("src", images[newDiceValue - 1]);
-            setSteps(newDiceValue);
+            socket.emit("send_dice_roll_and_position", { diceValue: newDiceValue, position: position });
             setMoveMade(false);
         }, 1000);
     };
@@ -155,12 +148,11 @@ const DiceContainer = ({setSteps, setMoveMade}) => {
 
 export function PlayBoard() {
     const [question, setQuestion] = useState("");
-    const [steps , setSteps] = useState(0);
     const [moveMade, setMoveMade] = useState(false);
-    const [currentPosition, setCurrentPosition] = useState (0)
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [showPopup, setShowPopup] = useState(false);
+    const [position, setPosition] = useState("8-5")
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
@@ -185,9 +177,9 @@ export function PlayBoard() {
 
     return (
         <>
-            <BoardGrid steps={steps} moveMade={moveMade} setMoveMade= {setMoveMade}
-                       currentPosition={currentPosition} setCurrentPosition={setCurrentPosition} />
-            <DiceContainer setSteps={setSteps} setMoveMade= {setMoveMade} />
+            <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
+                       setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
+            <DiceContainer setMoveMade= {setMoveMade} position={position}/>
             <div className='questionpopup'>{question}</div>
             <button onClick={togglePopup}>Open Popup</button>
             {/* Popup container */}
