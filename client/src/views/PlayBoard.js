@@ -135,12 +135,11 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
-    
+
     const roll = () => {
         const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
         const dice = document.querySelector(".diceImage");
         dice.classList.add("shake");
-    
         let interval = setInterval(function() {
             let diceValue = Math.floor(Math.random() * 6) + 1;
             dice.setAttribute("src", images[diceValue - 1]);
@@ -202,15 +201,25 @@ export function PlayBoard() {
                     setCurrentPosition={setCurrentPosition}
                     setPosition={setPosition}
                 />
-                <DiceContainer setSteps={setSteps} setMoveMade={setMoveMade} position={position} />
-            </div>
+                </div>
+        <div className='playboard-container' >
+        </div>
+            <div className={gamePaused ? 'dice-container blurred' : 'dice-container'}>
+            <DiceContainer
+                setSteps={setSteps}
+                setMoveMade={setMoveMade}
+                position={position}></DiceContainer>
+        </div>
             {gamePaused && (
                 <div className="question-popup">
                     <div className="question">{question}</div>
-                    <button onClick={handleContinue}>Continue</button>
+                    <div className="answer-popup">
+                        <input className={'answerInput'} type="text" value={textBoxContent} onChange={handleTextBoxChange} />
+                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
+                    </div>
                 </div>
             )}
         </div>
-    );
+    )
 }
 

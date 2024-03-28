@@ -11,7 +11,7 @@ body{
     grid-template-columns: repeat(15, 60px); /* Alle vakjes zijn 56px breed */
     grid-template-rows: repeat(9, 60px); /* Alle vakjes zijn 56px hoog */
     margin-top: 80px;
-    margin-right: 80px;
+    margin-right: 90px;
     justify-content: center;
     align-content: center;
 }
@@ -209,6 +209,38 @@ button:hover{
     left: 5%;
     width: 35%;
     height: auto;
+    /*transform: translate(-50%, -50%);*/
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.answerInput {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+    position: absolute;
+    right: 7cm;
+    top: 1cm;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.submitButton {
+    bottom: 5px;
+}
+
+.answer-popup {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 20px;
+    color: black;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    width: 50%;
+    height: 100px;
     /*transform: translate(-50%, -50%);*/
     background-color: white;
     padding: 20px;
