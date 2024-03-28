@@ -177,7 +177,7 @@ export function PlayBoard() {
     const [gamePaused, setGamePaused] = useState(false);
 
     const [textBoxContent, setTextBoxContent] = useState('');
-    var huppeldepup = "hhhhh";
+    var huppeldepup = textBoxContent;
 
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
