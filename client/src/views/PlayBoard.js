@@ -74,28 +74,28 @@ const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPos
 
         const handleCLick = event => {
             const targetTile = event.target.closest('.tile');
-        if (startPieces.includes(event.target.id)){
-            event.target.classList.add('highlight');
-            selectedPawn = event.target;
-        } else if (selectedPawn && event.target.className !== 'tile blank' && !moveMade) {
-            const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
-            const newPosition = parseInt(event.target.getAttribute('tile-id'));
-            const validTiles = calcValidTiles(currentPosition, steps);
+            if (startPieces.includes(event.target.id)){
+                event.target.classList.add('highlight');
+                selectedPawn = event.target;
+            } else if (selectedPawn && event.target.className !== 'tile blank' && !moveMade) {
+                const currentPosition = parseInt(selectedPawn.parentElement.getAttribute('tile-id'));
+                const newPosition = parseInt(event.target.getAttribute('tile-id'));
+                const validTiles = calcValidTiles(currentPosition, steps);
 
-            const position = targetTile.getAttribute('pos')
-            console.log(position)
-            setPosition(position)
+                const position = targetTile.getAttribute('pos')
+                console.log(position)
+                setPosition(position)
 
-            if (validTiles.includes(newPosition)){
-                event.target.appendChild(selectedPawn);
-                const words = targetTile.className.split(' ');
-                const color = words[words.length - 1];
-                sendQuestionRequest(color)
-                setMoveMade(true);
+                if (validTiles.includes(newPosition)){
+                    event.target.appendChild(selectedPawn);
+                    const words = targetTile.className.split(' ');
+                    const color = words[words.length - 1];
+                    sendQuestionRequest(color)
+                    setMoveMade(true);
 
+                }
             }
         }
-    }
         boardGrid.addEventListener('click', handleCLick);
 
         // Cleanup function to remove event listeners when the component unmounts
@@ -158,7 +158,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
     };
 
     return (
-        <div className="dice-container">
+        <div>
             <div className="dice-wrapper">
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
@@ -176,6 +176,12 @@ export function PlayBoard() {
     const [position, setPosition] = useState('8-5');
     const [gamePaused, setGamePaused] = useState(false);
 
+    const [textBoxContent, setTextBoxContent] = useState('');
+
+    const handleTextBoxChange = (event) => {
+        setTextBoxContent(event.target.value);
+    };
+
     useEffect(() => {
         socket.on('receive_question', (data) => {
             setQuestion(data);
@@ -186,8 +192,9 @@ export function PlayBoard() {
         };
     }, []);
 
-    const handleContinue = () => {
-        setGamePaused(false); // Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraag
+    const handleSubmitAnswer = () => {
+        setGamePaused(false);
+        socket.emit('send_textbox_content', { content: textBoxContent });// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
     };
 
     return (
@@ -201,15 +208,15 @@ export function PlayBoard() {
                     setCurrentPosition={setCurrentPosition}
                     setPosition={setPosition}
                 />
-                </div>
-        <div className='playboard-container' >
-        </div>
+            </div>
+            <div className='playboard-container' >
+            </div>
             <div className={gamePaused ? 'dice-container blurred' : 'dice-container'}>
-            <DiceContainer
-                setSteps={setSteps}
-                setMoveMade={setMoveMade}
-                position={position}></DiceContainer>
-        </div>
+                <DiceContainer
+                    setSteps={setSteps}
+                    setMoveMade={setMoveMade}
+                    position={position}></DiceContainer>
+            </div>
             {gamePaused && (
                 <div className="question-popup">
                     <div className="question">{question}</div>
