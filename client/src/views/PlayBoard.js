@@ -162,7 +162,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
             <div className="dice-wrapper">
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
-            <button type='button' onClick={roll}>Roll the dice</button>
+            <button className={'button'} type='button' onClick={roll}>Roll the dice</button>
         </div>
     );
 };
@@ -218,12 +218,11 @@ export function PlayBoard() {
                     position={position}></DiceContainer>
             </div>
             {gamePaused && (
-                <div className="question-popup">
-                    <div className="question">{question}</div>
-                    <div className="answer-popup">
-                        <input className={'answerInput'} type="text" value={textBoxContent} onChange={handleTextBoxChange} />
-                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
-                    </div>
+                <div className='questionBoxPopup'>
+                <div className="questionOrangeBox">
+                    <div className='strategyName'>STRATEGIE <br /> logo <br /></div>
+                    <div className='questionLabel'><br /> Question: </div>
+                    <div className="questionWhiteBox">{question}</div>
                 </div>
             )}
         </div>

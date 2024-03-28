@@ -200,39 +200,58 @@ button:hover{
     filter: blur(5px);
 }
 
-.question-popup {
+.questionWhiteBox {
     font-family: 'Itim', Arial, sans-serif;
     font-size: 20px;
     color: black;
-    position: fixed;
-    top: 5%;
-    left: 5%;
-    width: 35%;
-    height: auto;
-    /*transform: translate(-50%, -50%);*/
-    background-color: white;
+    position: absolute;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    left: 10%;
+    width: 70%;
+    height: 65%;
+    min-height: 30%;
+    max-height: 70%;
+    bottom: 0px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
 
-.answerInput {
+.questionOrangeBox {
+    border: 2px solid white;
     font-family: 'Itim', Arial, sans-serif;
     font-size: 20px;
     color: black;
-    position: absolute;
-    right: 7cm;
-    top: 1cm;
+    background-color: #C66732;
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 35%;
+    height: 80%;
+    padding: 20px;
     border-radius: 5px;
+    z-index: 1;
+
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.submitButton {
-    bottom: 5px;
+.strategyName{
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 40px;
+    color: white;
 }
 
-.answer-popup {
+.questionLabel{
+    position: absolute;
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 25px;
+    color: white;
+    left: 10%;
+}
+
+.answerPopup {
     font-family: 'Itim', Arial, sans-serif;
     font-size: 20px;
     color: black;
