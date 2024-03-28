@@ -227,7 +227,7 @@ export function PlayBoard() {
                 </div>
                     <div className="answerPopup">
                         <div className='AnswerText'>Answer :</div>
-                            <input className={'answerInput'} type="text" value={textBoxContent} onChange={handleTextBoxChange} />
+                            <textarea className={'answerInput'} value={textBoxContent} onChange={handleTextBoxChange} />
                         <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
                     </div>
                 </div>
