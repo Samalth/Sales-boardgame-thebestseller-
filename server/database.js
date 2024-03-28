@@ -66,9 +66,12 @@ async function modulePopUp(color, sort='question') {
                    // resolve(results);
 
                     const resultsString = JSON.stringify(results);
-
-                    const textsQuestionEnglish = resultsString.replace(/["\[\]\/\n]/g, '');
-                    resolve(textsQuestionEnglish);
+                    const values = results.map(entry => Object.values(entry)[0]);
+                    const resultsString2 = values.join('');
+                    const stringWithoutBrackets = resultsString2.replace(/^\[|\]$/g, '');
+                    const stringWithoutNewlines = stringWithoutBrackets.replace(/\\n/g, '');
+                    const stringFinal = stringWithoutNewlines.replace(/{|}/g, '');
+                    resolve(stringFinal);
                 });
             });
 
