@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-const startPieces = ['lunar'];
+const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
 let selectedPawn = null;
 
 const BoardGrid = ({steps, moveMade, setMoveMade, currentPosition, setCurrentPosition, currentPlayer, setCurrentPlayer, selectedPawn, setSelectedPawn}) => {

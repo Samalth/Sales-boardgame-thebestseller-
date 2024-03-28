@@ -4,6 +4,7 @@ const path = require('path')
 const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
+const fs = require('fs');
 
 const databaseQuestion  = require("./database")
 const userLogger = require('./userLogger')
@@ -11,6 +12,8 @@ const modLogger = require('./modLogger')
 
 
 app.use(cors())
+
+fs.writeFileSync('data.json', '{\n  "users": [],\n  "mods": []\n}');
 
 const server = http.createServer(app)
 
@@ -42,16 +45,16 @@ io.on('connection', (socket)=> {
 
     socket.on("disconnect", (reason) => {
         // console.log(reason)
+        socket.to(userLogger("getRoom", socket.id)).emit('delete_user', "deleting")
         userLogger("delete", socket.id)
         modLogger("delete", socket.id)
     })
 
     socket.on("join_room", (data) => {
         var exists = modLogger('checkExists', socket.id, data.room)
-        if (exists === 'exists'){
+        if (exists === 'exists') {
             socket.join(data.room)
             var availability = userLogger('checkAvailability', socket.id, data)
-            socket.to(data.room).emit('add_user', "adding")
         } else{
             availability = 'Room does not exist'
         }
@@ -60,6 +63,7 @@ io.on('connection', (socket)=> {
         // console.log(availability)
         if (availability === 'available') {
             socket.join(data.room)
+            socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
             userLogger('updatePoints', socket.id, data.points)
