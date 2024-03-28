@@ -125,6 +125,24 @@
       "name": "",
       "points": 0,
       "strategy": ""
+    },
+    {
+      "id": "fR2ttJo_n0C2t2V2AAAD",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "FL2GygBzgQY0zExaAAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
     }
   ],
   "mods": [
@@ -142,6 +160,11 @@
       "id": "BFWPuQdmULeSYZKuAAAH",
       "language": "NL",
       "room": "8164A"
+    },
+    {
+      "id": "FL2GygBzgQY0zExaAAAB",
+      "language": "NL",
+      "room": "MM4S9"
     }
   ]
 }

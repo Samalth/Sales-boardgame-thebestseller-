@@ -177,7 +177,6 @@ export function PlayBoard() {
     const [gamePaused, setGamePaused] = useState(false);
 
     const [textBoxContent, setTextBoxContent] = useState('');
-    var huppeldepup = textBoxContent;
 
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
@@ -196,7 +195,7 @@ export function PlayBoard() {
 
     const handleSubmitAnswer = (huppeldepup) => {
         setGamePaused(false);
-        socket.emit('send_textbox_content', huppeldepup);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
+        socket.emit('send_textbox_content', textBoxContent);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
     };
 
     return (
