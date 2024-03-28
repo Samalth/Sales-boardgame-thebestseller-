@@ -53,7 +53,7 @@ async function modulePopUp(color, sort='question') {
             queryMod = 'SELECT QEnglish FROM questionstable where ID=?';
             break
         case 'answer':
-            queryMod = 'SELECT AnswerWord1 FROM questionstable where ID=?';
+            queryMod = 'SELECT QDanish FROM questionstable where ID=?';
             break
     }
             // Wrap the queryQuestion in a Promise

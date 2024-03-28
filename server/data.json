@@ -1,14 +1,29 @@
 {
   "users": [
     {
-      "id": "bdkTlr1buIaPjGTKAAAB",
+      "id": "puKXDmYABoprj32NAAAB",
       "language": "NL",
       "room": "",
       "user": "",
       "name": "",
       "points": 0,
       "strategy": ""
+    },
+    {
+      "id": "biHqOn3zJ6YcPOQCAAAD",
+      "language": "NL",
+      "room": "6M487",
+      "user": "",
+      "name": "marktmongool",
+      "points": "",
+      "strategy": "Top of the World"
     }
   ],
-  "mods": []
+  "mods": [
+    {
+      "id": "puKXDmYABoprj32NAAAB",
+      "language": "NL",
+      "room": "6M487"
+    }
+  ]
 }
