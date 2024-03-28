@@ -146,7 +146,7 @@ label{
     color: white;
     font-weight: 500;
 }
-.questionpopup{
+.questionpopup {
     font-family: Itim, Arial, Helvetica, sans-serif;
     position: absolute;
     font-size: 28px;
@@ -155,7 +155,6 @@ label{
     color: white;
     float: left;
     background-color: #9ca3af;
- /*   display: inline-block*/
 }
 .answerpopup{
     font-family: Itim, Arial, Helvetica, sans-serif;
