@@ -48,10 +48,10 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         socket.emit("send_question_request", { questionColor: color });
     };
 
-  /*  const sendAnswerRequest = (colorAnswer) => {
-        socket.emit("send_answer_request", { answerColor: colorAnswer });
+    const sendAnswerRequest = (color) => {
+        socket.emit("send_answer_request", { answerColor: color });
     };
-*/
+
     useEffect(() => {
         socket.on("update_valid_positions", (data) => {
             setValidPositions(data);
@@ -71,9 +71,10 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 if (validPositions.includes(newPosition) && !moveMade) {
                     // Append the pawn to the new tile and update game state as necessary
                     event.target.appendChild(selectedPawn);
- 
+
                     const color = targetTile.className.split(' ')[1];
                     sendQuestionRequest(color);
+                    sendAnswerRequest(color);
                     setMoveMade(true);
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
                     // Update the pawn's position in your state
@@ -82,7 +83,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         };
         boardGrid.addEventListener('click', handleClick);
- 
+
         // Cleanup function to remove event listeners when the component unmounts
         return () => {
             boardGrid.removeEventListener('click', handleClick);
@@ -105,7 +106,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
- 
+
     return (
         <div className='board-grid'>
             {tiles}
@@ -118,12 +119,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
-    
+
     const roll = () => {
         const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
         const dice = document.querySelector(".diceImage");
         dice.classList.add("shake");
-    
+
         let interval = setInterval(function() {
             let diceValue = Math.floor(Math.random() * 6) + 1;
             dice.setAttribute("src", images[diceValue - 1]);
@@ -150,8 +151,9 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
     );
 };
 
-export function PlayBoard() {
+export function ModView() {
     const [question, setQuestion] = useState("");
+    const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
@@ -167,6 +169,16 @@ export function PlayBoard() {
         };
     }, []);
 
+    useEffect(() => {
+        socket.on("receive_answer", (data) => {
+            setAnswer(data);
+        });
+        return () => {
+            socket.off('receive_answer');
+        };
+    }, []);
+
+
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
@@ -176,7 +188,7 @@ export function PlayBoard() {
         console.log(buttonPoints);
         socket.emit("send_points",{points: buttonPoints})
         console.log("Log1");
-       // updateDataInFile(filePath, newData);
+        // updateDataInFile(filePath, newData);
     };
 
     return (
@@ -184,18 +196,21 @@ export function PlayBoard() {
             <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
                        setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
             <DiceContainer setMoveMade= {setMoveMade} position={position}/>
-            <div className='questionpopup'>{question}</div>
-            <button onClick={togglePopup}>Open Popup</button>
+
+            <button onClick={togglePopup}>Points</button>
             {/* Popup container */}
             {showPopup && (
                 <div className="popup-container">
                     <div className="popup">
+                        <div className='questionpopup'>{question}</div>
+                        <div className='answerpopup'>{answer}</div>
                         <div className="button-container">
                             {/* Linking the updateDataInFile function to the button */}
                             <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
                             <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
                             <button className="button button-derde" onClick={() =>handleUpdatePoints(15)}>15 points</button>
                             <button className="button button-secondary" onClick={() =>handleUpdatePoints(20)}>20 points</button>
+                            <button className="button-submit"> Submit </button>
                         </div>
                     </div>
                 </div>

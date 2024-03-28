@@ -5,6 +5,7 @@ import { ModSettings } from './views/ModSettings'
 import { PlayBoard } from './views/PlayBoard';
 import { JoinGame } from './views/JoinGame';
 import { Gamepin } from './views/Gamepin'
+import { ModView } from './views/ModView'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/game' element={<PlayBoard/>} />
           <Route path='/joingame' element={<JoinGame/>} />
           <Route path='/gamepin' element={<Gamepin/>} />
+          <Route path='/modview' element={<ModView/>} />
         </Routes>
       </BrowserRouter>
     </div>
