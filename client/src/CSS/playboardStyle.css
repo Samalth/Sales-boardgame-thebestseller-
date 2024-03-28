@@ -23,8 +23,8 @@ img {
 }
 
 .tile {
- margin: 2px;
- position: relative;
+    margin: 2px;
+    position: relative;
 }
 
 .yellow {
@@ -77,11 +77,11 @@ background-size: cover;
 }
 
 .pieceworld{
-    background-image: url('../images/LUNAR.png');
+    background-image: url('../images/WORLD.png');
     background-size: cover;
 }
 .piecelunar{
-    background-image: url('../images/WORLD.png');
+    background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
 
@@ -145,6 +145,60 @@ label{
     font-size: 36px;
     color: white;
     font-weight: 500;
+}
+.questionpopup {
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    position: absolute;
+    font-size: 28px;
+    height: 300px;
+    width: 25%;
+    color: white;
+    float: left;
+    background-color: #9ca3af;
+}
+.answerpopup{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    position: absolute;
+    height: 300px;
+    width: 50%;
+    color: white;
+    float: left;
+    bottom: 0;
+    background-color: #2e2e2e;
+}
+
+.button-container{
+    font-family: Itim, Arial, Helvetica, sans-serif;
+    height: 700px;
+    width: 25%;
+    position: absolute;
+    color: white;
+    float: right;
+    background-color: #53A65B;
+    display: inline-block
+}
+
+.button-submit{
+
+    margin: -20px -50px;
+    position:relative;
+    top:35%;
+    left:-30%;
+
+}
+
+.tile.blink {
+    animation: blink-Border 0.6s infinite alternate;
+}
+
+@keyframes blink-Border {
+    0% {
+        border: 3px solid transparent;
+    }
+    100% {
+        border: 3px solid #ffdfba;
+    }
 }
 
 button {

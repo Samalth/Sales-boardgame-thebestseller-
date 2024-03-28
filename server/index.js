@@ -4,14 +4,18 @@ const path = require('path')
 const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
+const fs = require('fs');
 
 const databaseQuestion  = require("./database")
+const databaseAnswer  = require("./database")
 const userLogger = require('./userLogger')
 const modLogger = require('./modLogger')
 const getMovesFromCoordinate = require('./positionCalculator')
 
 
 app.use(cors())
+
+fs.writeFileSync('data.json', '{\n  "users": [],\n  "mods": []\n}');
 
 const server = http.createServer(app)
 
@@ -43,16 +47,16 @@ io.on('connection', (socket)=> {
 
     socket.on("disconnect", (reason) => {
         // console.log(reason)
+        socket.to(userLogger("getRoom", socket.id)).emit('delete_user', "deleting")
         userLogger("delete", socket.id)
         modLogger("delete", socket.id)
     })
 
     socket.on("join_room", (data) => {
         var exists = modLogger('checkExists', socket.id, data.room)
-        if (exists === 'exists'){
+        if (exists === 'exists') {
             socket.join(data.room)
             var availability = userLogger('checkAvailability', socket.id, data)
-            socket.to(data.room).emit('add_user', "adding")
         } else{
             availability = 'Room does not exist'
         }
@@ -61,6 +65,7 @@ io.on('connection', (socket)=> {
         // console.log(availability)
         if (availability === 'available') {
             socket.join(data.room)
+            socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
             userLogger('updatePoints', socket.id, data.points)
@@ -79,13 +84,28 @@ io.on('connection', (socket)=> {
         socket.emit('receive_question', questionText);
     })
 
+    socket.on('send_answer_request', async (data) => {
+        var answerText = await databaseAnswer(data.answerColor, 'answer');
+
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('receive_answer', answerText);
+        socket.emit('receive_answer', answerText);
+    })
+
     socket.on('send_dice_roll_and_position', (data) =>{
         // console.log(data)
         const coordinate = data.position.split('-');
         const xPos = parseInt(coordinate[0]);
         const yPos = parseInt(coordinate[1]);
         const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
-        console.log(moves);
+
+        // console.log(moves);
+
+        const formattedPositions = moves.map(pos => `${pos.x}-${pos.y}`)
+        // console.log(formattedPositions);
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('update_valid_positions', formattedPositions);
+        socket.emit('update_valid_positions', formattedPositions);
     })
 
     socket.on('send_textbox_content', (data) => {
