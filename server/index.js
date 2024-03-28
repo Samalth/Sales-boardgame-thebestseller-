@@ -88,6 +88,10 @@ io.on('connection', (socket)=> {
         console.log(moves);
     })
 
+    socket.on('send_textbox_content', (data) => {
+        console.log(data);
+    })
+
     socket.on('send_points', (data) => {
         const oldPoints = userLogger('getPoints', socket.id);
         const points = userLogger('updatePoints', socket.id, parseInt(oldPoints + data.points));

@@ -177,9 +177,11 @@ export function PlayBoard() {
     const [gamePaused, setGamePaused] = useState(false);
 
     const [textBoxContent, setTextBoxContent] = useState('');
+    var huppeldepup = "hhhhh";
 
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
+        // huppeldepup = event.target.value;
     };
 
     useEffect(() => {
@@ -192,9 +194,9 @@ export function PlayBoard() {
         };
     }, []);
 
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = (huppeldepup) => {
         setGamePaused(false);
-        socket.emit('send_textbox_content', { content: textBoxContent });// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
+        socket.emit('send_textbox_content', huppeldepup);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
     };
 
     return (
@@ -223,6 +225,12 @@ export function PlayBoard() {
                     <div className='strategyName'>STRATEGIE <br /> logo <br /></div>
                     <div className='questionLabel'><br /> Question: </div>
                     <div className="questionWhiteBox">{question}</div>
+                </div>
+                    <div className="answerPopup">
+                        <div className='AnswerText'>Answer :</div>
+                            <input className={'answerInput'} type="text" value={textBoxContent} onChange={handleTextBoxChange} />
+                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
+                    </div>
                 </div>
             )}
         </div>
