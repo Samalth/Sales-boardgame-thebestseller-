@@ -9,11 +9,13 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
-async function databaseQuestion(color) {
+/**/
+async function modulePopUp(color, sort='question') {
     let number = 1
     switch (color){
         case 'yellow': // Lunar
-            number = Math.floor(Math.random()*2) + 10;
+            /*number = Math.floor(Math.random()*2) + 10;*/
+            number = 9
             break
         case 'blue': // Domino House
             number = 1
@@ -22,10 +24,12 @@ async function databaseQuestion(color) {
             number = 1
             break
         case 'red': // Safeline
-            number = Math.floor(Math.random()*2) + 14;
+            /*number = Math.floor(Math.random()*2) + 14;*/
+            number = 7
             break
         case 'green': // Top of the world
-            number = Math.floor(Math.random()*2) + 12;
+            /*number = Math.floor(Math.random()*2) + 12;*/
+            number = 5
             break
         case 'orange': // jysk
             number = 1
@@ -43,20 +47,40 @@ async function databaseQuestion(color) {
             number = Math.floor(Math.random() * 3) + 4;
             break
     }
-    const query = 'SELECT QEnglish FROM questionstable where ID=?';
 
-    // Wrap the query in a Promise
-    return new Promise((resolve, reject) => {
-        connection.query(query, [number], (error, results) => {
-            if (error) {
-                reject(error);
-                return;
-            }
-            // resolve(results);
-            const texts = results.map(result => result.QEnglish.replace(/["\[\]\/\n]/g, ''));
-            resolve(texts);
-        });
-    });
+    switch (sort) {
+        case 'question':
+            queryMod = 'SELECT QEnglish FROM questionstable where ID=?';
+            break
+        case 'answer':
+            queryMod = 'SELECT AnswerWord1 FROM questionstable where ID=?';
+            break
+    }
+            // Wrap the queryQuestion in a Promise
+            return new Promise((resolve, reject) => {
+                connection.query(queryMod, [number], (error, results) => {
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
+                   // resolve(results);
+
+                    const resultsString = JSON.stringify(results);
+                    const values = results.map(entry => Object.values(entry)[0]);
+                    const resultsString2 = values.join('');
+                    const stringWithoutBrackets = resultsString2.replace(/^\[|\]$/g, '');
+                    const stringWithoutNewlines = stringWithoutBrackets.replace(/\\n/g, '');
+                    const stringFinal = stringWithoutNewlines.replace(/{|}/g, '');
+                    resolve(stringFinal);
+                });
+            });
+
 }
 
-module.exports=databaseQuestion;
+
+/**/
+
+
+
+
+module.exports=modulePopUp;

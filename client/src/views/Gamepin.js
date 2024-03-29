@@ -27,7 +27,7 @@ export function Gamepin() {
     }, []);
 
     const handleGame = () => {
-        navigate('/game');
+        navigate('/modview');
     };
     const handleHome = () => {
         navigate('/home')
