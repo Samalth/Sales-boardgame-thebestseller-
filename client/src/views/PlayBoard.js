@@ -147,10 +147,10 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
 
 export function PlayBoard() {
     const [question, setQuestion] = useState("");
+    const [steps, setSteps] = useState(0);
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
-    const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false);
 
@@ -164,15 +164,11 @@ export function PlayBoard() {
         };
     }, []);
 
-    const handleSubmitAnswer = (huppeldepup) => {
-        setGamePaused(false);
-        socket.emit('send_textbox_content', huppeldepup);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
-    };
-
     return (
         <div className="playboard-container">
             <div className={gamePaused ? 'board-grid blurred' : 'board-grid'}>
                 <BoardGrid
+                    steps={steps}
                     moveMade={moveMade}
                     setMoveMade={setMoveMade}
                     selectedPawn={selectedPawn}
@@ -184,23 +180,24 @@ export function PlayBoard() {
             </div>
             <div className={gamePaused ? 'dice-container blurred' : 'dice-container'}>
                 <DiceContainer
+                    setSteps={setSteps}
                     setMoveMade={setMoveMade}
                     position={position}></DiceContainer>
             </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>
-                <div className="questionOrangeBox">
-                    <div className='strategyName'>Strategie <br/> Logo </div>
-                    <div className='questionLabel'> <br/> Question: </div>
-                    <div className="questionWhiteBox">{question}</div>
-                </div>
+                    <div className="questionOrangeBox">
+                        <div className='strategyName'>Strategie <br/> Logo </div>
+                        <div className='questionLabel'> <br/> Question: </div>
+                        <div className="questionWhiteBox">{question}</div>
+                    </div>
                     <div className="answerPopup">
                         <div className='answerText'> Your answer: </div>
-                            <textarea className={'answerInput'} placeholder='Enter your answer here...' type="text" value={textBoxContent} onChange={handleTextBoxChange} />
-                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
+                        <textarea className='answerInput' placeholder='Enter your answer here...'/>
+                        <button className='submitButton'>Submit answer</button>
                     </div>
                 </div>
             )}
-        </>
-    );
-};
+        </div>
+    )
+}

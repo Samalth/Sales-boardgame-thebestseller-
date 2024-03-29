@@ -1,6 +1,26 @@
 {
   "users": [
     {
+      "id": "NsvYJCpHZRMCOzZ9AAAB",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
+  ],
+  "mods": [
+    {
+      "id": "NsvYJCpHZRMCOzZ9AAAB",
+      "language": "NL",
+      "room": "1M89M"
+    }
+  ]
+}
+{
+  "users": [
+    {
       "id": "oF2lOQW3jM0XkzGSAAAD",
       "language": "NL",
       "room": "",
