@@ -67,7 +67,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 if (validPositions.includes(newPosition) && !moveMade) {
                     // Append the pawn to the new tile and update game state as necessary
                     event.target.appendChild(selectedPawn);
- 
+
                     const color = targetTile.className.split(' ')[1];
                     sendQuestionRequest(color);
                     setMoveMade(true);
@@ -78,7 +78,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         };
         boardGrid.addEventListener('click', handleClick);
- 
+
         // Cleanup function to remove event listeners when the component unmounts
         return () => {
             boardGrid.removeEventListener('click', handleClick);
@@ -101,7 +101,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
- 
+
     return (
         <div className='board-grid'>
             {tiles}
@@ -110,7 +110,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 };
 
 // end board
-
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
@@ -153,46 +152,52 @@ export function PlayBoard() {
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
+    const [gamePaused, setGamePaused] = useState(false);
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
             setQuestion(data);
+            setGamePaused(true); // Pauzeer het spel wanneer een vraag wordt ontvangen
         });
         return () => {
             socket.off('receive_question');
         };
     }, []);
 
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
-    };
-
-    const handleUpdatePoints = (buttonPoints) => {
-        // Call the updateDataInFile function to update points for Samuel
-        console.log(buttonPoints);
-        socket.emit("send_points",{points: buttonPoints})
-        console.log("Log1");
-       // updateDataInFile(filePath, newData);
+    const handleSubmitAnswer = (huppeldepup) => {
+        setGamePaused(false);
+        socket.emit('send_textbox_content', huppeldepup);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
     };
 
     return (
-        <>
-            <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
-                       setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
-            <DiceContainer setMoveMade= {setMoveMade} position={position}/>
-            <div className='questionpopup'>{question}</div>
-            <button onClick={togglePopup}>Open Popup</button>
-            {/* Popup container */}
-            {showPopup && (
-                <div className="popup-container">
-                    <div className="popup">
-                        <div className="button-container">
-                            {/* Linking the updateDataInFile function to the button */}
-                            <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
-                            <button className="button button-derde" onClick={() =>handleUpdatePoints(15)}>15 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(20)}>20 points</button>
-                        </div>
+        <div className="playboard-container">
+            <div className={gamePaused ? 'board-grid blurred' : 'board-grid'}>
+                <BoardGrid
+                    moveMade={moveMade}
+                    setMoveMade={setMoveMade}
+                    selectedPawn={selectedPawn}
+                    setSelectedPawn={setSelectedPawn}
+                    setPosition={setPosition}
+                />
+            </div>
+            <div className='playboard-container' >
+            </div>
+            <div className={gamePaused ? 'dice-container blurred' : 'dice-container'}>
+                <DiceContainer
+                    setMoveMade={setMoveMade}
+                    position={position}></DiceContainer>
+            </div>
+            {gamePaused && (
+                <div className='questionBoxPopup'>
+                <div className="questionOrangeBox">
+                    <div className='strategyName'>Strategie <br/> Logo </div>
+                    <div className='questionLabel'> <br/> Question: </div>
+                    <div className="questionWhiteBox">{question}</div>
+                </div>
+                    <div className="answerPopup">
+                        <div className='answerText'> Your answer: </div>
+                            <textarea className={'answerInput'} placeholder='Enter your answer here...' type="text" value={textBoxContent} onChange={handleTextBoxChange} />
+                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
                     </div>
                 </div>
             )}

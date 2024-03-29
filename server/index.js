@@ -99,6 +99,10 @@ io.on('connection', (socket)=> {
         socket.emit('update_valid_positions', formattedPositions);
     })
 
+    socket.on('send_textbox_content', (data) => {
+        console.log(data);
+    })
+
     socket.on('send_points', (data) => {
         const oldPoints = userLogger('getPoints', socket.id);
         const points = userLogger('updatePoints', socket.id, parseInt(oldPoints + data.points));
