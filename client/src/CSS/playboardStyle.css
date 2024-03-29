@@ -356,11 +356,11 @@ button:hover{
 .submitButton {
     position: absolute;
     bottom: 10px;
-    left: 140px; /* Stel de linkerpositie in op 0 */
-    right: 140px; /* Stel de rechterpositie in op 0 */
-    margin: auto; /* Centreer horizontaal */
-    margin-top: 20px; /* Verticale bovenmarge (pas aan naar wens) */
-    margin-bottom: 20px; /* Verticale ondermarge (pas aan naar wens) */
+    left: 140px;
+    right: 140px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .answerText {
@@ -372,6 +372,6 @@ button:hover{
 }
 
 .popup-blurred {
-    filter: none; /* Verwijder vervaging voor de popup-container */
+    filter: none;
 }
 

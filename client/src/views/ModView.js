@@ -184,11 +184,8 @@ export function ModView() {
     };
 
     const handleUpdatePoints = (buttonPoints) => {
-        // Call the updateDataInFile function to update points for Samuel
         console.log(buttonPoints);
         socket.emit("send_points",{points: buttonPoints})
-        console.log("Log1");
-        // updateDataInFile(filePath, newData);
     };
 
     return (
