@@ -17,6 +17,33 @@
       "name": "marktmongool",
       "points": "",
       "strategy": "Top of the World"
+    },
+    {
+      "id": "B2TZLiM0zwPR5MgeAAAH",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "XYqzImo2zB9-4QsmAAAJ",
+      "language": "NL",
+      "room": "3S446",
+      "user": "",
+      "name": "Susmita",
+      "points": "",
+      "strategy": "Lunar"
+    },
+    {
+      "id": "sjmVojs4RVj603R8AAAL",
+      "language": "NL",
+      "room": "3S446",
+      "user": "",
+      "name": "Sara",
+      "points": "",
+      "strategy": "Top of the World"
     }
   ],
   "mods": [
@@ -24,6 +51,11 @@
       "id": "puKXDmYABoprj32NAAAB",
       "language": "NL",
       "room": "6M487"
+    },
+    {
+      "id": "B2TZLiM0zwPR5MgeAAAH",
+      "language": "NL",
+      "room": "3S446"
     }
   ]
 }
