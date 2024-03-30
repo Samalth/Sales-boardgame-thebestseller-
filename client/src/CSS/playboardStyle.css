@@ -314,6 +314,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
+    margin-top: -3%;
 }
 
 .answerPopup {
@@ -343,7 +344,7 @@ button:hover{
     margin-bottom: 5%;
     left: 10%;
     width: 70%;
-    height: 60%;
+    height: 65%;
     min-height: 30%;
     max-height: 70%;
     padding: 20px;
@@ -369,6 +370,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
+    margin-top: 2%;
 }
 
 .popup-blurred {
