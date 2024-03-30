@@ -48,10 +48,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         socket.emit("send_question_request", { questionColor: color });
     };
 
-  /*  const sendAnswerRequest = (colorAnswer) => {
-        socket.emit("send_answer_request", { answerColor: colorAnswer });
-    };
-*/
     useEffect(() => {
         socket.on("update_valid_positions", (data) => {
             setValidPositions(data);
@@ -117,12 +113,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
-    
+
     const roll = () => {
         const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
         const dice = document.querySelector(".diceImage");
         dice.classList.add("shake");
-    
+
         let interval = setInterval(function() {
             let diceValue = Math.floor(Math.random() * 6) + 1;
             dice.setAttribute("src", images[diceValue - 1]);
@@ -157,6 +153,11 @@ export function PlayBoard() {
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false);
+    const [textBoxContent, setTextBoxContent] = useState('');
+
+    const handleTextBoxChange = (event) => {
+        setTextBoxContent(event.target.value);
+    };
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
@@ -167,6 +168,11 @@ export function PlayBoard() {
             socket.off('receive_question');
         };
     }, []);
+
+    const handleSubmitAnswer = (huppeldepup) => {
+        setGamePaused(false);
+        socket.emit('send_textbox_content', textBoxContent);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
+    };
 
     return (
         <div className="playboard-container">
@@ -197,11 +203,12 @@ export function PlayBoard() {
                     </div>
                     <div className="answerPopup">
                         <div className='answerText'> Your answer: </div>
-                        <textarea className='answerInput' placeholder='Enter your answer here...'/>
-                        <button className='submitButton'>Submit answer</button>
+                        <textarea className={'answerInput'} value={textBoxContent} onChange={handleTextBoxChange} />
+                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
                     </div>
                 </div>
             )}
         </div>
     )
 }
+
