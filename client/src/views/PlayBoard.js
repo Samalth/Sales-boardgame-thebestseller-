@@ -116,25 +116,30 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
     
     const roll = () => {
-        const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
-        const dice = document.querySelector(".diceImage");
-        dice.classList.add("shake");
-    
-        let interval = setInterval(function() {
-            let diceValue = Math.floor(Math.random() * 6) + 1;
-            dice.setAttribute("src", images[diceValue - 1]);
-        }, 100);
-
-        setTimeout(function(){
-            clearInterval(interval);
-            dice.classList.remove("shake");
-            const newDiceValue = Math.floor(Math.random() * 6) + 1;
-            setDiceValue(newDiceValue);
-            dice.setAttribute("src", images[newDiceValue - 1]);
-            socket.emit("send_dice_roll_and_position", { diceValue: newDiceValue, position: position });
-            setMoveMade(false);
-        }, 1000);
+        socket.emit("roll_dice")
     };
+
+    useEffect(() => {
+        socket.on("set_dice", (data) => {
+            const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
+            const dice = document.querySelector(".diceImage");
+            dice.classList.add("shake");
+
+            let interval = setInterval(function () {
+                let diceValue = Math.floor(Math.random() * 6) + 1;
+                dice.setAttribute("src", images[diceValue - 1]);
+            }, 100);
+
+            setTimeout(function () {
+                clearInterval(interval);
+                dice.classList.remove("shake");
+                setDiceValue(data);
+                dice.setAttribute("src", images[data - 1]);
+                socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
+                setMoveMade(false);
+            }, 1000);
+        })
+    })
 
     return (
         <div className="dice-container">

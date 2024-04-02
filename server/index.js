@@ -83,6 +83,13 @@ io.on('connection', (socket)=> {
         socket.emit('receive_question', questionText);
     })
 
+    socket.on("roll_dice", (data) => {
+        const diceValue = Math.floor(Math.random() * 6) + 1;
+        const room = userLogger("getRoom", socket.id)
+        socket.to(room).emit("set_dice", diceValue)
+        socket.emit("set_dice", diceValue)
+    })
+
     socket.on('send_dice_roll_and_position', (data) =>{
         // console.log(data)
         const coordinate = data.position.split('-');
