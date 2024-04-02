@@ -53,6 +53,24 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setValidPositions(data);
         });
 
+        socket.on("update_position", (data) => {
+            // Update the position of the selected pawn when receiving new position data
+            const newPosition = data.newPosition; // bijvoorbeeld 8-6
+            const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
+
+            // Find the DOM element of the selected pawn by its name
+            const selectedPawnElement = document.getElementById(selectedPawnName);
+
+            // If the selected pawn exists and the new position is valid
+            if (selectedPawnElement && validPositions.includes(newPosition)) {
+                // Move the pawn to the new position
+                const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
+                newTile.appendChild(selectedPawnElement);
+                // Update the position state of the selected pawn
+                setPosition(newPosition);
+                document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
+            }
+        });
         const boardGrid = document.querySelector('.board-grid');
 
         const handleClick = event => {
@@ -74,6 +92,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
                     // Update the pawn's position in your state
                     setPosition(newPosition); // Assuming setPosition updates the pawn's position state
+                    socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
                 }
             }
         };

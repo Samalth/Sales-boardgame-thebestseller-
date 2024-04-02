@@ -1,4 +1,43 @@
 {
-  "users": [],
-  "mods": []
+  "users": [
+    {
+      "id": "jSi0L6x1Xq2ygxpRAAAH",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "Kz_KEEtnOncJotVbAAAJ",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "0PuwI5jLMCkOswXxAAAP",
+      "language": "NL",
+      "room": "0S511",
+      "user": "",
+      "name": "marktmongool",
+      "points": "",
+      "strategy": "Lunar"
+    }
+  ],
+  "mods": [
+    {
+      "id": "Kz_KEEtnOncJotVbAAAJ",
+      "language": "NL",
+      "room": "153S0"
+    },
+    {
+      "id": "Kz_KEEtnOncJotVbAAAJ",
+      "language": "NL",
+      "room": "0S511"
+    }
+  ]
 }
