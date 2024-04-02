@@ -7,6 +7,7 @@ const cors = require('cors')
 const fs = require('fs');
 
 const databaseQuestion  = require("./database")
+const databaseAnswer  = require("./database")
 const userLogger = require('./userLogger')
 const modLogger = require('./modLogger')
 const getMovesFromCoordinate = require('./positionCalculator')
@@ -83,6 +84,14 @@ io.on('connection', (socket)=> {
         socket.emit('receive_question', questionText);
     })
 
+    socket.on('send_answer_request', async (data) => {
+        var answerText = await databaseAnswer(data.answerColor, 'answer');
+
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('receive_answer', answerText);
+        socket.emit('receive_answer', answerText);
+    })
+
     socket.on('send_dice_roll_and_position', (data) =>{
         // console.log(data)
         const coordinate = data.position.split('-');
@@ -97,6 +106,10 @@ io.on('connection', (socket)=> {
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('update_valid_positions', formattedPositions);
         socket.emit('update_valid_positions', formattedPositions);
+    })
+
+    socket.on('send_textbox_content', (data) => {
+        console.log(data);
     })
 
     socket.on('send_points', (data) => {
