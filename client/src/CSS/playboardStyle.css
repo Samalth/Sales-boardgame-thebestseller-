@@ -8,8 +8,8 @@ body{
     width: 65%;
     float: left;
     display: grid;
-    grid-template-columns: repeat(15, 60px); /* Alle vakjes zijn 56px breed */
-    grid-template-rows: repeat(9, 60px); /* Alle vakjes zijn 56px hoog */
+    grid-template-columns: repeat(15, 70px); /* Alle vakjes zijn 56px breed */
+    grid-template-rows: repeat(9, 70px); /* Alle vakjes zijn 56px hoog */
     margin-top: 80px;
     margin-right: 90px;
     justify-content: center;
@@ -28,7 +28,8 @@ img {
     flex-direction: column;
     margin: 2px;
     position: relative;
-    /*overflow: auto;*/
+    justify-content: space-around;
+    align-items: center;
 }
 
 .yellow {
