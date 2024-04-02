@@ -84,6 +84,23 @@ background-size: cover;
     background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
+.piecedomino{
+    background-image: url('../images/DOMINO.png');
+    background-size: cover;
+}
+.piecesafeline{
+    background-image: url('../images/SAFELINE.png');
+    background-size: cover;
+}
+.piecejysk{
+    background-image: url('../images/JYSK.png');
+    background-size: cover;
+}
+.pieceklappenhatten{
+    background-image: url('../images/KLAPPENHATTEN.png');
+    background-size: cover;
+}
+
 
 .highlight {
     border: 2px solid yellow;
