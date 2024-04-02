@@ -8,8 +8,8 @@ body{
     width: 65%;
     float: left;
     display: grid;
-    grid-template-columns: repeat(15, 60px); /* Alle vakjes zijn 56px breed */
-    grid-template-rows: repeat(9, 60px); /* Alle vakjes zijn 56px hoog */
+    grid-template-columns: repeat(15, 70px); /* Alle vakjes zijn 56px breed */
+    grid-template-rows: repeat(9, 70px); /* Alle vakjes zijn 56px hoog */
     margin-top: 80px;
     margin-right: 90px;
     justify-content: center;
@@ -23,8 +23,13 @@ img {
 }
 
 .tile {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     margin: 2px;
     position: relative;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .yellow {
@@ -76,6 +81,18 @@ background-image: url('../images/Wereld.png');
 background-size: cover;
 }
 
+.startpieces {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .pieceworld{
     background-image: url('../images/WORLD.png');
     background-size: cover;
@@ -84,6 +101,24 @@ background-size: cover;
     background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
+.piecedomino{
+    background-image: url('../images/DOMINO.png');
+    background-size: cover;
+}
+.piecesafeline{
+    background-image: url('../images/SAFELINE.png');
+    background-size: cover;
+}
+.piecejysk{
+    background-image: url('../images/JYSK.png');
+    background-size: cover;
+}
+.pieceklaphatten{
+    background-image: url('../images/KLAPPENHATTEN.png');
+    background-size: cover;
+
+}
+
 
 .highlight {
     border: 2px solid yellow;
@@ -127,12 +162,7 @@ margin: 2px;
  z-index: auto;
 }
 
-.startpieces {
- width: 20px;
- height: 20px;
- position: relative;
- z-index: auto;
-}
+
 
 path {
  position: relative;
