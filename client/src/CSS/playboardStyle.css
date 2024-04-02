@@ -23,8 +23,12 @@ img {
 }
 
 .tile {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     margin: 2px;
     position: relative;
+    /*overflow: auto;*/
 }
 
 .yellow {
@@ -76,6 +80,18 @@ background-image: url('../images/Wereld.png');
 background-size: cover;
 }
 
+.startpieces {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .pieceworld{
     background-image: url('../images/WORLD.png');
     background-size: cover;
@@ -96,9 +112,10 @@ background-size: cover;
     background-image: url('../images/JYSK.png');
     background-size: cover;
 }
-.pieceklappenhatten{
+.pieceklaphatten{
     background-image: url('../images/KLAPPENHATTEN.png');
     background-size: cover;
+
 }
 
 
@@ -144,12 +161,7 @@ margin: 2px;
  z-index: auto;
 }
 
-.startpieces {
- width: 20px;
- height: 20px;
- position: relative;
- z-index: auto;
-}
+
 
 path {
  position: relative;
