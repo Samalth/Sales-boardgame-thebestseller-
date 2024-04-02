@@ -60,7 +60,6 @@ io.on('connection', (socket)=> {
         } else{
             availability = 'Room does not exist'
         }
-
         
         // console.log(availability)
         if (availability === 'available') {
@@ -80,7 +79,7 @@ io.on('connection', (socket)=> {
         var questionText = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
-        socket.to(room).emit('receive_question', questionText);
+        // socket.to(room).emit('receive_question', questionText);
         socket.emit('receive_question', questionText);
     })
 
@@ -109,12 +108,20 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_textbox_content', (data) => {
+        const room = userLogger('getRoom', socket.id);
         console.log(data);
+        socket.to(room).emit('submitted_answer', data);
     })
 
     socket.on('send_points', (data) => {
         const oldPoints = userLogger('getPoints', socket.id);
         const points = userLogger('updatePoints', socket.id, parseInt(oldPoints + data.points));
+    })
+
+    socket.on("update_position", (data) => {
+        const room = userLogger('getRoom', socket.id);
+        socket.to(room).emit('update_position', data);
+        // socket.emit('update_position', data);
     })
 })
 

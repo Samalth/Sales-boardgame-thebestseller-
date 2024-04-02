@@ -159,6 +159,7 @@ export function ModView() {
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
+    const [submittedAnswer, setSubmittedAnswer] = useState('')
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
@@ -177,6 +178,16 @@ export function ModView() {
             socket.off('receive_answer');
         };
     }, []);
+    useEffect(() => {
+        socket.on("submitted_answer", (data) => {
+            setSubmittedAnswer(data)
+            console.log(data)
+            console.log(submittedAnswer)
+        });
+        return () => {
+            socket.off('submitted_answer');
+        };
+    })
 
 
     const togglePopup = () => {
@@ -200,8 +211,10 @@ export function ModView() {
                 <div className="popup-container">
                     <div className="popup">
                         <div className='questionpopup'>{question}</div>
-                        <div className='answerpopup'>{answer}</div>
-                        <div className="button-container">
+                        <div className='answerpopup'>
+                            <div className={''}>{submittedAnswer}</div>
+                    </div>
+                    <div className="button-container">
                             {/* Linking the updateDataInFile function to the button */}
                             <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
                             <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
@@ -214,4 +227,4 @@ export function ModView() {
             )}
         </>
     );
-};
+}
