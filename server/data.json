@@ -1,4 +1,29 @@
 {
-  "users": [],
-  "mods": []
+  "users": [
+    {
+      "id": "YclEal6ziOTk0LNVAAAF",
+      "language": "NL",
+      "room": "",
+      "user": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "jqCdlwexEu2dzM1BAAAH",
+      "language": "NL",
+      "room": "9810S",
+      "user": "",
+      "name": "",
+      "points": "",
+      "strategy": ""
+    }
+  ],
+  "mods": [
+    {
+      "id": "YclEal6ziOTk0LNVAAAF",
+      "language": "NL",
+      "room": "9810S"
+    }
+  ]
 }
