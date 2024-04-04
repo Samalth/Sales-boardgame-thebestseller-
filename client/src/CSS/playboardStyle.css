@@ -85,40 +85,47 @@ background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
     position: relative;
     z-index: auto;
     max-width: 100%;
     max-height: 100%;
 }
 
-.pieceworld{
+.pieceworld {
     background-image: url('../images/WORLD.png');
     background-size: cover;
 }
-.piecelunar{
+.piecelunar {
     background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
-.piecedomino{
+.piecedomino {
     background-image: url('../images/DOMINO.png');
     background-size: cover;
 }
-.piecesafeline{
+.piecesafeline {
     background-image: url('../images/SAFELINE.png');
     background-size: cover;
 }
-.piecejysk{
+.piecejysk {
     background-image: url('../images/JYSK.png');
     background-size: cover;
 }
-.pieceklaphatten{
+.pieceklaphatten {
     background-image: url('../images/KLAPPENHATTEN.png');
     background-size: cover;
-
 }
 
+.startpieces:only-child {
+    width: 35px;
+    height: 35px;
+}
+
+.startpieces:not(:only-child) {
+    width: 20px; 
+    height: 20px;
+}
+.
 
 .highlight {
     border: 2px solid yellow;
