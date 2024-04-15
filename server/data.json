@@ -1,29 +1,14 @@
 {
   "users": [
     {
-      "id": "Ch5n_lfdrhDBeo1LAAAK",
+      "id": "2Q0JO0DMUjnx4ki9AAAO",
       "language": "NL",
       "room": "",
       "user": "",
       "name": "",
       "points": 0,
       "strategy": ""
-    },
-    {
-      "id": "pePBHllFCAgofJeqAAAM",
-      "language": "NL",
-      "room": "6M862",
-      "user": "",
-      "name": "",
-      "points": "",
-      "strategy": ""
     }
   ],
-  "mods": [
-    {
-      "id": "Ch5n_lfdrhDBeo1LAAAK",
-      "language": "NL",
-      "room": "6M862"
-    }
-  ]
+  "mods": []
 }
