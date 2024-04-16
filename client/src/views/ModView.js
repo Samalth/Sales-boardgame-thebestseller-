@@ -245,6 +245,7 @@ export function ModView() {
                         <div className='assignScoreText'> Assign score: </div>
                         <div className='scoreButtons'>
                             {/* Linking the updateDataInFile function to the button */}
+                            <button className='points' onClick={() =>handleUpdatePoints(0)}> 0 </button>
                             <button className='points' onClick={() =>handleUpdatePoints(5)}> 5 </button>
                             <button className='points' onClick={() =>handleUpdatePoints(10)}> 10 </button>
                             <button className='points' onClick={() =>handleUpdatePoints(15)}> 15 </button>
