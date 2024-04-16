@@ -1,14 +1,29 @@
 {
   "users": [
     {
-      "id": "2Q0JO0DMUjnx4ki9AAAO",
+      "id": "WpuOdNiP2HhrwnFxAAAF",
       "language": "NL",
       "room": "",
       "user": "",
       "name": "",
       "points": 0,
       "strategy": ""
+    },
+    {
+      "id": "h03KgOGKJzPaQ0hFAAAH",
+      "language": "NL",
+      "room": "S90A3",
+      "user": "",
+      "name": "",
+      "points": "",
+      "strategy": ""
     }
   ],
-  "mods": []
+  "mods": [
+    {
+      "id": "WpuOdNiP2HhrwnFxAAAF",
+      "language": "NL",
+      "room": "S90A3"
+    }
+  ]
 }
