@@ -57,6 +57,25 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setValidPositions(data);
         });
 
+        socket.on("update_position", (data) => {
+            // Update the position of the selected pawn when receiving new position data
+            const newPosition = data.newPosition; // bijvoorbeeld 8-6
+            const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
+
+            // Find the DOM element of the selected pawn by its name
+            const selectedPawnElement = document.getElementById(selectedPawnName);
+
+            // If the selected pawn exists and the new position is valid
+            if (selectedPawnElement && validPositions.includes(newPosition)) {
+                // Move the pawn to the new position
+                const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
+                newTile.appendChild(selectedPawnElement);
+                // Update the position state of the selected pawn
+                setPosition(newPosition);
+                document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
+            }
+        });
+
         const boardGrid = document.querySelector('.board-grid');
 
         const handleClick = event => {
@@ -213,20 +232,26 @@ export function ModView() {
             <button onClick={togglePopup}>Points</button>
             {/* Popup container */}
             {showPopup && (
-                <div className="popup-container">
-                    <div className="popup">
-                        <div className='questionpopup'>{question}</div>
-                        <div className='answerpopup'>
-                            <div className={''}>{submittedAnswer}</div>
+                <div className='scorePopup'>
+                    <div className='questionStrategyBox'>
+                        <div className='strategyName2'> Strategy <br/> Logo </div>
+                        <div className='questionLabel2'> Question: </div>
+                        <div className='questionWhiteBox2'> {question} </div>
+                        <div className='answerLabel'> Player's answer: </div>
+                        <div className='questionWhiteBox3'> {submittedAnswer} </div>
                     </div>
-                    <div className="button-container">
+                    <div className='assignScoreBox'>
+                        <div className='correctAnswerText'> Correct answer: </div>
+                        <div className='correctAnswerBox'></div>
+                        <div className='assignScoreText'> Assign score: </div>
+                        <div className='scoreButtons'>
                             {/* Linking the updateDataInFile function to the button */}
-                            <button className="button button-primary" onClick={() =>handleUpdatePoints(5)}>5 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(10)}>10 points</button>
-                            <button className="button button-derde" onClick={() =>handleUpdatePoints(15)}>15 points</button>
-                            <button className="button button-secondary" onClick={() =>handleUpdatePoints(20)}>20 points</button>
-                            <button className="button-submit"> Submit </button>
+                            <button className='points' onClick={() =>handleUpdatePoints(5)}> 5 </button>
+                            <button className='points' onClick={() =>handleUpdatePoints(10)}> 10 </button>
+                            <button className='points' onClick={() =>handleUpdatePoints(15)}> 15 </button>
+                            <button className='points' onClick={() =>handleUpdatePoints(20)}> 20 </button>
                         </div>
+                        <button className='submitScoreButton'> Submit </button>
                     </div>
                 </div>
             )}
