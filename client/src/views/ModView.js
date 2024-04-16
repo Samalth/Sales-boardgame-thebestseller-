@@ -184,13 +184,16 @@ export function ModView() {
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
     const [submittedAnswer, setSubmittedAnswer] = useState('')
+    const [gamePaused, setGamePaused] = useState(false);
+
 
     useEffect(() => {
-        socket.on("receive_question", (data) => {
+        socket.on("mod-pause", (data) => {
+            setShowPopup(true);
             setQuestion(data);
         });
         return () => {
-            socket.off('receive_question');
+            socket.off('mod-pause');
         };
     }, []);
 
@@ -214,10 +217,6 @@ export function ModView() {
     })
 
 
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
-    };
-
     const handleUpdatePoints = (buttonPoints) => {
         console.log(buttonPoints);
         socket.emit("send_points",{points: buttonPoints})
@@ -225,11 +224,11 @@ export function ModView() {
 
     return (
         <>
+        <div className={showPopup ? 'playboard blurred' : 'playboard'}>
             <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
                        setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
             <DiceContainer setMoveMade= {setMoveMade} position={position}/>
-
-            <button onClick={togglePopup}>Points</button>
+        </div>
             {/* Popup container */}
             {showPopup && (
                 <div className='scorePopup'>
@@ -251,7 +250,7 @@ export function ModView() {
                             <button className='points' onClick={() =>handleUpdatePoints(15)}> 15 </button>
                             <button className='points' onClick={() =>handleUpdatePoints(20)}> 20 </button>
                         </div>
-                        <button className='submitScoreButton'> Submit </button>
+                        <button className='submitScoreButton' onClick={()=>{setShowPopup(false)}} > Submit </button>
                     </div>
                 </div>
             )}
