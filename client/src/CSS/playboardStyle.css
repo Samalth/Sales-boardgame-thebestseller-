@@ -534,3 +534,8 @@ button:hover{
     right: 140px;
     margin-bottom: 17%;
 }
+
+.turnsModView {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
+}

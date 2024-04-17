@@ -44,33 +44,19 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         ));
     };
 
-    const sendQuestionRequest = (color) => {
-        socket.emit("send_question_request", { questionColor: color });
-    };
-
-    const sendAnswerRequest = (color) => {
-        socket.emit("send_answer_request", { answerColor: color });
-    };
-
     useEffect(() => {
         socket.on("update_valid_positions", (data) => {
             setValidPositions(data);
         });
 
         socket.on("update_position", (data) => {
-            // Update the position of the selected pawn when receiving new position data
-            const newPosition = data.newPosition; // bijvoorbeeld 8-6
-            const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
-
-            // Find the DOM element of the selected pawn by its name
+            const newPosition = data.newPosition;
+            const selectedPawnName = data.selectedPawn;
             const selectedPawnElement = document.getElementById(selectedPawnName);
 
-            // If the selected pawn exists and the new position is valid
             if (selectedPawnElement && validPositions.includes(newPosition)) {
-                // Move the pawn to the new position
                 const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
                 newTile.appendChild(selectedPawnElement);
-                // Update the position state of the selected pawn
                 setPosition(newPosition);
                 document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
             }
@@ -78,35 +64,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
         const boardGrid = document.querySelector('.board-grid');
 
-        const handleClick = event => {
-            const targetTile = event.target.closest('.tile');
-            console.log(targetTile)
-            if (startPieces.includes(event.target.id)) {
-                event.target.classList.add('highlight');
-                setSelectedPawn(event.target);
-            } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
-                const newPosition = targetTile.getAttribute('pos');
-
-                if (validPositions.includes(newPosition) && !moveMade) {
-                    // Append the pawn to the new tile and update game state as necessary
-                    event.target.appendChild(selectedPawn);
-
-                    const color = targetTile.className.split(' ')[1];
-                    sendQuestionRequest(color);
-                    sendAnswerRequest(color);
-                    setMoveMade(true);
-                    document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    // Update the pawn's position in your state
-                    setPosition(newPosition); // Assuming setPosition updates the pawn's position state
-                }
-            }
-        };
-        boardGrid.addEventListener('click', handleClick);
-
-        // Cleanup function to remove event listeners when the component unmounts
-        return () => {
-            boardGrid.removeEventListener('click', handleClick);
-        };
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
 
     for (let i = 0; i < totalTiles; i++) {
@@ -114,14 +71,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         const isHighlighted = validPositions.includes(position);
         const tileClass = `tile ${tileInfo[i]} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
-            // If the tile is a start tile, render start pieces
             tiles.push(
                 <div key={i} className={tileClass} tile-id={i} pos={position}>
                     {renderStartPieces()}
                 </div>
             );
         } else {
-            // Otherwise, just render the tile
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
@@ -135,13 +90,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 // end board
 
-
 const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     const [diceValue, setDiceValue] = useState(1);
-
-    const roll = () => {
-        socket.emit("roll_dice")
-    };
 
     useEffect(() => {
         socket.on("set_dice", (data) => {
@@ -166,11 +116,11 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     })
 
     return (
-        <div className="dice-container">
-            <div className="dice-wrapper">
-                <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
+        <div className='dice-container'>
+            <div className='dice-wrapper'>
+                <img className='diceImage' src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
-            <button type='button' onClick={roll}>Roll the dice</button>
+            <div className='turnsModView'> ... is rolling the dice </div>
         </div>
     );
 };
@@ -184,8 +134,16 @@ export function ModView() {
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
     const [submittedAnswer, setSubmittedAnswer] = useState('')
-    const [gamePaused, setGamePaused] = useState(false);
+    const [diceValue, setDiceValue] = useState(1);
 
+    useEffect(() => {
+        socket.on("set_dice", (data) => {
+            setDiceValue(data);
+        });
+        return () => {
+            socket.off('set_dice');
+        };
+    }, []);
 
     useEffect(() => {
         socket.on("mod-pause", (data) => {
@@ -205,6 +163,7 @@ export function ModView() {
             socket.off('receive_answer');
         };
     }, []);
+
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
             setSubmittedAnswer(data)
@@ -216,7 +175,6 @@ export function ModView() {
         };
     })
 
-
     const handleUpdatePoints = (buttonPoints) => {
         console.log(buttonPoints);
         socket.emit("send_points",{points: buttonPoints})
@@ -227,9 +185,8 @@ export function ModView() {
         <div className={showPopup ? 'playboard blurred' : 'playboard'}>
             <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
                        setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
-            <DiceContainer setMoveMade= {setMoveMade} position={position}/>
+            <DiceContainer setMoveMade= {setMoveMade} position={position} diceValue={diceValue}/>
         </div>
-            {/* Popup container */}
             {showPopup && (
                 <div className='scorePopup'>
                     <div className='questionStrategyBox'>
