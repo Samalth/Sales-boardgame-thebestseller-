@@ -1,29 +1,4 @@
 {
-  "users": [
-    {
-      "id": "Rx9g2_y_efn2L4jHAAAb",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "oNNepS6TqZ7y-ptAAAAd",
-      "language": "NL",
-      "room": "48435",
-      "user": "",
-      "name": "",
-      "points": "",
-      "strategy": ""
-    }
-  ],
-  "mods": [
-    {
-      "id": "Rx9g2_y_efn2L4jHAAAb",
-      "language": "NL",
-      "room": "48435"
-    }
-  ]
+  "users": [],
+  "mods": []
 }
