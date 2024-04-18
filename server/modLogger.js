@@ -89,13 +89,54 @@ const checkRoom = (roomcode) => {
         return 'does not exist';
     }
 }
+const modID = (roomcode) => {
+    let data = readData();
+    if (!data) return null;
+    // Check if any object in the mods array has the specified room code
+    const modID = data.mods.find(mod => mod.room === roomcode);
+
+    if (modID) {
+        return modID.id;
+    } else {
+        return null;
+    }
+}
+const addPlayerToMod = (socketid, strategy) => {
+    switch (strategy) {
+        case 'top of the world':
+            strategy = 'world'
+            break
+        case 'jysk telepartner':
+            strategy = 'jysk'
+            break
+        case 'domino house':
+            strategy = 'domino'
+            break
+        default:
+            strategy = strategy
+            break
+    }
+
+
+    let data = readData();
+    if (!data) return null;
+    
+    for (let i = 0; i < data.mods.length; i++) {
+        if (data.mods[i].id === socketid) {
+            data.mods[i].players_joined.push(strategy);
+            writeData(data);
+            return 'added';
+        }
+    }
+
+}
 
 function modLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
             // addMods({id: socketid, language: 'NL', room: ''
             const gamepin = generateGamepin(); // Assuming generateGamepin() is accessible here
-            addMods({id: socketid, language: 'NL', room: gamepin});
+            addMods({id: socketid, language: 'NL', room: gamepin, players_joined: []});
             return gamepin
         case 'delete':
             deleteMods(socketid)
@@ -112,6 +153,14 @@ function modLogger(method, socketid, info='temp'){
             addMods(socketid)
             updateMods(socketid, {room: roomCode})
             return roomCode
+        case 'getMod':
+            return modID(info)
+        case 'addPlayer':
+            addPlayerToMod(socketid, info)
+            break
+        case 'getPieces':
+            const playerPieces = readData().mods.find(mod => mod.id === socketid).players_joined
+            return playerPieces
     }
 }
 
