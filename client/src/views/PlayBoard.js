@@ -71,6 +71,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
             }
         });
+
         const boardGrid = document.querySelector('.board-grid');
 
         const handleClick = event => {

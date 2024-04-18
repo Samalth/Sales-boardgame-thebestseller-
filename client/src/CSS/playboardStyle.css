@@ -533,6 +533,11 @@ button:hover{
     margin-top: 60%;
 }
 
+.scoreButtons button.points.selected {
+    background-color: goldenrod;
+    z-index: 999;
+}
+
 .scoreButtons button.points {
     margin-top: 73%;
     font-family: Itim, Arial, Helvetica, sans-serif;

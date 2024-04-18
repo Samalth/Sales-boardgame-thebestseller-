@@ -129,6 +129,12 @@ io.on('connection', (socket)=> {
         socket.to(room).emit('update_position', data);
         // socket.emit('update_position', data);
     })
+
+    socket.on("submit_points", (data) => {
+        const room = userLogger('getRoom', socket.id);
+        console.log("send to playboard: " + data.points);
+        socket.to(room).emit('submitted_points', data.points);
+    })
 })
 
 server.listen(3001, () => {

@@ -136,6 +136,9 @@ export function ModView() {
     const [submittedAnswer, setSubmittedAnswer] = useState('')
     const [diceValue, setDiceValue] = useState(1);
 
+    const [selectedPoints, setSelectedPoints] = useState([]);
+
+
     useEffect(() => {
         socket.on("set_dice", (data) => {
             setDiceValue(data);
@@ -175,18 +178,33 @@ export function ModView() {
         };
     })
 
+
     const handleUpdatePoints = (buttonPoints) => {
-        console.log(buttonPoints);
-        socket.emit("send_points",{points: buttonPoints})
+        setSelectedPoints((prevSelectedPoints) => {
+            if (prevSelectedPoints.includes(buttonPoints)) {
+                // Deselecteer punt als het al geselecteerd is
+                return prevSelectedPoints.filter((point) => point !== buttonPoints);
+            } else {
+                // Voeg punt toe aan geselecteerde punten
+                return [...prevSelectedPoints, buttonPoints];
+            }
+        });
+    };
+
+    const handleSubmitPoints = () => {
+        console.log("submitted to index", selectedPoints);
+        socket.emit("submit_points", { points: selectedPoints });
+        // Reset de geselecteerde punten naar een lege array
+        setSelectedPoints([]);
     };
 
     return (
         <>
-        <div className={showPopup ? 'playboard blurred' : 'playboard'}>
-            <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
-                       setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
-            <DiceContainer setMoveMade= {setMoveMade} position={position} diceValue={diceValue}/>
-        </div>
+            <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+                <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
+                           setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
+                <DiceContainer setMoveMade= {setMoveMade} position={position} diceValue={diceValue}/>
+            </div>
             {showPopup && (
                 <div className='scorePopup'>
                     <div className='questionStrategyBox'>
@@ -202,13 +220,13 @@ export function ModView() {
                         <div className='assignScoreText'> Assign score: </div>
                         <div className='scoreButtons'>
                             {/* Linking the updateDataInFile function to the button */}
-                            <button className='points' onClick={() =>handleUpdatePoints(0)}> 0 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(5)}> 5 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(10)}> 10 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(15)}> 15 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(20)}> 20 </button>
+                            <button className={selectedPoints.includes(0) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(0)}> 0 </button>
+                            <button className={selectedPoints.includes(5) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(5)}> 5 </button>
+                            <button className={selectedPoints.includes(10) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(10)}> 10 </button>
+                            <button className={selectedPoints.includes(15) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
+                            <button className={selectedPoints.includes(20) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
                         </div>
-                        <button className='submitScoreButton' onClick={()=>{setShowPopup(false)}} > Submit </button>
+                        <button className='submitScoreButton' onClick={() => { setShowPopup(false); handleSubmitPoints(); }}>Submit</button>
                     </div>
                 </div>
             )}
