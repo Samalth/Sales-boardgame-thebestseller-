@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
+// const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
 let selectedPawn = null;
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
@@ -11,6 +11,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
     const [validPositions, setValidPositions] = useState([]);
+    const [startPieces, setStartPieces] = useState([]);
+    const [updatedPieces, setUpdatedPieces] = useState(false);
 
     const tileInfo = [
         'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
@@ -39,6 +41,10 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
     // Function to render start pieces
     const renderStartPieces = () => {
+        if (!updatedPieces){
+            socket.emit('get_pieces', 'mod')
+            setUpdatedPieces(true);
+        }
         return startPieces.map((piece, index) => (
             <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
         ));
@@ -47,6 +53,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     useEffect(() => {
         socket.on("update_valid_positions", (data) => {
             setValidPositions(data);
+        });
+
+        socket.on("add_piece", (data) => {
+            // Add new piece to board when receiving "add_piece" event
+            // setStartPieces(prevStartPieces => [...prevStartPieces, data]);
+            setStartPieces(data)
         });
 
         socket.on("update_position", (data) => {
@@ -130,7 +142,7 @@ export function ModView() {
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
-    const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
+    const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
     const [submittedAnswer, setSubmittedAnswer] = useState('')
@@ -174,6 +186,7 @@ export function ModView() {
             socket.off('submitted_answer');
         };
     })
+    
 
     const handleUpdatePoints = (buttonPoints) => {
         console.log(buttonPoints);

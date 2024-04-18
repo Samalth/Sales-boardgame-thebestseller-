@@ -69,12 +69,33 @@ io.on('connection', (socket)=> {
             userLogger('updateRoom', socket.id, data.room)
             userLogger('updatePoints', socket.id, data.points)
             userLogger('updateStrategy', socket.id, data.strategy)
+
+            // get mod from room code and add the player to the mod's players_joined array
+            const modID = modLogger('getMod', socket.id, data.room)
+            modLogger('addPlayer', modID, data.strategy.toLowerCase())
+            const pieces = modLogger('getPieces', modID)
+
             socket.emit('join_succes', availability);
-            socket.emit('add_piece', data.strategy.toLowerCase());
-            socket.to(data.room).emit('add_piece', data.strategy.toLowerCase());
+            socket.emit('add_piece', pieces);
+            socket.to(data.room).emit('add_piece', pieces);
         } else {
             socket.emit('join_succes', availability);
         }
+    })
+
+    socket.on("get_pieces", (data) => {
+        var modID;
+        switch (data){
+            case 'player':
+                const room = userLogger('getRoom', socket.id);
+                modID = modLogger('getMod', socket.id, room);
+                break
+            case 'mod':
+                modID = socket.id
+                break
+        }
+        const pieces = modLogger('getPieces', modID)
+        socket.emit('add_piece', pieces)
     })
 
     socket.on('send_question_request', async (data) => {

@@ -12,6 +12,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const totalTiles = boardWidth * boardHeight;
     const [startPieces, setStartPieces] = useState([]);
     const [validPositions, setValidPositions] = useState([]);
+    const [updatedPieces, setUpdatedPieces] = useState(false);
 
     const tileInfo = [
         'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
@@ -40,6 +41,10 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
     // Function to render start pieces
     const renderStartPieces = () => {
+        if (!updatedPieces){
+            socket.emit('get_pieces', 'player')
+            setUpdatedPieces(true);
+        }
         return startPieces.map((piece, index) => (
             <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
         ));
@@ -55,8 +60,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         });
         socket.on("add_piece", (data) => {
             // Add new piece to board when receiving "add_piece" event
-            console.log(data)
-            setStartPieces(prevStartPieces => [...prevStartPieces, data]);
+            // setStartPieces(prevStartPieces => [...prevStartPieces, data]);
+            setStartPieces(data)
         });
 
         socket.on("update_position", (data) => {
@@ -180,7 +185,7 @@ export function PlayBoard() {
     const [steps, setSteps] = useState(0);
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
-    const [selectedPawn , setSelectedPawn] = useState('lunar')
+    const [selectedPawn , setSelectedPawn] = useState()
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false);
     const [textBoxContent, setTextBoxContent] = useState('');
@@ -198,6 +203,7 @@ export function PlayBoard() {
             socket.off('receive_question');
         };
     }, []);
+
 
     const handleSubmitAnswer = (huppeldepup) => {
         setGamePaused(false);
