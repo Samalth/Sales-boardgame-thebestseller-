@@ -61,6 +61,10 @@ io.on('connection', (socket)=> {
         } else{
             availability = 'Room does not exist'
         }
+
+        if(data.strategy === ''){
+            availability = 'Choose a strategy'
+        }
         
         // console.log(availability)
         if (availability === 'available') {
