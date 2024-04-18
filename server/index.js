@@ -71,6 +71,8 @@ io.on('connection', (socket)=> {
             userLogger('updatePoints', socket.id, data.points)
             userLogger('updateStrategy', socket.id, data.strategy)
             socket.emit('join_succes', availability);
+            socket.emit('add_piece', data.strategy.toLowerCase());
+            socket.to(data.room).emit('add_piece', data.strategy.toLowerCase());
         } else {
             socket.emit('join_succes', availability);
         }
