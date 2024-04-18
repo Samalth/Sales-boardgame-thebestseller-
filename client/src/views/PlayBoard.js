@@ -193,6 +193,7 @@ export function PlayBoard() {
         return () => {
             socket.off('receive_question');
         };
+
     }, []);
 
     const handleSubmitAnswer = () => {
