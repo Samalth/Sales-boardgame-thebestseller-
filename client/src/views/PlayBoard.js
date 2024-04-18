@@ -170,14 +170,15 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
 };
 
 export function PlayBoard() {
-    const [question, setQuestion] = useState("");
-    const [steps, setSteps] = useState(0);
-    const [moveMade, setMoveMade] = useState(false);
+    const [question, setQuestion] = useState("")
+    const [steps, setSteps] = useState(0)
+    const [moveMade, setMoveMade] = useState(false)
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
     const [position, setPosition] = useState("8-5")
-    const [gamePaused, setGamePaused] = useState(false);
-    const [textBoxContent, setTextBoxContent] = useState('');
+    const [gamePaused, setGamePaused] = useState(false)
+    const [gamePaused2, setGamePaused2] = useState(false)
+    const [textBoxContent, setTextBoxContent] = useState('')
 
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
@@ -186,37 +187,45 @@ export function PlayBoard() {
     useEffect(() => {
         socket.on("receive_question", (data) => {
             setQuestion(data);
-            setGamePaused(true); // Pauzeer het spel wanneer een vraag wordt ontvangen
+            setGamePaused(true);
         });
         return () => {
             socket.off('receive_question');
         };
     }, []);
 
-    const handleSubmitAnswer = (huppeldepup) => {
+    const handleSubmitAnswer = () => {
         setGamePaused(false);
-        socket.emit('send_textbox_content', textBoxContent);// Hervat het spel wanneer de speler doorgaat na het beantwoorden van de vraa
+        socket.emit('send_textbox_content', textBoxContent);
+        setGamePaused2(true)
     };
+
+    useEffect(() => {
+        socket.on("submitted_points", (data) => {
+           console.log("GELUKT" + data);
+           setGamePaused2(false)
+        });
+        return () => {
+            socket.off('submitted_points');
+        };
+    }, []);
+
 
     return (
     <>
         <div className={gamePaused ? 'playboard blurred' : 'playboard'}>
-
                 <BoardGrid
                     steps={steps}
                     moveMade={moveMade}
                     setMoveMade={setMoveMade}
                     selectedPawn={selectedPawn}
                     setSelectedPawn={setSelectedPawn}
-                    setPosition={setPosition}
-                />
-
-
+                    setPosition={setPosition}/>
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
                     position={position}></DiceContainer>
-            </div>
+        </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>
                     <div className="questionOrangeBox">
@@ -230,7 +239,12 @@ export function PlayBoard() {
                         <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
                     </div>
                 </div>
-            )}
+                )}
+        {/*{gamePaused2 && (*/}
+        {/*    // <div className='waitingScreenPopup'>*/}
+        {/*    //     <div className='waitingScreenText'> Waiting for moderator to assign points ... </div>*/}
+        {/*    // </div>*/}
+        {/*)}*/}
         </>
     )
 }

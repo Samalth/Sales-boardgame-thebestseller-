@@ -373,6 +373,25 @@ button:hover{
     filter: none;
 }
 
+.waitingScreenPopup {
+    background-color: white;
+    color: black;
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    align-content: center;
+    margin-top: 20%;
+    margin-left: 35%;
+    z-index: 2;
+}
+
+.waitingScreenText {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 25px;
+}
+
 /*modview popups*/
 
 .scorePopup {
@@ -521,11 +540,19 @@ button:hover{
     background-color: white;
     border-radius: 50%;
     width: 9%;
+    z-index: 1;
 }
 
-.scoreButtons button.points:hover{
-    background-color: #e7e7e7;
-}
+/*.scoreButtons button.points:hover{*/
+/*    background-color: #e7e7e7;*/
+/*}*/
+
+
+
+/*.selected button.points:se  {*/
+/*    border: black;*/
+/*    border-radius: 2px;*/
+/*}*/
 
 .submitScoreButton{     /*overwritten by 'button'*/
     position: absolute;
