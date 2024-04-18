@@ -14,10 +14,10 @@ export function Gamepin() {
         });
     
         socket.on('add_user', () => {
-            setPlayerCount(prevCount => prevCount + 1); // Update playerCount based on previous state
+            setPlayerCount(prevCount => prevCount + 1);
         });
         socket.on("delete_user", () => {
-            setPlayerCount(prevCount => prevCount - 1); //Delete the player based on previous state
+            setPlayerCount(prevCount => prevCount - 1);
         })
     
         return () => {
@@ -27,8 +27,10 @@ export function Gamepin() {
     }, []);
 
     const handleGame = () => {
+        socket.emit('start_turn', 'data')
         navigate('/modview');
     };
+
     const handleHome = () => {
         navigate('/home')
     }

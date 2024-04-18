@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "XMJtC0i4O7Fb2bOXAAAB",
+      "id": "C_yOyJLwL1O0rwwFAAAF",
       "language": "NL",
       "room": "",
       "user": "",
@@ -10,7 +10,16 @@
       "strategy": ""
     },
     {
-      "id": "81DaRVYYu-o1YmxYAAAD",
+      "id": "roYe9EzFMZgpo0yBAAAI",
+      "language": "NL",
+      "room": "25775",
+      "user": "",
+      "name": "",
+      "points": "",
+      "strategy": "Lunar"
+    },
+    {
+      "id": "e8jKOoAxWjJkaifRAAAJ",
       "language": "NL",
       "room": "",
       "user": "",
@@ -19,5 +28,15 @@
       "strategy": ""
     }
   ],
-  "mods": []
+  "mods": [
+    {
+      "id": "e8jKOoAxWjJkaifRAAAJ",
+      "language": "NL",
+      "room": "25775",
+      "players_joined": [
+        "lunar"
+      ],
+      "turn": 0
+    }
+  ]
 }

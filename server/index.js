@@ -38,7 +38,7 @@ io.on('connection', (socket)=> {
     socket.on("create_room", (data) => {
         // modLogger('updateRoom', socket.id, data.room)
         const room = modLogger('log', socket.id);
-        userLogger("updateRoom", socket.id, room);
+        // userLogger("updateRoom", socket.id, room);
         socket.join(room)
         socket.emit("send_gamepin", room);
     })
@@ -155,10 +155,20 @@ io.on('connection', (socket)=> {
     })
 
     socket.on("submit_points", (data) => {
-        const room = userLogger('getRoom', socket.id);
+        const room = modLogger('room', socket.id);
         socket.to(room).emit('submitted_points', data.points);
-        console.log("send to playboard: " + data.points);
+        console.log("send points to playboard: " + data.points);
+        modLogger('nextTurn', socket.id)
+        const name = modLogger('getPlayerTurn', socket.id)
+        console.log(name)
+        socket.emit('players_turn', name)
     })
+
+    socket.on('start_turn', (data) => {
+        const name = modLogger('getPlayerTurn', socket.id)
+        socket.emit('players_turn', name)
+    })
+
 })
 
 server.listen(3001, () => {

@@ -131,23 +131,42 @@ const addPlayerToMod = (socketid, strategy) => {
 
 }
 
+const nextTurn = (socketid) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.id === socketid)
+    mod.turn += 1
+    if (mod.players_joined.length === mod.turn) {
+        mod.turn = 0
+    }
+    writeData(data)
+}
+
+const getPlayerTurn = (socketid) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.id === socketid);
+    if (!mod) return null; // Return null if mod is not found
+    const playerArray = mod.players_joined;
+    const turn = mod.turn;
+    if (typeof turn !== 'number' || turn < 0 || turn >= playerArray.length) return null; // Check if turn is a valid index
+    const name = playerArray[turn]; // Accessing player name using array indexing
+    return name;
+}
+
+
 function modLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
-            // addMods({id: socketid, language: 'NL', room: ''
-            const gamepin = generateGamepin(); // Assuming generateGamepin() is accessible here
-            addMods({id: socketid, language: 'NL', room: gamepin, players_joined: []});
+            const gamepin = generateGamepin();
+            addMods({id: socketid, language: 'NL', room: gamepin, players_joined: [], turn: 0});
             return gamepin
         case 'delete':
             deleteMods(socketid)
             break
-        // case 'updateRoom':
-        //     updateMods(socketid, {room: info})
-        //     break
         case 'checkExists':
             const exists = checkRoom(info)
             return exists
-
         case 'getRoom':
             const roomCode = generateGamepin();
             addMods(socketid)
@@ -161,6 +180,15 @@ function modLogger(method, socketid, info='temp'){
         case 'getPieces':
             const playerPieces = readData().mods.find(mod => mod.id === socketid).players_joined
             return playerPieces
+        case 'room':
+            const room = readData().mods.find(mod => mod.id === socketid).room
+            return room
+        case 'nextTurn':
+            nextTurn(socketid)
+            break
+        case 'getPlayerTurn':
+            return getPlayerTurn(socketid)
+            break
     }
 }
 
