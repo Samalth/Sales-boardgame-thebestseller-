@@ -81,13 +81,12 @@ io.on('connection', (socket)=> {
         var questionText = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
-        // socket.to(room).emit('receive_question', questionText);
+        socket.to(room).emit('mod-pause', questionText);
         socket.emit('receive_question', questionText);
     })
 
     socket.on('send_answer_request', async (data) => {
         var answerText = await databaseAnswer(data.answerColor, 'answer');
-
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('receive_answer', answerText);
         socket.emit('receive_answer', answerText);

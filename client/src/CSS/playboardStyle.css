@@ -148,7 +148,6 @@ margin: 2px;
  position: fixed;
  top: 70%;
  right: 5%;
- box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
  border-radius: 8px;
  display: flex;
  flex-direction: column;
@@ -347,6 +346,7 @@ button:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     right: 7cm;
     z-index: 1;
+    resize: none;
 }
 
 .submitButton {
@@ -418,7 +418,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 60%;
+    margin-bottom: 50%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -437,7 +437,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
-    margin-top: 55%;
+    margin-top: 50%;
 }
 
 .questionWhiteBox3 {
@@ -446,7 +446,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -482,7 +482,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 
 .correctAnswerBox {
@@ -491,7 +491,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 70%;
+    margin-bottom: 60%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -516,8 +516,10 @@ button:hover{
 .scoreButtons button.points {
     margin-top: 73%;
     font-family: Itim, Arial, Helvetica, sans-serif;
-    margin-right: 40px;
+    margin-right: 5%;
     background-color: white;
+    border-radius: 50%;
+    width: 9%;
 }
 
 .scoreButtons button.points:hover{
@@ -529,5 +531,10 @@ button:hover{
     bottom: 10px;
     left: 140px;
     right: 140px;
-    margin-bottom: 40px;
+    margin-bottom: 17%;
+}
+
+.turnsModView {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
 }

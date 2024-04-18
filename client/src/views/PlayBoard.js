@@ -205,8 +205,9 @@ export function PlayBoard() {
     };
 
     return (
-        <div className="playboard-container">
-            <div className={gamePaused ? 'board-grid blurred' : 'board-grid'}>
+    <>
+        <div className={gamePaused ? 'playboard blurred' : 'playboard'}>
+
                 <BoardGrid
                     steps={steps}
                     moveMade={moveMade}
@@ -215,10 +216,8 @@ export function PlayBoard() {
                     setSelectedPawn={setSelectedPawn}
                     setPosition={setPosition}
                 />
-            </div>
-            <div className='playboard-container' >
-            </div>
-            <div className={gamePaused ? 'dice-container blurred' : 'dice-container'}>
+
+
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
@@ -238,7 +237,7 @@ export function PlayBoard() {
                     </div>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
