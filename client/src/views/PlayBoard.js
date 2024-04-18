@@ -214,7 +214,7 @@ export function PlayBoard() {
 
     return (
     <>
-        <div className={gamePaused ? 'playboard blurred' : 'playboard'}>
+        <div className={gamePaused || gamePaused2 ? 'playboard blurred' : 'playboard'}>
                 <BoardGrid
                     steps={steps}
                     moveMade={moveMade}
@@ -241,11 +241,11 @@ export function PlayBoard() {
                     </div>
                 </div>
                 )}
-        {/*{gamePaused2 && (*/}
-        {/*    // <div className='waitingScreenPopup'>*/}
-        {/*    //     <div className='waitingScreenText'> Waiting for moderator to assign points ... </div>*/}
-        {/*    // </div>*/}
-        {/*)}*/}
+        {gamePaused2 && (
+            <div className='waitingScreenPopup'>
+                <div className='waitingScreenText'> Waiting for moderator to assign points ... </div>
+            </div>
+        )}
         </>
     )
 }
