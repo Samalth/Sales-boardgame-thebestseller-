@@ -143,6 +143,7 @@ io.on('connection', (socket)=> {
         socket.emit('players_turn', strategy)
         const name = modLogger('getPlayerName', socket.id)
         socket.emit('players_name', name)
+        socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
     })
 

@@ -85,7 +85,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                     sendQuestionRequest(color);
                     setMoveMade(true);
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    setPosition(newPosition);
+                    // setPosition(newPosition);
                     socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
                 }
             }
@@ -201,9 +201,10 @@ export function PlayBoard() {
 
     useEffect(() => {
         socket.on('players_turn', (data) => {
-            console.log(data)
             const pawn = document.querySelector('#' + data)
-            console.log(pawn)
+            const parent = pawn.parentElement
+            const parentPosition = parent.getAttribute('pos')
+            setPosition(parentPosition)
             setSelectedPawn(pawn)
         })
     },[]);
