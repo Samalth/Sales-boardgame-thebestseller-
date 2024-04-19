@@ -59,8 +59,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setStartPieces(data)
         });
         socket.on("update_position", (data) => {
-            const newPosition = data.newPosition; // bijvoorbeeld 8-6
-            const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
+            const newPosition = data.newPosition;
+            const selectedPawnName = data.selectedPawn;
             const selectedPawnElement = document.getElementById(selectedPawnName);
             if (selectedPawnElement && validPositions.includes(newPosition)) {
                 const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
@@ -157,7 +157,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
             <div className='playerTurn'> {playerName} is rolling the dice </div>
         </div>
     );
-};
+}
 
 export function PlayBoard() {
     const [question, setQuestion] = useState("")
@@ -185,7 +185,7 @@ export function PlayBoard() {
 
     const handleSubmitAnswer = () => {
         setGamePaused(false);
-        socket.emit('send_textbox_content', textBoxContent);
+        socket.emit('send_textbox_content', textBoxContent)
         setGamePaused2(true)
     };
 

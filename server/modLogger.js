@@ -105,12 +105,23 @@ const addPlayerToMod = (socketid, strategy) => {
             strategy = strategy
             break
     }
-
     let data = readData();
     if (!data) return null;
     for (let i = 0; i < data.mods.length; i++) {
         if (data.mods[i].id === socketid) {
             data.mods[i].players_joined.push(strategy);
+            writeData(data);
+            return 'added';
+        }
+    }
+}
+
+const addPlayerNameToMod = (socketid, name) => {
+    let data = readData();
+    if (!data) return null;
+    for (let i = 0; i < data.mods.length; i++) {
+        if (data.mods[i].id === socketid) {
+            data.mods[i].player_names.push(name);
             writeData(data);
             return 'added';
         }
