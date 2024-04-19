@@ -164,6 +164,13 @@ io.on('connection', (socket)=> {
         socket.emit('players_turn', strategy)
     })
 
+    socket.on('get_data', (data) => {
+        const room = userLogger('getRoom', socket.id);
+        const userData = userLogger('getData', socket.id);
+        socket.to(room).emit('data_leaderboard', userData);
+        socket.emit('data_leaderboard', userData);
+    })
+
 })
 
 server.listen(3001, () => {

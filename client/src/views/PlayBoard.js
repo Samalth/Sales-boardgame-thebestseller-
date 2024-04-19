@@ -40,6 +40,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const renderStartPieces = () => {
         if (!updatedPieces){
             socket.emit('get_pieces', 'player')
+            socket.emit('get_data', 'leaderboard_update');
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
@@ -70,6 +71,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         });
         const boardGrid = document.querySelector('.board-grid');
+
         const handleClick = event => {
             const targetTile = event.target.closest('.tile');
             console.log(targetTile)
@@ -80,6 +82,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
                 if (validPositions.includes(newPosition) && !moveMade) {
+                    if (selectedPawn instanceof HTMLElement) {
                     event.target.appendChild(selectedPawn);
                     const color = targetTile.className.split(' ')[1];
                     sendQuestionRequest(color);
@@ -87,6 +90,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
                     // setPosition(newPosition);
                     socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
+                    } else {
+                        console.error("Selected pawn is not a valid DOM element");
+                    }
                 }
             }
         };
@@ -119,7 +125,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
-    const [playerName, setPlayerName] = useState('')
     const roll = () => {
         socket.emit("roll_dice")
     };
@@ -143,9 +148,6 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
                 setMoveMade(false);
             }, 1000);
         })
-        socket.on('players_name', (data) => {
-            setPlayerName(data)
-        })
     })
 
     return (
@@ -154,12 +156,14 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
             <button type='button' onClick={roll}>Roll the dice</button>
-            <div className='playerTurn'> {playerName} is rolling the dice </div>
         </div>
     );
 }
 
 export function PlayBoard() {
+    const [data, setData] = useState([]);
+    const [users, setUsers] = useState([]);
+    const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("")
     const [steps, setSteps] = useState(0)
     const [moveMade, setMoveMade] = useState(false)
@@ -169,9 +173,33 @@ export function PlayBoard() {
     const [gamePaused, setGamePaused] = useState(false)
     const [gamePaused2, setGamePaused2] = useState(false)
     const [textBoxContent, setTextBoxContent] = useState('')
+    const [playerName, setPlayerName] = useState('')
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
     };
+
+    useEffect(() => {
+        const numPlayers = sortedUserData.length;
+        const heightScoreboard = 105 * numPlayers;
+        // Set the height of the leaderboard container
+        const leaderboardContainer = document.querySelector('.leaderBoard');
+        if (leaderboardContainer) {
+            leaderboardContainer.style.height = `${heightScoreboard}px`;
+        }
+    }, [sortedUserData]);
+
+    useEffect(() => {
+        socket.on('players_name', (data) => {
+            setPlayerName(data)
+        })
+        socket.on('data_leaderboard', (jsonData) => {
+            setData(jsonData);
+            console.log(jsonData)
+        });
+        return () => {
+            socket.off('data_leaderboard');
+        };
+    }, []);
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
@@ -191,7 +219,6 @@ export function PlayBoard() {
 
     useEffect(() => {
         socket.on("submitted_points", (data) => {
-           console.log("GELUKT" + data);
            setGamePaused2(false)
         });
         return () => {
@@ -207,6 +234,7 @@ export function PlayBoard() {
                 const parentPosition = parent.getAttribute('pos')
                 setPosition(parentPosition)
                 setSelectedPawn(pawn)
+                socket.emit('get_data', 'leaderboard_update');
             } catch (TypeError) {
                 socket.emit('pawns_request_failed', '')
             }
@@ -227,6 +255,25 @@ export function PlayBoard() {
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
                     position={position}></DiceContainer>
+        <div className='leaderBoard'>
+            <h2>Leaderboard</h2>
+            {sortedUserData.map(data => {
+                return (
+                    <div className="leaderboardItem" key={data.id}>
+                        <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
+                            data.strategy === 'Lunar' ? 'piecelunar' :
+                                data.strategy === 'Domino House' ? 'piecedomino' :
+                                    data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
+                                        data.strategy === 'Top of the World' ? 'pieceworld' :
+                                            data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
+                        />
+                        <div>{data.name}</div>
+                        <div className="pointsLeaderboard"> {data.points} </div>
+                    </div>
+                )
+            })}
+        </div>
+            <div className='playerTurn'> {playerName} is rolling the dice </div>
         </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>

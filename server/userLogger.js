@@ -99,6 +99,20 @@ function availability(socketid, userName, userRoom, userStrat) {
     return 'available';
 }
 
+function getData(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+    const room = user.room;
+    const users = data.users.filter(user => user.room === room);
+    if (users) {
+        return users
+    } else {
+        console.error('User not found.');
+        return null;
+    }
+}
+
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
@@ -125,6 +139,8 @@ function userLogger(method, socketid, info=""){
             return getPoints(socketid)
         case 'checkAvailability':
             return availability(socketid, info.name, info.room, info.strategy)
+        case 'getData':
+            return getData(socketid)
     }
 }
 
