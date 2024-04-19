@@ -75,7 +75,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             console.log(targetTile)
             if (startPieces.includes(event.target.id)) {
                 event.target.classList.add('highlight');
-                setSelectedPawn(event.target);
+                // setSelectedPawn(event.target);
+                console.log(event.target)
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
                 if (validPositions.includes(newPosition) && !moveMade) {
@@ -84,7 +85,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                     sendQuestionRequest(color);
                     setMoveMade(true);
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    setPosition(newPosition); // Assuming setPosition updates the pawn's position state
+                    setPosition(newPosition);
                     socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
                 }
             }
@@ -118,6 +119,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
+    const [playerName, setPlayerName] = useState('')
     const roll = () => {
         socket.emit("roll_dice")
     };
@@ -141,6 +143,9 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
                 setMoveMade(false);
             }, 1000);
         })
+        socket.on('players_name', (data) => {
+            setPlayerName(data)
+        })
     })
 
     return (
@@ -149,6 +154,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
             <button type='button' onClick={roll}>Roll the dice</button>
+            <div className='playerTurn'> {playerName} is rolling the dice </div>
         </div>
     );
 };
@@ -158,7 +164,7 @@ export function PlayBoard() {
     const [steps, setSteps] = useState(0)
     const [moveMade, setMoveMade] = useState(false)
     const [currentPlayer, setCurrentPlayer] = useState (0)
-    const [selectedPawn , setSelectedPawn] = useState()
+    const [selectedPawn , setSelectedPawn] = useState(<div></div>)
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false)
     const [gamePaused2, setGamePaused2] = useState(false)
@@ -192,6 +198,15 @@ export function PlayBoard() {
             socket.off('submitted_points');
         };
     }, []);
+
+    useEffect(() => {
+        socket.on('players_turn', (data) => {
+            console.log(data)
+            const pawn = document.querySelector('#' + data)
+            console.log(pawn)
+            setSelectedPawn(pawn)
+        })
+    },[]);
 
     return (
     <>

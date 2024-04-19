@@ -98,6 +98,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     const [diceValue, setDiceValue] = useState(1);
     const [playersTurn, setPlayersTurn] = useState('')
+    const [playerName, setPlayerName] = useState('')
 
     useEffect(() => {
         socket.on("set_dice", (data) => {
@@ -119,8 +120,8 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
                 setMoveMade(false);
             }, 1000);
         })
-        socket.on('players_turn', (data) => {
-            setPlayersTurn(data)
+        socket.on('players_name', (data) => {
+            setPlayerName(data);
         })
     })
 
@@ -129,7 +130,7 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
             <div className='dice-wrapper'>
                 <img className='diceImage' src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
-            <div className='turnsModView'> {playersTurn} is rolling the dice </div>
+            <div className='turnsModView'> {playerName} is rolling the dice </div>
         </div>
     );
 };

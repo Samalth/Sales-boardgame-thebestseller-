@@ -140,11 +140,23 @@ const getPlayerTurn = (socketid) => {
     return name;
 }
 
+const getPlayerName = (socketid) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.id === socketid);
+    if (!mod) return null;
+    const playerArray = mod.player_names;
+    const turn = mod.turn;
+    if (typeof turn !== 'number' || turn < 0 || turn >= playerArray.length) return null;
+    const name = playerArray[turn];
+    return name;
+}
+
 function modLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
             const gamepin = generateGamepin();
-            addMods({id: socketid, language: 'NL', room: gamepin, players_joined: [], turn: 0});
+            addMods({id: socketid, language: 'NL', room: gamepin, player_names: [], players_joined: [], turn: 0});
             return gamepin
         case 'delete':
             deleteMods(socketid)
@@ -173,6 +185,12 @@ function modLogger(method, socketid, info='temp'){
             break
         case 'getPlayerTurn':
             return getPlayerTurn(socketid)
+            break
+        case 'addPlayerName':
+            addPlayerNameToMod(socketid, info)
+            break
+        case 'getPlayerName':
+            return getPlayerName(socketid)
             break
     }
 }

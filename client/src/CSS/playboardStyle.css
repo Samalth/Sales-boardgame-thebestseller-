@@ -547,17 +547,6 @@ button:hover{
     z-index: 1;
 }
 
-/*.scoreButtons button.points:hover{*/
-/*    background-color: #e7e7e7;*/
-/*}*/
-
-
-
-/*.selected button.points:se  {*/
-/*    border: black;*/
-/*    border-radius: 2px;*/
-/*}*/
-
 .submitScoreButton{     /*overwritten by 'button'*/
     position: absolute;
     bottom: 10px;
@@ -567,6 +556,11 @@ button:hover{
 }
 
 .turnsModView {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
+}
+
+.playerTurn {
     font-family: 'Itim', Arial, sans-serif;
     font-size: 35px;
 }

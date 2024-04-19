@@ -60,6 +60,7 @@ io.on('connection', (socket)=> {
             userLogger('updateStrategy', socket.id, data.strategy)
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())
+            modLogger('addPlayerName', modID, data.name)
             const pieces = modLogger('getPieces', modID)
             socket.emit('join_succes', availability);
             socket.emit('add_piece', pieces);
@@ -138,14 +139,21 @@ io.on('connection', (socket)=> {
         socket.to(room).emit('submitted_points', data.points);
         console.log('send points to playboard: ' + data.points);
         modLogger('nextTurn', socket.id)
-        const name = modLogger('getPlayerTurn', socket.id)
-        console.log(name)
-        socket.emit('players_turn', name)
+        const strategy = modLogger('getPlayerTurn', socket.id)
+        socket.emit('players_turn', strategy)
+        const name = modLogger('getPlayerName', socket.id)
+        socket.emit('players_name', name)
+        socket.to(room).emit('players_name', name)
     })
 
     socket.on('start_turn', (data) => {
-        const name = modLogger('getPlayerTurn', socket.id)
-        socket.emit('players_turn', name)
+        const room = modLogger('room', socket.id);
+        const strategy = modLogger('getPlayerTurn', socket.id)
+        const name = modLogger('getPlayerName', socket.id)
+        socket.emit('players_turn', strategy)
+        socket.emit('players_name', name)
+        socket.to(room).emit('players_turn', strategy)
+        socket.to(room).emit('players_name', name)
     })
 })
 
