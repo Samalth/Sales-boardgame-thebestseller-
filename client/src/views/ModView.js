@@ -1,9 +1,7 @@
-// import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
 let selectedPawn = null;
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
@@ -11,6 +9,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
     const [validPositions, setValidPositions] = useState([]);
+    const [startPieces, setStartPieces] = useState([]);
+    const [updatedPieces, setUpdatedPieces] = useState(false);
 
     const tileInfo = [
         'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
@@ -37,19 +37,14 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
     const tiles = [];
 
-    // Function to render start pieces
     const renderStartPieces = () => {
+        if (!updatedPieces){
+            socket.emit('get_pieces', 'mod')
+            setUpdatedPieces(true);
+        }
         return startPieces.map((piece, index) => (
             <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
         ));
-    };
-
-    const sendQuestionRequest = (color) => {
-        socket.emit("send_question_request", { questionColor: color });
-    };
-
-    const sendAnswerRequest = (color) => {
-        socket.emit("send_answer_request", { answerColor: color });
     };
 
     useEffect(() => {
@@ -57,20 +52,18 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setValidPositions(data);
         });
 
-        socket.on("update_position", (data) => {
-            // Update the position of the selected pawn when receiving new position data
-            const newPosition = data.newPosition; // bijvoorbeeld 8-6
-            const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
+        socket.on("add_piece", (data) => {
+            setStartPieces(data)
+        });
 
-            // Find the DOM element of the selected pawn by its name
+        socket.on("update_position", (data) => {
+            const newPosition = data.newPosition;
+            const selectedPawnName = data.selectedPawn;
             const selectedPawnElement = document.getElementById(selectedPawnName);
 
-            // If the selected pawn exists and the new position is valid
             if (selectedPawnElement && validPositions.includes(newPosition)) {
-                // Move the pawn to the new position
                 const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
                 newTile.appendChild(selectedPawnElement);
-                // Update the position state of the selected pawn
                 setPosition(newPosition);
                 document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
             }
@@ -78,35 +71,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
         const boardGrid = document.querySelector('.board-grid');
 
-        const handleClick = event => {
-            const targetTile = event.target.closest('.tile');
-            console.log(targetTile)
-            if (startPieces.includes(event.target.id)) {
-                event.target.classList.add('highlight');
-                setSelectedPawn(event.target);
-            } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
-                const newPosition = targetTile.getAttribute('pos');
-
-                if (validPositions.includes(newPosition) && !moveMade) {
-                    // Append the pawn to the new tile and update game state as necessary
-                    event.target.appendChild(selectedPawn);
-
-                    const color = targetTile.className.split(' ')[1];
-                    sendQuestionRequest(color);
-                    sendAnswerRequest(color);
-                    setMoveMade(true);
-                    document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    // Update the pawn's position in your state
-                    setPosition(newPosition); // Assuming setPosition updates the pawn's position state
-                }
-            }
-        };
-        boardGrid.addEventListener('click', handleClick);
-
-        // Cleanup function to remove event listeners when the component unmounts
-        return () => {
-            boardGrid.removeEventListener('click', handleClick);
-        };
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
 
     for (let i = 0; i < totalTiles; i++) {
@@ -114,14 +78,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         const isHighlighted = validPositions.includes(position);
         const tileClass = `tile ${tileInfo[i]} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
-            // If the tile is a start tile, render start pieces
             tiles.push(
                 <div key={i} className={tileClass} tile-id={i} pos={position}>
                     {renderStartPieces()}
                 </div>
             );
         } else {
-            // Otherwise, just render the tile
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
@@ -133,15 +95,10 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     );
 };
 
-// end board
-
-
 const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     const [diceValue, setDiceValue] = useState(1);
-
-    const roll = () => {
-        socket.emit("roll_dice")
-    };
+    const [playersTurn, setPlayersTurn] = useState('')
+    const [playerName, setPlayerName] = useState('')
 
     useEffect(() => {
         socket.on("set_dice", (data) => {
@@ -163,34 +120,75 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
                 setMoveMade(false);
             }, 1000);
         })
+        socket.on('players_name', (data) => {
+            setPlayerName(data);
+        })
     })
 
     return (
-        <div className="dice-container">
-            <div className="dice-wrapper">
-                <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
+        <div className='dice-container'>
+            <div className='dice-wrapper'>
+                <img className='diceImage' src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
-            <button type='button' onClick={roll}>Roll the dice</button>
+            <div className='turnsModView'> {playerName} is rolling the dice </div>
         </div>
     );
 };
 
 export function ModView() {
+    const [data, setData] = useState([]);
+    const [users, setUsers] = useState([]);
+    const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
-    const [selectedPawn , setSelectedPawn] = useState(startPieces[currentPlayer])
+    const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
     const [submittedAnswer, setSubmittedAnswer] = useState('')
+    const [diceValue, setDiceValue] = useState(1);
+    const [selectedPoints, setSelectedPoints] = useState([]);
 
     useEffect(() => {
-        socket.on("receive_question", (data) => {
+        const numPlayers = sortedUserData.length;
+        const heightScoreboard = 105 * numPlayers;
+        // Set the height of the leaderboard container
+        const leaderboardContainer = document.querySelector('.leaderBoard');
+        if (leaderboardContainer) {
+            leaderboardContainer.style.height = `${heightScoreboard}px`;
+        }
+    }, [sortedUserData]);
+
+    useEffect(() => {
+        // socket.on('players_name', (data) => {
+        //     setPlayerName(data)
+        // })
+        socket.on('data_leaderboard', (jsonData) => {
+            setData(jsonData);
+            console.log(jsonData)
+        });
+        return () => {
+            socket.off('data_leaderboard');
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on("set_dice", (data) => {
+            setDiceValue(data);
+        });
+        return () => {
+            socket.off('set_dice');
+        };
+    }, []);
+
+    useEffect(() => {
+        socket.on("mod-pause", (data) => {
+            setShowPopup(true);
             setQuestion(data);
         });
         return () => {
-            socket.off('receive_question');
+            socket.off('mod-pause');
         };
     }, []);
 
@@ -202,6 +200,7 @@ export function ModView() {
             socket.off('receive_answer');
         };
     }, []);
+
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
             setSubmittedAnswer(data)
@@ -213,24 +212,54 @@ export function ModView() {
         };
     })
 
-
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
+    const handleUpdatePoints = (buttonPoints) => {
+        setSelectedPoints((prevSelectedPoints) => {
+            if (prevSelectedPoints.includes(buttonPoints)) {
+                return prevSelectedPoints.filter((point) => point !== buttonPoints);
+            } else {
+                return [...prevSelectedPoints, buttonPoints];
+            }
+        });
     };
 
-    const handleUpdatePoints = (buttonPoints) => {
-        console.log(buttonPoints);
-        socket.emit("send_points",{points: buttonPoints})
+    const handleSubmitPoints = () => {
+        console.log("submitted to index", selectedPoints);
+        socket.emit("submit_points", { points: selectedPoints });
+        setSelectedPoints([]);
     };
 
     return (
         <>
-            <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
-                       setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
-            <DiceContainer setMoveMade= {setMoveMade} position={position}/>
-
-            <button onClick={togglePopup}>Points</button>
-            {/* Popup container */}
+            <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+                <BoardGrid
+                    moveMade={moveMade}
+                    setMoveMade= {setMoveMade}
+                    setPosition={setPosition}
+                    selectedPawn={selectedPawn}
+                    setSelectedPawn={setSelectedPawn}/>
+                <DiceContainer
+                    setMoveMade= {setMoveMade}
+                    position={position}
+                    diceValue={diceValue}/>
+            <div className='leaderBoard'>
+                <h2>Leaderboard</h2>
+                {sortedUserData.map(data => {
+                    return (
+                        <div className="leaderboardItem" key={data.id}>
+                            <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
+                                data.strategy === 'Lunar' ? 'piecelunar' :
+                                    data.strategy === 'Domino House' ? 'piecedomino' :
+                                        data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
+                                            data.strategy === 'Top of the World' ? 'pieceworld' :
+                                                data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
+                            />
+                            <div>{data.name}</div>
+                            <div className="pointsLeaderboard"> {data.points} </div>
+                        </div>
+                    )
+                })}
+            </div>
+            </div>
             {showPopup && (
                 <div className='scorePopup'>
                     <div className='questionStrategyBox'>
@@ -245,13 +274,13 @@ export function ModView() {
                         <div className='correctAnswerBox'></div>
                         <div className='assignScoreText'> Assign score: </div>
                         <div className='scoreButtons'>
-                            {/* Linking the updateDataInFile function to the button */}
-                            <button className='points' onClick={() =>handleUpdatePoints(5)}> 5 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(10)}> 10 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(15)}> 15 </button>
-                            <button className='points' onClick={() =>handleUpdatePoints(20)}> 20 </button>
+                            <button className={selectedPoints.includes(0) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(0)}> 0 </button>
+                            <button className={selectedPoints.includes(5) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(5)}> 5 </button>
+                            <button className={selectedPoints.includes(10) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(10)}> 10 </button>
+                            <button className={selectedPoints.includes(15) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
+                            <button className={selectedPoints.includes(20) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
                         </div>
-                        <button className='submitScoreButton'> Submit </button>
+                        <button className='submitScoreButton' onClick={() => { setShowPopup(false); handleSubmitPoints(); }}>Submit</button>
                     </div>
                 </div>
             )}

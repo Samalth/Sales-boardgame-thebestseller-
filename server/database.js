@@ -77,10 +77,4 @@ async function modulePopUp(color, sort='question') {
 
 }
 
-
-/**/
-
-
-
-
 module.exports=modulePopUp;

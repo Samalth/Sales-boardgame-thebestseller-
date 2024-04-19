@@ -10,8 +10,8 @@ body{
     display: grid;
     grid-template-columns: repeat(15, 70px); /* Alle vakjes zijn 56px breed */
     grid-template-rows: repeat(9, 70px); /* Alle vakjes zijn 56px hoog */
-    margin-top: 80px;
-    margin-right: 90px;
+    margin-top: 5%;
+    margin-left: 0%;
     justify-content: center;
     align-content: center;
 }
@@ -125,7 +125,6 @@ background-size: cover;
     width: 20px; 
     height: 20px;
 }
-.
 
 .highlight {
     border: 2px solid yellow;
@@ -149,7 +148,6 @@ margin: 2px;
  position: fixed;
  top: 70%;
  right: 5%;
- box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
  border-radius: 8px;
  display: flex;
  flex-direction: column;
@@ -348,6 +346,7 @@ button:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     right: 7cm;
     z-index: 1;
+    resize: none;
 }
 
 .submitButton {
@@ -371,6 +370,25 @@ button:hover{
 
 .popup-blurred {
     filter: none;
+}
+
+.waitingScreenPopup {
+    background-color: white;
+    color: black;
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    align-content: center;
+    margin-top: 20%;
+    margin-left: 35%;
+    z-index: 2;
+}
+
+.waitingScreenText {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 25px;
 }
 
 /*modview popups*/
@@ -419,7 +437,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 60%;
+    margin-bottom: 50%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -438,7 +456,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
-    margin-top: 55%;
+    margin-top: 50%;
 }
 
 .questionWhiteBox3 {
@@ -447,7 +465,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -483,7 +501,7 @@ button:hover{
     font-size: 25px;
     color: white;
     left: 10%;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 
 .correctAnswerBox {
@@ -492,7 +510,7 @@ button:hover{
     background-color: white;
     color: black;
     position: absolute;
-    margin-bottom: 70%;
+    margin-bottom: 60%;
     left: 10%;
     width: 70%;
     height: 65%;
@@ -514,15 +532,19 @@ button:hover{
     margin-top: 60%;
 }
 
+.scoreButtons button.points.selected {
+    background-color: goldenrod;
+    z-index: 999;
+}
+
 .scoreButtons button.points {
     margin-top: 73%;
     font-family: Itim, Arial, Helvetica, sans-serif;
-    margin-right: 40px;
+    margin-right: 5%;
     background-color: white;
-}
-
-.scoreButtons button.points:hover{
-    background-color: #e7e7e7;
+    border-radius: 50%;
+    width: 9%;
+    z-index: 1;
 }
 
 .submitScoreButton{     /*overwritten by 'button'*/
@@ -530,5 +552,56 @@ button:hover{
     bottom: 10px;
     left: 140px;
     right: 140px;
-    margin-bottom: 40px;
+    margin-bottom: 17%;
+}
+
+.turnsModView {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
+}
+
+.playerTurn {
+    position: absolute;
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
+    margin-left: 4%;
+    margin-top: 45%;
+}
+
+/* leader board */
+
+.leaderBoard {
+    position: absolute;
+    left: 70%;
+    width: 400px;
+    margin-top: 5%;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 25px;
+    color: #F9E513;
+    background-color: #5E676D;
+    border: 2px solid white;
+}
+.pointsLeaderboard{
+    margin-right: 10px;
+}
+
+.leaderboardItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+    width: 80%;
+    margin:auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid yellow;
+}
+.leaderboardItem:last-child {
+    border-bottom: none;
 }

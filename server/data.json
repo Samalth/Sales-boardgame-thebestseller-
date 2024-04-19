@@ -1,14 +1,84 @@
 {
   "users": [
     {
-      "id": "2Q0JO0DMUjnx4ki9AAAO",
+      "id": "VWj8v7HAOrp03yGMAAAH",
       "language": "NL",
       "room": "",
-      "user": "",
       "name": "",
       "points": 0,
       "strategy": ""
+    },
+    {
+      "id": "HNwG5VAkcdKGvvDMAAAJ",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Sara",
+      "points": -50,
+      "strategy": "Lunar"
+    },
+    {
+      "id": "F7OI1oDpWFYzMecwAAAL",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Susmita",
+      "points": 10,
+      "strategy": "Top of the World"
+    },
+    {
+      "id": "eFiHq720M0VlgrCsAAAN",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Sam",
+      "points": 5,
+      "strategy": "Safeline"
+    },
+    {
+      "id": "DFBSzznm6aNkHprbAAAP",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Kees",
+      "points": 69,
+      "strategy": "Jysk Telepartner"
+    },
+    {
+      "id": "kRqKgZV28nGDPNagAAAR",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Noordin",
+      "points": 7,
+      "strategy": "Domino House"
+    },
+    {
+      "id": "r84eb9hJ0PutFeEFAAAT",
+      "language": "NL",
+      "room": "2294T",
+      "name": "Samuel",
+      "points": 100,
+      "strategy": "Klaphatten"
     }
   ],
-  "mods": []
+  "mods": [
+    {
+      "id": "VWj8v7HAOrp03yGMAAAH",
+      "language": "NL",
+      "room": "2294T",
+      "player_names": [
+        "Sara",
+        "Susmita",
+        "Sam",
+        "Kees",
+        "Noordin",
+        "Samuel"
+      ],
+      "players_joined": [
+        "lunar",
+        "world",
+        "safeline",
+        "jysk",
+        "domino",
+        "klaphatten"
+      ],
+      "turn": 1
+    }
+  ]
 }

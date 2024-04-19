@@ -8,8 +8,7 @@ export function JoinGame() {
     const [username, setUsername] = useState("");
     const [strategy, setStrategy] = useState("");
     const [information, setInformation] = useState("");
-
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const setName = (username) => {
     socket.emit("join_room", { name: username, room: gamepin, strategy: strategy});
@@ -26,15 +25,12 @@ export function JoinGame() {
   })
 
   const handleGame = () => {
-      // Navigate to the '/game' route
-    //   setName(username, gamepin, strategy)
-
       navigate('/game');
   };
+
   const handleHome = () => {
     navigate('/home')
   }
-
     return (
         <div className="parent-container">
         <div className='joinscreen-row error'>{information}</div>
@@ -42,7 +38,6 @@ export function JoinGame() {
             <label>Gamepin:</label>
             <input type="text" className='input' value={gamepin} placeholder='Enter gamepin' onChange={event => setGamepin(event.target.value)}/>
         </div>
-
         <div className="joinscreen-row strategy">
             <label htmlFor="strategy">Strategy:</label>
             <select name="strategy" id="strategy" onChange={event => setStrategy(event.target.value)}>
@@ -55,12 +50,10 @@ export function JoinGame() {
                 <option value="Klaphatten">6. Klaphatten</option>
             </select>
         </div>
-
         <div className="joinscreen-row name">
             <label htmlFor="fullName">Full name:</label>
             <input type="text" id="fullName" className='input' name="fullName" value={username} placeholder='Enter name' onChange={event => setUsername(event.target.value)}/>
         </div>
-
         <div className="joinscreen-row">
             <input type="submit" className="start button" value="Start!" onClick={() => setName(username, gamepin, strategy)}/>
             <input type="submit" className="back button" value="Home" onClick={handleHome}/>
