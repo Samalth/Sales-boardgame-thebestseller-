@@ -180,7 +180,7 @@ export function PlayBoard() {
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
-        const heightScoreboard = 105 * numPlayers;
+        const heightScoreboard = 98 * numPlayers;
         // Set the height of the leaderboard container
         const leaderboardContainer = document.querySelector('.leaderBoard');
         if (leaderboardContainer) {

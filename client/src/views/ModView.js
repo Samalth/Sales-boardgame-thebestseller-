@@ -241,7 +241,6 @@ export function ModView() {
                     setMoveMade= {setMoveMade}
                     position={position}
                     diceValue={diceValue}/>
-            </div>
             <div className='leaderBoard'>
                 <h2>Leaderboard</h2>
                 {sortedUserData.map(data => {
@@ -259,6 +258,7 @@ export function ModView() {
                         </div>
                     )
                 })}
+            </div>
             </div>
             {showPopup && (
                 <div className='scorePopup'>

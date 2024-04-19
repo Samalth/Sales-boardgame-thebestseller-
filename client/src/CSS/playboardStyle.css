@@ -568,7 +568,7 @@ button:hover{
     margin-top: 45%;
 }
 
-/* score board */
+/* leader board */
 
 .leaderBoard {
     position: absolute;
@@ -590,6 +590,7 @@ button:hover{
 .pointsLeaderboard{
     margin-right: 10px;
 }
+
 .leaderboardItem {
     display: flex;
     flex-direction: row;
