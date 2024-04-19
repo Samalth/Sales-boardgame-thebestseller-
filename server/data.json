@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "L2fdjX2fd1twgBmoAAAC",
+      "id": "OByKy1MtYXa4b9pbAAAH",
       "language": "NL",
       "room": "",
       "name": "",
@@ -9,17 +9,17 @@
       "strategy": ""
     },
     {
-      "id": "4jZAMxvx67-z94-pAAAD",
+      "id": "1Kxp63ctF9nicbgWAAAJ",
       "language": "NL",
-      "room": "TTA08",
+      "room": "T5689",
       "name": "Sara",
       "points": "",
       "strategy": "Lunar"
     },
     {
-      "id": "FtrbXJgv4okKvHOvAAAF",
+      "id": "Q4Jp_MTg3aqC1nEQAAAL",
       "language": "NL",
-      "room": "TTA08",
+      "room": "T5689",
       "name": "Susmita",
       "points": "",
       "strategy": "Top of the World"
@@ -27,9 +27,9 @@
   ],
   "mods": [
     {
-      "id": "L2fdjX2fd1twgBmoAAAC",
+      "id": "OByKy1MtYXa4b9pbAAAH",
       "language": "NL",
-      "room": "TTA08",
+      "room": "T5689",
       "player_names": [
         "Sara",
         "Susmita"
@@ -38,7 +38,7 @@
         "lunar",
         "world"
       ],
-      "turn": 0
+      "turn": 1
     }
   ]
 }

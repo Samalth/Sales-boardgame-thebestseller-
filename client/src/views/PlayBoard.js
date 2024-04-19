@@ -201,11 +201,15 @@ export function PlayBoard() {
 
     useEffect(() => {
         socket.on('players_turn', (data) => {
-            const pawn = document.querySelector('#' + data)
-            const parent = pawn.parentElement
-            const parentPosition = parent.getAttribute('pos')
-            setPosition(parentPosition)
-            setSelectedPawn(pawn)
+            try {
+                const pawn = document.querySelector('#' + data)
+                const parent = pawn.parentElement
+                const parentPosition = parent.getAttribute('pos')
+                setPosition(parentPosition)
+                setSelectedPawn(pawn)
+            } catch (TypeError) {
+                socket.emit('pawns_request_failed', '')
+            }
         })
     },[]);
 

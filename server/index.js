@@ -156,6 +156,14 @@ io.on('connection', (socket)=> {
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
     })
+
+    socket.on('pawns_request_failed', (data) => {
+        const room = userLogger('getRoom', socket.id);
+        const modID = modLogger('getMod', socket.id, room);
+        const strategy = modLogger('getPlayerTurn', modID)
+        socket.emit('players_turn', strategy)
+    })
+
 })
 
 server.listen(3001, () => {

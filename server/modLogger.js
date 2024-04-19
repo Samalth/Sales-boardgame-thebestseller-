@@ -186,7 +186,12 @@ function modLogger(method, socketid, info='temp'){
             addPlayerToMod(socketid, info)
             break
         case 'getPieces':
-            const playerPieces = readData().mods.find(mod => mod.id === socketid).players_joined
+            var playerPieces
+            try{
+                playerPieces = readData().mods.find(mod => mod.id === socketid).players_joined
+            } catch (TypeError){
+                playerPieces = 'No players found'
+            }
             return playerPieces
         case 'room':
             const room = readData().mods.find(mod => mod.id === socketid).room
