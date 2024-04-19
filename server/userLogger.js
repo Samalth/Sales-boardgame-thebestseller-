@@ -99,26 +99,10 @@ function availability(socketid, userName, userRoom, userStrat) {
     return 'available';
 }
 
-//   // Example usage
-//   console.log('Initial data:');
-//   console.log(readData());
-  
-//   // Adding a new user
-//   addUser({ id: 3, name: 'Emily Johnson', age: 35 });
-  
-//   // Updating user with ID 2
-//   updateUser(2, { name: 'Updated Name', age: 26 });
-  
-//   // Deleting user with ID 1
-//   deleteUser(1);
-  
-//   console.log('Data after manipulation:');
-//   console.log(readData());
-
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
-            addUser({id: socketid, language: 'NL', room: '', user: '', name: '', points: 0, strategy:''})
+            addUser({id: socketid, language: 'NL', room: '', name: '', points: 0, strategy:''})
             break
         case 'delete':
             deleteUser(socketid)

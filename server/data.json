@@ -1,40 +1,37 @@
 {
   "users": [
     {
-      "id": "C_yOyJLwL1O0rwwFAAAF",
+      "id": "k3iNMqu2SZXHop7KAAAD",
       "language": "NL",
       "room": "",
-      "user": "",
       "name": "",
       "points": 0,
       "strategy": ""
     },
     {
-      "id": "roYe9EzFMZgpo0yBAAAI",
+      "id": "GRJE17GEceHIWatnAAAH",
       "language": "NL",
-      "room": "25775",
-      "user": "",
+      "room": "",
       "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "vV7_Gzz-VbwHqgRSAAAJ",
+      "language": "NL",
+      "room": "0123M",
+      "name": "Susmita",
       "points": "",
-      "strategy": "Lunar"
-    },
-    {
-      "id": "e8jKOoAxWjJkaifRAAAJ",
-      "language": "NL",
-      "room": "",
-      "user": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
+      "strategy": "Top of the World"
     }
   ],
   "mods": [
     {
-      "id": "e8jKOoAxWjJkaifRAAAJ",
+      "id": "GRJE17GEceHIWatnAAAH",
       "language": "NL",
-      "room": "25775",
+      "room": "0123M",
       "players_joined": [
-        "lunar"
+        "world"
       ],
       "turn": 0
     }
