@@ -1,17 +1,15 @@
-const express = require("express")
+const express = require('express')
 const app = express()
 const path = require('path')
 const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
 const fs = require('fs');
-
-const databaseQuestion  = require("./database")
-const databaseAnswer  = require("./database")
+const databaseQuestion  = require('./database')
+const databaseAnswer  = require('./database')
 const userLogger = require('./userLogger')
 const modLogger = require('./modLogger')
 const getMovesFromCoordinate = require('./positionCalculator')
-
 
 app.use(cors())
 
@@ -26,28 +24,17 @@ const io = new Server(server, {
     }
 })
 
-//create game
 io.on('connection', (socket)=> {
-    // modLogger("log", socket.id)
 
-    // socket.on("disconnect", (reason) => {
-    //     // console.log(reason)
-    //     modLogger("delete", socket.id)
-    // })
-
-    socket.on("create_room", (data) => {
-        // modLogger('updateRoom', socket.id, data.room)
+    socket.on('create_room', (data) => {
         const room = modLogger('log', socket.id);
-        // userLogger("updateRoom", socket.id, room);
         socket.join(room)
-        socket.emit("send_gamepin", room);
+        socket.emit('send_gamepin', room);
     })
 
-    //join game
-    userLogger("log", socket.id)
+    userLogger('log', socket.id)
 
     socket.on("disconnect", (reason) => {
-        // console.log(reason)
         socket.to(userLogger("getRoom", socket.id)).emit('delete_user', "deleting")
         userLogger("delete", socket.id)
         modLogger("delete", socket.id)
@@ -61,12 +48,9 @@ io.on('connection', (socket)=> {
         } else{
             availability = 'Room does not exist'
         }
-
         if(data.strategy === ''){
             availability = 'Choose a strategy'
         }
-        
-        // console.log(availability)
         if (availability === 'available') {
             socket.join(data.room)
             socket.to(data.room).emit('add_user', "adding")
@@ -74,12 +58,9 @@ io.on('connection', (socket)=> {
             userLogger('updateRoom', socket.id, data.room)
             userLogger('updatePoints', socket.id, data.points)
             userLogger('updateStrategy', socket.id, data.strategy)
-
-            // get mod from room code and add the player to the mod's players_joined array
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())
             const pieces = modLogger('getPieces', modID)
-
             socket.emit('join_succes', availability);
             socket.emit('add_piece', pieces);
             socket.to(data.room).emit('add_piece', pieces);
@@ -126,16 +107,11 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_dice_roll_and_position', (data) =>{
-        // console.log(data)
         const coordinate = data.position.split('-');
         const xPos = parseInt(coordinate[0]);
         const yPos = parseInt(coordinate[1]);
         const moves = getMovesFromCoordinate(xPos, yPos, data.diceValue);
-
-        // console.log(moves);
-
         const formattedPositions = moves.map(pos => `${pos.x}-${pos.y}`)
-        // console.log(formattedPositions);
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('update_valid_positions', formattedPositions);
         socket.emit('update_valid_positions', formattedPositions);

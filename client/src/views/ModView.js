@@ -1,9 +1,7 @@
-// import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-// const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
 let selectedPawn = null;
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
@@ -39,7 +37,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
     const tiles = [];
 
-    // Function to render start pieces
     const renderStartPieces = () => {
         if (!updatedPieces){
             socket.emit('get_pieces', 'mod')
@@ -56,8 +53,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         });
 
         socket.on("add_piece", (data) => {
-            // Add new piece to board when receiving "add_piece" event
-            // setStartPieces(prevStartPieces => [...prevStartPieces, data]);
             setStartPieces(data)
         });
 
@@ -99,8 +94,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         </div>
     );
 };
-
-// end board
 
 const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     const [diceValue, setDiceValue] = useState(1);
@@ -151,9 +144,7 @@ export function ModView() {
     const [position, setPosition] = useState("8-5")
     const [submittedAnswer, setSubmittedAnswer] = useState('')
     const [diceValue, setDiceValue] = useState(1);
-
     const [selectedPoints, setSelectedPoints] = useState([]);
-
 
     useEffect(() => {
         socket.on("set_dice", (data) => {
@@ -193,16 +184,12 @@ export function ModView() {
             socket.off('submitted_answer');
         };
     })
-    
-
 
     const handleUpdatePoints = (buttonPoints) => {
         setSelectedPoints((prevSelectedPoints) => {
             if (prevSelectedPoints.includes(buttonPoints)) {
-                // Deselecteer punt als het al geselecteerd is
                 return prevSelectedPoints.filter((point) => point !== buttonPoints);
             } else {
-                // Voeg punt toe aan geselecteerde punten
                 return [...prevSelectedPoints, buttonPoints];
             }
         });
@@ -211,16 +198,22 @@ export function ModView() {
     const handleSubmitPoints = () => {
         console.log("submitted to index", selectedPoints);
         socket.emit("submit_points", { points: selectedPoints });
-        // Reset de geselecteerde punten naar een lege array
         setSelectedPoints([]);
     };
 
     return (
         <>
             <div className={showPopup ? 'playboard blurred' : 'playboard'}>
-                <BoardGrid moveMade={moveMade} setMoveMade= {setMoveMade}
-                           setPosition={setPosition} selectedPawn={selectedPawn} setSelectedPawn={setSelectedPawn}/>
-                <DiceContainer setMoveMade= {setMoveMade} position={position} diceValue={diceValue}/>
+                <BoardGrid
+                    moveMade={moveMade}
+                    setMoveMade= {setMoveMade}
+                    setPosition={setPosition}
+                    selectedPawn={selectedPawn}
+                    setSelectedPawn={setSelectedPawn}/>
+                <DiceContainer
+                    setMoveMade= {setMoveMade}
+                    position={position}
+                    diceValue={diceValue}/>
             </div>
             {showPopup && (
                 <div className='scorePopup'>
@@ -236,7 +229,6 @@ export function ModView() {
                         <div className='correctAnswerBox'></div>
                         <div className='assignScoreText'> Assign score: </div>
                         <div className='scoreButtons'>
-                            {/* Linking the updateDataInFile function to the button */}
                             <button className={selectedPoints.includes(0) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(0)}> 0 </button>
                             <button className={selectedPoints.includes(5) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(5)}> 5 </button>
                             <button className={selectedPoints.includes(10) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(10)}> 10 </button>

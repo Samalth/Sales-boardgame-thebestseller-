@@ -22,7 +22,6 @@ const readData = () => {
     }
 };
 
-// Write JSON file
 const writeData = (jsonData) => {
     try {
         fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2));
@@ -31,7 +30,6 @@ const writeData = (jsonData) => {
     }
 };
 
-// Delete mod by ID
 const deleteMods = (modsId) => {
     let data = readData();
     if (!data) return;
@@ -41,7 +39,6 @@ const deleteMods = (modsId) => {
     writeData(data);
 };
 
-// Add a new user
 const addMods = (mods) => {
     let data = readData();
     if (!data) return;
@@ -51,7 +48,6 @@ const addMods = (mods) => {
     writeData(data);
 };
 
-// Update mod by ID
 const updateMods = (modsId, newData) => {
     let data = readData();
     if (!data) return;
@@ -77,10 +73,10 @@ function getRoom(socketid) {
         return null;
     }
 }
+
 const checkRoom = (roomcode) => {
     let data = readData();
     if (!data) return null;
-    // Check if any object in the mods array has the specified room code
     const roomExists = data.mods.some(mod => mod.room === roomcode);
     
     if (roomExists) {
@@ -89,10 +85,10 @@ const checkRoom = (roomcode) => {
         return 'does not exist';
     }
 }
+
 const modID = (roomcode) => {
     let data = readData();
     if (!data) return null;
-    // Check if any object in the mods array has the specified room code
     const modID = data.mods.find(mod => mod.room === roomcode);
 
     if (modID) {
@@ -101,6 +97,7 @@ const modID = (roomcode) => {
         return null;
     }
 }
+
 const addPlayerToMod = (socketid, strategy) => {
     switch (strategy) {
         case 'top of the world':
@@ -117,7 +114,6 @@ const addPlayerToMod = (socketid, strategy) => {
             break
     }
 
-
     let data = readData();
     if (!data) return null;
     
@@ -128,7 +124,6 @@ const addPlayerToMod = (socketid, strategy) => {
             return 'added';
         }
     }
-
 }
 
 const nextTurn = (socketid) => {
@@ -146,14 +141,13 @@ const getPlayerTurn = (socketid) => {
     let data = readData();
     if (!data) return null;
     const mod = data.mods.find(mods => mods.id === socketid);
-    if (!mod) return null; // Return null if mod is not found
+    if (!mod) return null;
     const playerArray = mod.players_joined;
     const turn = mod.turn;
-    if (typeof turn !== 'number' || turn < 0 || turn >= playerArray.length) return null; // Check if turn is a valid index
-    const name = playerArray[turn]; // Accessing player name using array indexing
+    if (typeof turn !== 'number' || turn < 0 || turn >= playerArray.length) return null;
+    const name = playerArray[turn];
     return name;
 }
-
 
 function modLogger(method, socketid, info='temp'){
     switch(method){

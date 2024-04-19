@@ -1,9 +1,7 @@
-// import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-// const startPieces = ['lunar', 'world', 'safeline', 'jysk', 'domino', 'klaphatten'];
 let selectedPawn = null;
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
@@ -39,7 +37,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
     const tiles = [];
 
-    // Function to render start pieces
     const renderStartPieces = () => {
         if (!updatedPieces){
             socket.emit('get_pieces', 'player')
@@ -59,13 +56,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setValidPositions(data);
         });
         socket.on("add_piece", (data) => {
-            // Add new piece to board when receiving "add_piece" event
-            // setStartPieces(prevStartPieces => [...prevStartPieces, data]);
             setStartPieces(data)
         });
-
         socket.on("update_position", (data) => {
-            // Update the position of the selected pawn when receiving new position data
             const newPosition = data.newPosition; // bijvoorbeeld 8-6
             const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
 
@@ -74,10 +67,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
             // If the selected pawn exists and the new position is valid
             if (selectedPawnElement && validPositions.includes(newPosition)) {
-                // Move the pawn to the new position
                 const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
                 newTile.appendChild(selectedPawnElement);
-                // Update the position state of the selected pawn
                 setPosition(newPosition);
                 document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
             }
@@ -108,8 +99,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         };
         boardGrid.addEventListener('click', handleClick);
-
-        // Cleanup function to remove event listeners when the component unmounts
         return () => {
             boardGrid.removeEventListener('click', handleClick);
         };
@@ -120,14 +109,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         const isHighlighted = validPositions.includes(position);
         const tileClass = `tile ${tileInfo[i]} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
-            // If the tile is a start tile, render start pieces
             tiles.push(
                 <div key={i} className={tileClass} tile-id={i} pos={position}>
                     {renderStartPieces()}
                 </div>
             );
         } else {
-            // Otherwise, just render the tile
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
@@ -138,8 +125,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         </div>
     );
 };
-
-// end board
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
@@ -203,7 +188,6 @@ export function PlayBoard() {
         return () => {
             socket.off('receive_question');
         };
-
     }, []);
 
     const handleSubmitAnswer = () => {
@@ -221,7 +205,6 @@ export function PlayBoard() {
             socket.off('submitted_points');
         };
     }, []);
-
 
     return (
     <>

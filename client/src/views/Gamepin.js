@@ -12,14 +12,12 @@ export function Gamepin() {
         socket.on("send_gamepin", (data) => {
             setGamepin(data);
         });
-    
         socket.on('add_user', () => {
             setPlayerCount(prevCount => prevCount + 1);
         });
         socket.on("delete_user", () => {
             setPlayerCount(prevCount => prevCount - 1);
         })
-    
         return () => {
             socket.off("send_gamepin");
             socket.off("add_user");
@@ -35,11 +33,10 @@ export function Gamepin() {
         navigate('/home')
     }
 
-    
-
     const handlePlayerCountChange = (event) => {
         setPlayerCount(parseInt(event.target.value));
     };
+
     const copygamepin = (event) => {
         event.target.select();
         document.execCommand('copy');
@@ -53,19 +50,16 @@ export function Gamepin() {
                 <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
                        onChange={event => setGamepin(event.target.value)}/>
             </div>
-
             <div className="row">
                 <label>Players:</label>
                 <div className="row gamepin"></div>
                 <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
                        onChange={handlePlayerCountChange}/>
             </div>
-
             <div className="row">
             <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
                 <input type="submit" className="gamePinButton" value="Home" onClick={handleHome}/>
             </div>
         </div>
     );
-
 }

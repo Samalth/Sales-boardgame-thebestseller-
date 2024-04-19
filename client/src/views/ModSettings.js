@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import '../CSS/settings.css';
 import {socket} from '../client'
 
-
 export function ModSettings() {
   const [playerCount, setPlayerCount] = useState(2);
   const [roundsCount, setRoundsCount] = useState(5);
@@ -13,7 +12,6 @@ export function ModSettings() {
     socket.emit("create_room");
   }
   const handleGame = () => {
-      // Navigate to the '/game' route
       navigate('/Gamepin');
   };
 
@@ -50,12 +48,10 @@ export function ModSettings() {
   };
 
   const handleSubmit = (event) => {
-    // Handle form submission
     event.preventDefault();
     console.log('Form submitted');
     createRoom()
     handleGame()
-    // You can perform additional actions here
   };
 
   return (

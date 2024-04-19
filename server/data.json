@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "k3iNMqu2SZXHop7KAAAD",
+      "id": "T_yStnQ2V1xFchzLAAAB",
       "language": "NL",
       "room": "",
       "name": "",
@@ -9,7 +9,7 @@
       "strategy": ""
     },
     {
-      "id": "GRJE17GEceHIWatnAAAH",
+      "id": "WYHeTAjjoOb2oBzPAAAD",
       "language": "NL",
       "room": "",
       "name": "",
@@ -17,23 +17,13 @@
       "strategy": ""
     },
     {
-      "id": "vV7_Gzz-VbwHqgRSAAAJ",
+      "id": "RqsdOOQfYSFVyO0SAAAF",
       "language": "NL",
-      "room": "0123M",
-      "name": "Susmita",
-      "points": "",
-      "strategy": "Top of the World"
+      "room": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
     }
   ],
-  "mods": [
-    {
-      "id": "GRJE17GEceHIWatnAAAH",
-      "language": "NL",
-      "room": "0123M",
-      "players_joined": [
-        "world"
-      ],
-      "turn": 0
-    }
-  ]
+  "mods": []
 }
