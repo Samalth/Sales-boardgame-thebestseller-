@@ -136,6 +136,9 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
 };
 
 export function ModView() {
+    const [data, setData] = useState([]);
+    const [users, setUsers] = useState([]);
+    const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
@@ -146,6 +149,29 @@ export function ModView() {
     const [submittedAnswer, setSubmittedAnswer] = useState('')
     const [diceValue, setDiceValue] = useState(1);
     const [selectedPoints, setSelectedPoints] = useState([]);
+
+    useEffect(() => {
+        const numPlayers = sortedUserData.length;
+        const heightScoreboard = 105 * numPlayers;
+        // Set the height of the leaderboard container
+        const leaderboardContainer = document.querySelector('.leaderBoard');
+        if (leaderboardContainer) {
+            leaderboardContainer.style.height = `${heightScoreboard}px`;
+        }
+    }, [sortedUserData]);
+
+    useEffect(() => {
+        // socket.on('players_name', (data) => {
+        //     setPlayerName(data)
+        // })
+        socket.on('data_leaderboard', (jsonData) => {
+            setData(jsonData);
+            console.log(jsonData)
+        });
+        return () => {
+            socket.off('data_leaderboard');
+        };
+    }, []);
 
     useEffect(() => {
         socket.on("set_dice", (data) => {
@@ -215,6 +241,24 @@ export function ModView() {
                     setMoveMade= {setMoveMade}
                     position={position}
                     diceValue={diceValue}/>
+            </div>
+            <div className='leaderBoard'>
+                <h2>Leaderboard</h2>
+                {sortedUserData.map(data => {
+                    return (
+                        <div className="leaderboardItem" key={data.id}>
+                            <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
+                                data.strategy === 'Lunar' ? 'piecelunar' :
+                                    data.strategy === 'Domino House' ? 'piecedomino' :
+                                        data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
+                                            data.strategy === 'Top of the World' ? 'pieceworld' :
+                                                data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
+                            />
+                            <div>{data.name}</div>
+                            <div className="pointsLeaderboard"> {data.points} </div>
+                        </div>
+                    )
+                })}
             </div>
             {showPopup && (
                 <div className='scorePopup'>
