@@ -2,8 +2,8 @@ const { json } = require('express');
 const fs = require('fs');
 
 function generateGamepin() {
-    const characters = '01234A5S6789M';
-    const length = 5; // Lengte gamepin
+    const characters = '01234A5S678T9M';
+    const length = 5;
     let pin = '';
     for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
@@ -33,25 +33,20 @@ const writeData = (jsonData) => {
 const deleteMods = (modsId) => {
     let data = readData();
     if (!data) return;
-
     data.mods = data.mods.filter(mods => mods.id !== modsId);
-
     writeData(data);
 };
 
 const addMods = (mods) => {
     let data = readData();
     if (!data) return;
-
     data.mods.push(mods);
-
     writeData(data);
 };
 
 const updateMods = (modsId, newData) => {
     let data = readData();
     if (!data) return;
-
     const index = data.mods.findIndex(mods => mods.id === modsId);
     if (index !== -1) {
         data.mods[index] = { ...data.mods[index], ...newData };
@@ -64,7 +59,6 @@ const updateMods = (modsId, newData) => {
 function getRoom(socketid) {
     let data = readData();
     if (!data) return null;
-
     const mods = data.mods.find(mods => mods.id === socketid);
     if (mods) {
         return mods.room;
@@ -78,7 +72,6 @@ const checkRoom = (roomcode) => {
     let data = readData();
     if (!data) return null;
     const roomExists = data.mods.some(mod => mod.room === roomcode);
-    
     if (roomExists) {
         return 'exists';
     } else {
@@ -90,7 +83,6 @@ const modID = (roomcode) => {
     let data = readData();
     if (!data) return null;
     const modID = data.mods.find(mod => mod.room === roomcode);
-
     if (modID) {
         return modID.id;
     } else {
@@ -116,7 +108,6 @@ const addPlayerToMod = (socketid, strategy) => {
 
     let data = readData();
     if (!data) return null;
-    
     for (let i = 0; i < data.mods.length; i++) {
         if (data.mods[i].id === socketid) {
             data.mods[i].players_joined.push(strategy);

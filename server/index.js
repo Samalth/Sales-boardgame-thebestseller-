@@ -131,13 +131,12 @@ io.on('connection', (socket)=> {
     socket.on("update_position", (data) => {
         const room = userLogger('getRoom', socket.id);
         socket.to(room).emit('update_position', data);
-        // socket.emit('update_position', data);
     })
 
-    socket.on("submit_points", (data) => {
+    socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
         socket.to(room).emit('submitted_points', data.points);
-        console.log("send points to playboard: " + data.points);
+        console.log('send points to playboard: ' + data.points);
         modLogger('nextTurn', socket.id)
         const name = modLogger('getPlayerTurn', socket.id)
         console.log(name)
@@ -148,9 +147,8 @@ io.on('connection', (socket)=> {
         const name = modLogger('getPlayerTurn', socket.id)
         socket.emit('players_turn', name)
     })
-
 })
 
 server.listen(3001, () => {
-    console.log("server is running on port 3001")
+    console.log('server is running on port 3001, I think')
 })

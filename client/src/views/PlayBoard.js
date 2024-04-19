@@ -61,11 +61,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         socket.on("update_position", (data) => {
             const newPosition = data.newPosition; // bijvoorbeeld 8-6
             const selectedPawnName = data.selectedPawn; // 'lunar' of 'world'
-
-            // Find the DOM element of the selected pawn by its name
             const selectedPawnElement = document.getElementById(selectedPawnName);
-
-            // If the selected pawn exists and the new position is valid
             if (selectedPawnElement && validPositions.includes(newPosition)) {
                 const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
                 newTile.appendChild(selectedPawnElement);
@@ -74,7 +70,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         });
         const boardGrid = document.querySelector('.board-grid');
-
         const handleClick = event => {
             const targetTile = event.target.closest('.tile');
             console.log(targetTile)
@@ -83,16 +78,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 setSelectedPawn(event.target);
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
-
                 if (validPositions.includes(newPosition) && !moveMade) {
-                    // Append the pawn to the new tile and update game state as necessary
                     event.target.appendChild(selectedPawn);
-
                     const color = targetTile.className.split(' ')[1];
                     sendQuestionRequest(color);
                     setMoveMade(true);
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    // Update the pawn's position in your state
                     setPosition(newPosition); // Assuming setPosition updates the pawn's position state
                     socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
                 }
@@ -118,7 +109,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
         }
     }
-
     return (
         <div className='board-grid'>
             {tiles}
@@ -128,7 +118,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({setSteps, setMoveMade, position}) => {
     const [diceValue, setDiceValue] = useState(1);
-
     const roll = () => {
         socket.emit("roll_dice")
     };
@@ -138,7 +127,6 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
             const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
             const dice = document.querySelector(".diceImage");
             dice.classList.add("shake");
-
             let interval = setInterval(function () {
                 let diceValue = Math.floor(Math.random() * 6) + 1;
                 dice.setAttribute("src", images[diceValue - 1]);
@@ -175,7 +163,6 @@ export function PlayBoard() {
     const [gamePaused, setGamePaused] = useState(false)
     const [gamePaused2, setGamePaused2] = useState(false)
     const [textBoxContent, setTextBoxContent] = useState('')
-
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
     };
