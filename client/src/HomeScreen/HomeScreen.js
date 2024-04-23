@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../CSS/startStyle.css';
+import './startStyle.css';
 
 export function HomeScreen() {
   const navigate = useNavigate();
@@ -25,9 +25,9 @@ export function HomeScreen() {
             <input type="submit" className="button game" value="Create Game" onClick={handleCreateGame}/>
           </div>
           <div className="row languages">
-            <img className='flagImg' src='../den_flag.png' alt=''/>
-            <img className='flagImg' src='../uk_flag.png' alt=''/>
-            <img className='flagImg' src='../nl_flag.png' alt=''/>
+            <img className='flagImg' src='../../Assets/den_flag.png' alt=''/>
+            <img className='flagImg' src='../../Assets/uk_flag.png' alt=''/>
+            <img className='flagImg' src='../../Assets/nl_flag.png' alt=''/>
           </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../CSS/gamepinStyle.css';
+import './gamepinStyle.css';
 import {socket} from '../client'
 import React, { useEffect, useState } from "react"
 

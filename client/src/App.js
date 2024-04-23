@@ -1,11 +1,11 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import { HomeScreen } from './views/HomeScreen';
-import { ModSettings } from './views/ModSettings'
-import { PlayBoard } from './views/PlayBoard';
-import { JoinGame } from './views/JoinGame';
-import { Gamepin } from './views/Gamepin'
-import { ModView } from './views/ModView'
+import { HomeScreen } from './HomeScreen/HomeScreen';
+import { ModSettings } from './ModeratorScreen/ModSettings'
+import { PlayBoard } from './GamerScreen/PlayBoard';
+import { JoinGame } from './JoinGameScreen/JoinGame';
+import { Gamepin } from './Gamepin/Gamepin'
+import { ModView } from './ModeratorScreen/ModView'
 
 function App() {
 
@@ -27,36 +27,3 @@ function App() {
 }
 
 export default App;
-
-// const [room, setRoom] = useState("")
-
-// const [message, setMessage] = useState("")
-// const [messageReceived, setMessageReceived] = useState("")
-
-// const joinRoom = () =>{
-//   if (room !== ""){
-//     socket.emit("join_room", room)
-//   }
-// }
-
-// const sendMessage = () =>{
-//   socket.emit("send_message", {message, room})
-// }
-
-// useEffect(() => {
-//   socket.on("receive_message", (data) =>{
-//     setMessageReceived(data.message)
-//   })
-// }, [socket])
-
-
-// <input placeholder='Room number' onChange={(event) => {
-//         setRoom(event.target.value)
-//       }}/>
-//       <button onClick={joinRoom}>Join room</button>
-//       <input placeholder='Message' onChange={(event) =>{
-//         setMessage(event.target.value)
-//       }}/>
-//       <button onClick={sendMessage}>Send message</button>
-//       <h1>Message: </h1>
-//       {messageReceived}

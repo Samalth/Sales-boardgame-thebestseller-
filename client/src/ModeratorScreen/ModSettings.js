@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../CSS/settings.css';
+import './settings.css';
 import {socket} from '../client'
 
 export function ModSettings() {

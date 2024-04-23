@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../CSS/JoinScreenStyle.css';
+import './JoinScreenStyle.css';
 import { useEffect, useState } from "react"
 import {socket} from '../client'
 
