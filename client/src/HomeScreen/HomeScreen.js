@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import './startStyle.css';
+import den_flag from '../Assets/den_flag.png';
+import uk_flag from '../Assets/uk_flag.png';
+import nl_flag from '../Assets/nl_flag.png';
 
 export function HomeScreen() {
   const navigate = useNavigate();
@@ -8,7 +11,7 @@ export function HomeScreen() {
       navigate('/configuration');
   };
   const handleJoinGame = () => {
-    navigate('/joingame')
+    navigate('/joinGame')
   }
     return (
         <div>
@@ -25,9 +28,9 @@ export function HomeScreen() {
             <input type="submit" className="button game" value="Create Game" onClick={handleCreateGame}/>
           </div>
           <div className="row languages">
-            <img className='flagImg' src='../../Assets/den_flag.png' alt=''/>
-            <img className='flagImg' src='../../Assets/uk_flag.png' alt=''/>
-            <img className='flagImg' src='../../Assets/nl_flag.png' alt=''/>
+            <img className='flagImg' src={den_flag} alt='Danish'/>
+            <img className='flagImg' src={uk_flag} alt='English'/>
+            <img className='flagImg' src={nl_flag} alt='Dutch'/>
           </div>
         </div>
     );
