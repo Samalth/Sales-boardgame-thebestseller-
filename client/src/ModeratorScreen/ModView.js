@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../GamerScreen/playboardStyle.css';
+import '../PlayerScreen/GameStyle.css';
 import {socket} from '../client'
-
-let selectedPawn = null;
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
     const boardWidth = 15;
@@ -97,7 +95,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 const DiceContainer = ({ setSteps, setMoveMade, position }) => {
     const [diceValue, setDiceValue] = useState(1);
-    const [playersTurn, setPlayersTurn] = useState('')
     const [playerName, setPlayerName] = useState('')
 
     useEffect(() => {
@@ -137,12 +134,10 @@ const DiceContainer = ({ setSteps, setMoveMade, position }) => {
 
 export function ModView() {
     const [data, setData] = useState([]);
-    const [users, setUsers] = useState([]);
     const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
-    const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")

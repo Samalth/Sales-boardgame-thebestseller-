@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './playboardStyle.css';
+import './GameStyle.css';
+import '../PlayBoard/Dice.css';
+import DiceContainer from '../PlayBoard/Dice';
 import {socket} from '../client'
 
-let selectedPawn = null;
-
+let selectedPawn;
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
     const boardWidth = 15;
     const boardHeight = 9;
@@ -78,7 +79,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             if (startPieces.includes(event.target.id)) {
                 event.target.classList.add('highlight');
                 // setSelectedPawn(event.target);
-                console.log(event.target)
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
                 if (validPositions.includes(newPosition) && !moveMade) {
@@ -123,51 +123,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     );
 };
 
-const DiceContainer = ({setSteps, setMoveMade, position}) => {
-    const [diceValue, setDiceValue] = useState(1);
-    const roll = () => {
-        socket.emit("roll_dice")
-    };
-
-    useEffect(() => {
-        socket.on("set_dice", (data) => {
-            const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
-            const dice = document.querySelector(".diceImage");
-            dice.classList.add("shake");
-            let interval = setInterval(function () {
-                let diceValue = Math.floor(Math.random() * 6) + 1;
-                dice.setAttribute("src", images[diceValue - 1]);
-            }, 100);
-
-            setTimeout(function () {
-                clearInterval(interval);
-                dice.classList.remove("shake");
-                setDiceValue(data);
-                dice.setAttribute("src", images[data - 1]);
-                socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
-                setMoveMade(false);
-            }, 1000);
-        })
-    })
-
-    return (
-        <div className="dice-container">
-            <div className="dice-wrapper">
-                <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
-            </div>
-            <button type='button' onClick={roll}>Roll the dice</button>
-        </div>
-    );
-}
-
-export function PlayBoard() {
+export function Game() {
     const [data, setData] = useState([]);
-    const [users, setUsers] = useState([]);
     const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("")
     const [steps, setSteps] = useState(0)
     const [moveMade, setMoveMade] = useState(false)
-    const [currentPlayer, setCurrentPlayer] = useState (0)
     const [selectedPawn , setSelectedPawn] = useState(<div></div>)
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false)
@@ -278,7 +239,7 @@ export function PlayBoard() {
             {gamePaused && (
                 <div className='questionBoxPopup'>
                     <div className="questionOrangeBox">
-                        <div className='strategyName'>Strategie <br/> Logo </div>
+                        <div className='strategyName'>Strategy <br/> Logo </div>
                         <div className='questionLabel'> <br/> Question: </div>
                         <div className="questionWhiteBox">{question}</div>
                     </div>

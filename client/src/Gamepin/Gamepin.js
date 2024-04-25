@@ -37,7 +37,7 @@ export function Gamepin() {
         setPlayerCount(parseInt(event.target.value));
     };
 
-    const copygamepin = (event) => {
+    const copyGamePin = (event) => {
         event.target.select();
         document.execCommand('copy');
         // alert('copied gamepin');
@@ -47,7 +47,7 @@ export function Gamepin() {
         <div className="parent-container">
             <div className="row gamepin">
                 <label>Gamepin:</label>
-                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
+                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copyGamePin} readOnly
                        onChange={event => setGamepin(event.target.value)}/>
             </div>
             <div className="row">

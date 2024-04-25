@@ -1,0 +1,86 @@
+.board-grid {
+    width: 65%;
+    float: left;
+    display: grid;
+    grid-template-columns: repeat(15, 70px); /* Alle vakjes zijn 56px breed */
+    grid-template-rows: repeat(9, 70px); /* Alle vakjes zijn 56px hoog */
+    margin-top: 5%;
+    margin-left: 0%;
+    justify-content: center;
+    align-content: center;
+}
+
+img {
+    width: 55px;
+    height: 55px;
+    margin: 2px;
+}
+
+.tile {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 2px;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.yellow {
+    background-color: #DAB24B;
+}
+
+.blue {
+    background-color: #47A1C8;
+}
+
+.red {
+    background-color: #BA4040;
+}
+
+.green {
+    background-color: #53A65B;
+}
+
+.orange {
+    background-color: #C66732;
+}
+
+.purple {
+    background-color: #A83E8A;
+}
+
+.start {
+    background-color: #000000;
+    background-size: 60px;
+}
+
+.sales {
+    background-image: url('../Assets/Sales.png');
+    background-size: cover;
+}
+
+.chance{
+    background-image: url('../Assets/Chance.png');
+    background-size: cover;
+}
+
+.rainbow{
+    background-image: url('../Assets/Rainbow.png');
+    background-size: cover;
+}
+
+.megatrends{
+    background-image: url('../Assets/MegaTrends.png');
+    background-size: cover;
+}
+.startpieces {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+

@@ -49,7 +49,6 @@ export function ModSettings() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted');
     createRoom()
     handleGame()
   };
@@ -73,4 +72,4 @@ export function ModSettings() {
       </div>
     </form>
   );
-};
+}

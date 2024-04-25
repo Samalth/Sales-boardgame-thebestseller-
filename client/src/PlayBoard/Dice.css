@@ -4,14 +4,12 @@
     border-radius: 8px;
 }
 
-.container{
+.dice-container{
     width: 300px;
-    padding: 50px;
-    position: absolute;
-    top: 20%;
-    right: 1%;
-    background-color: black;
-    box-shadow: 0 15px 35px rgba(50, 50, 50, 0.15);
+    padding: 20px;
+    position: fixed;
+    top: 70%;
+    right: 5%;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -29,7 +27,6 @@ label{
     font-family: Itim, Arial, Helvetica, sans-serif;
     font-size: 36px;
     color: white;
-    margin: 30px;
     font-weight: 500;
 }
 

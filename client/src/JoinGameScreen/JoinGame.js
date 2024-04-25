@@ -35,7 +35,7 @@ export function JoinGame() {
         <div className="parent-container">
         <div className='joinscreen-row error'>{information}</div>
         <div className="joinscreen-row gamepin">
-            <label>Gamepin:</label>
+            <label>Game pin:</label>
             <input type="text" className='input' value={gamepin} placeholder='Enter gamepin' onChange={event => setGamepin(event.target.value)}/>
         </div>
         <div className="joinscreen-row strategy">
