@@ -56,7 +56,8 @@ io.on('connection', (socket)=> {
             socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
-            userLogger('updatePoints', socket.id, data.points)
+          /*  const points = data.points !== undefined ? parseInt(data.points) : 0;*/
+           /* userLogger('updatePoints', socket.id, data.points)*/
             userLogger('updateStrategy', socket.id, data.strategy)
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())
@@ -136,12 +137,21 @@ io.on('connection', (socket)=> {
 
     socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
+        let name = modLogger('getPlayerName', socket.id)
+        const id = userLogger('getUserIDByName', socket.id , name);
+        const oldPoints = userLogger('getPoints', socket.id, name);
+        const newPoints = Number(oldPoints) + Number(data.points);
+
+
+        userLogger('updatePoints', id, newPoints);
+
         socket.to(room).emit('submitted_points', data.points);
-        console.log('send points to playboard: ' + data.points);
+        socket.emit('players_name', name)
         modLogger('nextTurn', socket.id)
+        name = modLogger('getPlayerName', socket.id);
         const strategy = modLogger('getPlayerTurn', socket.id)
         socket.emit('players_turn', strategy)
-        const name = modLogger('getPlayerName', socket.id)
+
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)

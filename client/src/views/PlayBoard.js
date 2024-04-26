@@ -260,15 +260,20 @@ export function PlayBoard() {
             {sortedUserData.map(data => {
                 return (
                     <div className="leaderboardItem" key={data.id}>
-                        <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
+                        <img className={data.name === playerName ? `flicker ${data.strategy === 'Safeline' ? 'piecesafeline' :
+                            data.strategy === 'Lunar' ? 'piecelunar' :
+                                data.strategy === 'Domino House' ? 'piecedomino' :
+                                    data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
+                                        data.strategy === 'Top of the World' ? 'pieceworld' :
+                                            data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"}` : data.strategy === 'Safeline' ? 'piecesafeline' :
                             data.strategy === 'Lunar' ? 'piecelunar' :
                                 data.strategy === 'Domino House' ? 'piecedomino' :
                                     data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
                                         data.strategy === 'Top of the World' ? 'pieceworld' :
                                             data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
                         />
-                        <div>{data.name}</div>
-                        <div className="pointsLeaderboard"> {data.points} </div>
+                        <div className={data.name === playerName ? `flicker` : ""}>{data.name}</div>
+                        <div className={data.name === playerName ? `flicker pointsLeaderboard` : "pointsLeaderboard"}> {data.points} </div>
                     </div>
                 )
             })}
