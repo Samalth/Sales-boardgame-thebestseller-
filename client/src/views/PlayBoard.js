@@ -78,7 +78,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
         const handleClick = event => {
             const targetTile = event.target.closest('.tile');
-            console.log(targetTile)
             if (startPieces.includes(event.target.id)) {
                 event.target.classList.add('highlight');
                 // setSelectedPawn(event.target);
@@ -150,7 +149,6 @@ const DiceContainer = ({setSteps, setMoveMade, position, myTurn, setMyTurn}) => 
                 setDiceValue(data);
                 dice.setAttribute("src", images[data - 1]);
                 socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
-                setMoveMade(false);
             }, 1000);
         })
     })
@@ -171,7 +169,7 @@ export function PlayBoard() {
     const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("")
     const [steps, setSteps] = useState(0)
-    const [moveMade, setMoveMade] = useState(false)
+    const [moveMade, setMoveMade] = useState(true)
     const [currentPlayer, setCurrentPlayer] = useState ('')
     const [myTurn, setMyTurn] = useState(false)
     const [selectedPawn , setSelectedPawn] = useState(<div></div>)
@@ -244,8 +242,10 @@ export function PlayBoard() {
                 setSelectedPawn(pawn)
                 if (currentPlayer === data) {
                     setMyTurn(true)
+                    setMoveMade(false)
                 } else {
                     setMyTurn(false)
+                    setMoveMade(true)
                 }
                 socket.emit('get_data', 'leaderboard_update');
             } catch (TypeError) {
