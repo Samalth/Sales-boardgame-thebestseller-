@@ -50,11 +50,11 @@ const updateUser = (userId, newData) => {
     if (!data) return;
 
     const index = data.users.findIndex(user => user.id === userId);
-        if (index !== -1) {
+    if (index !== -1) {
         data.users[index] = { ...data.users[index], ...newData };
         writeData(data);
     } else {
-        console.error('User not found.');
+        console.error('User not found1.');
     }
 };
 
@@ -66,20 +66,36 @@ function getRoom(socketid) {
     if (user) {
         return user.room;
     } else {
-        console.error('User not found.');
+        console.error('User not found2.');
         return null;
     }
 };
 
-function getPoints(socketid) {
+// Get user by name
+function getUserIDByName(name) {
     let data = readData();
     if (!data) return null;
 
-    const user = data.users.find(user => user.id === socketid);
+    const user = data.users.find(user => user.name === name);
     if (user) {
+        return user.id;
+    } else {
+        console.error('User not found!2');
+        return null;
+    }
+}
+
+
+function getPoints(name) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.name === name)
+    if (user) {
+        console.log(user.points + ' points test')
         return user.points;
     } else {
-        console.error('User not found.');
+        console.error('User not found3.');
         return null;
     }
 }
@@ -108,7 +124,7 @@ function getData(socketid) {
     if (users) {
         return users
     } else {
-        console.error('User not found.');
+        console.error('User not found4.');
         return null;
     }
 }
@@ -136,7 +152,9 @@ function userLogger(method, socketid, info=""){
         case 'getRoom':
             return getRoom(socketid)
         case 'getPoints':
-            return getPoints(socketid)
+            return getPoints(info)
+        case 'getUserIDByName':
+            return getUserIDByName(info);
         case 'checkAvailability':
             return availability(socketid, info.name, info.room, info.strategy)
         case 'getData':

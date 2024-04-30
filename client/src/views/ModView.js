@@ -143,6 +143,7 @@ export function ModView() {
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [playerName, setPlayerName] = useState('')
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
@@ -152,7 +153,7 @@ export function ModView() {
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
-        const heightScoreboard = 105 * numPlayers;
+        const heightScoreboard = 98 * numPlayers;
         // Set the height of the leaderboard container
         const leaderboardContainer = document.querySelector('.leaderBoard');
         if (leaderboardContainer) {
@@ -161,9 +162,9 @@ export function ModView() {
     }, [sortedUserData]);
 
     useEffect(() => {
-        // socket.on('players_name', (data) => {
-        //     setPlayerName(data)
-        // })
+            socket.on('players_name', (data) => {
+            setPlayerName(data)
+         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
             console.log(jsonData)
@@ -223,7 +224,6 @@ export function ModView() {
     };
 
     const handleSubmitPoints = () => {
-        console.log("submitted to index", selectedPoints);
         socket.emit("submit_points", { points: selectedPoints });
         setSelectedPoints([]);
     };
@@ -246,15 +246,20 @@ export function ModView() {
                 {sortedUserData.map(data => {
                     return (
                         <div className="leaderboardItem" key={data.id}>
-                            <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
+                            <img className={data.name === playerName ? `flicker ${data.strategy === 'Safeline' ? 'piecesafeline' :
+                                data.strategy === 'Lunar' ? 'piecelunar' :
+                                    data.strategy === 'Domino House' ? 'piecedomino' :
+                                        data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
+                                            data.strategy === 'Top of the World' ? 'pieceworld' :
+                                                data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"}` : data.strategy === 'Safeline' ? 'piecesafeline' :
                                 data.strategy === 'Lunar' ? 'piecelunar' :
                                     data.strategy === 'Domino House' ? 'piecedomino' :
                                         data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
                                             data.strategy === 'Top of the World' ? 'pieceworld' :
                                                 data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
                             />
-                            <div>{data.name}</div>
-                            <div className="pointsLeaderboard"> {data.points} </div>
+                            <div className={data.name === playerName ? `flicker` : ""}>{data.name}</div>
+                            <div className={data.name === playerName ? `flicker pointsLeaderboard` : "pointsLeaderboard"}> {data.points} </div>
                         </div>
                     )
                 })}
