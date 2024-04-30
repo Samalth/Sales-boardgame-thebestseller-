@@ -4,7 +4,7 @@ import {socket} from '../client'
 
 let selectedPawn = null;
 
-const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
+const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
@@ -41,6 +41,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         if (!updatedPieces){
             socket.emit('get_pieces', 'player')
             socket.emit('get_data', 'leaderboard_update');
+            socket.emit('get_playerstrategy', 'player');
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
@@ -58,6 +59,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         });
         socket.on("add_piece", (data) => {
             setStartPieces(data)
+        });
+        socket.on("register_currentplayer", (data) => {
+            setCurrentPlayer(data);
         });
         socket.on("update_position", (data) => {
             const newPosition = data.newPosition;
@@ -100,7 +104,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         return () => {
             boardGrid.removeEventListener('click', handleClick);
         };
-    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
+    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer]);
 
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
@@ -123,10 +127,11 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     );
 };
 
-const DiceContainer = ({setSteps, setMoveMade, position}) => {
+const DiceContainer = ({setSteps, setMoveMade, position, myTurn, setMyTurn}) => {
     const [diceValue, setDiceValue] = useState(1);
     const roll = () => {
         socket.emit("roll_dice")
+        setMyTurn(false);
     };
 
     useEffect(() => {
@@ -155,7 +160,7 @@ const DiceContainer = ({setSteps, setMoveMade, position}) => {
             <div className="dice-wrapper">
                 <img className="diceImage" src={`../Dia${diceValue}.JPG`} alt='#die-1' />
             </div>
-            <button type='button' onClick={roll}>Roll the dice</button>
+            {myTurn && <button type='button' onClick={roll}>Roll the dice</button>}
         </div>
     );
 }
@@ -167,13 +172,15 @@ export function PlayBoard() {
     const [question, setQuestion] = useState("")
     const [steps, setSteps] = useState(0)
     const [moveMade, setMoveMade] = useState(false)
-    const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [currentPlayer, setCurrentPlayer] = useState ('')
+    const [myTurn, setMyTurn] = useState(false)
     const [selectedPawn , setSelectedPawn] = useState(<div></div>)
     const [position, setPosition] = useState("8-5")
     const [gamePaused, setGamePaused] = useState(false)
     const [gamePaused2, setGamePaused2] = useState(false)
     const [textBoxContent, setTextBoxContent] = useState('')
     const [playerName, setPlayerName] = useState('')
+    const [turnText, setTurnText] = useState('Waiting for moderator to start game')
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
     };
@@ -191,6 +198,7 @@ export function PlayBoard() {
     useEffect(() => {
         socket.on('players_name', (data) => {
             setPlayerName(data)
+            setTurnText(`It's ${data} turn to roll the dice and answer the question`)
         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
@@ -234,12 +242,17 @@ export function PlayBoard() {
                 const parentPosition = parent.getAttribute('pos')
                 setPosition(parentPosition)
                 setSelectedPawn(pawn)
+                if (currentPlayer === data) {
+                    setMyTurn(true)
+                } else {
+                    setMyTurn(false)
+                }
                 socket.emit('get_data', 'leaderboard_update');
             } catch (TypeError) {
                 socket.emit('pawns_request_failed', '')
             }
         })
-    },[]);
+    },[currentPlayer]);
 
     return (
     <>
@@ -250,11 +263,15 @@ export function PlayBoard() {
                     setMoveMade={setMoveMade}
                     selectedPawn={selectedPawn}
                     setSelectedPawn={setSelectedPawn}
-                    setPosition={setPosition}/>
+                    setPosition={setPosition}
+                    setCurrentPlayer={setCurrentPlayer}
+                    currentPlayer={currentPlayer}/>
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
-                    position={position}></DiceContainer>
+                    position={position}
+                    myTurn={myTurn}
+                    setMyTurn={setMyTurn}></DiceContainer>
         <div className='leaderBoard'>
             <h2>Leaderboard</h2>
             {sortedUserData.map(data => {
@@ -278,7 +295,7 @@ export function PlayBoard() {
                 )
             })}
         </div>
-            <div className='playerTurn'> {playerName} is rolling the dice </div>
+            <div className='playerTurn'> {turnText} </div>
         </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>

@@ -1,44 +1,4 @@
 {
-  "users": [
-    {
-      "id": "UN6g_auYtsYzJC39AAAD",
-      "language": "NL",
-      "room": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "EQcpvc0DusNqW7l-AAAF",
-      "language": "NL",
-      "room": "S0774",
-      "name": "Player1",
-      "points": 45,
-      "strategy": "Lunar"
-    },
-    {
-      "id": "HyBslm-SC5b2rtAtAAAH",
-      "language": "NL",
-      "room": "S0774",
-      "name": "Player2",
-      "points": 30,
-      "strategy": "Top of the World"
-    }
-  ],
-  "mods": [
-    {
-      "id": "UN6g_auYtsYzJC39AAAD",
-      "language": "NL",
-      "room": "S0774",
-      "player_names": [
-        "Player1",
-        "Player2"
-      ],
-      "players_joined": [
-        "lunar",
-        "world"
-      ],
-      "turn": 0
-    }
-  ]
+  "users": [],
+  "mods": []
 }

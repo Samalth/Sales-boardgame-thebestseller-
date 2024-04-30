@@ -128,6 +128,33 @@ function getData(socketid) {
         return null;
     }
 }
+function getStrategy(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+    
+    if (user) {
+        var strategy = user.strategy.toLowerCase()
+        switch (strategy) {
+            case 'top of the world':
+            strategy = 'world'
+            break
+        case 'jysk telepartner':
+            strategy = 'jysk'
+            break
+        case 'domino house':
+            strategy = 'domino'
+            break
+        default:
+            strategy = strategy
+            break
+        }
+        return strategy
+    } else {
+        console.error('User not found5.');
+        return null;
+    }
+}
 
 function userLogger(method, socketid, info=""){
     switch(method){
@@ -153,6 +180,8 @@ function userLogger(method, socketid, info=""){
             return getRoom(socketid)
         case 'getPoints':
             return getPoints(info)
+        case 'getStrategy':
+            return getStrategy(socketid)
         case 'getUserIDByName':
             return getUserIDByName(info);
         case 'checkAvailability':
