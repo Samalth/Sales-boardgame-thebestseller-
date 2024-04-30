@@ -205,6 +205,17 @@ label{
     animation: flicker 1s linear infinite;
 }
 
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.25; }
+    100% { opacity: 1; }
+}
+
+
+.flicker {
+    animation: flicker 1s linear infinite;
+}
+
 button {
     background-color: goldenrod;
     border: none;

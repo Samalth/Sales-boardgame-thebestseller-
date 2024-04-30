@@ -223,6 +223,7 @@ export function ModView() {
         });
     };
 
+
     const handleSubmitPoints = () => {
         socket.emit("submit_points", { points: selectedPoints });
         setSelectedPoints([]);
