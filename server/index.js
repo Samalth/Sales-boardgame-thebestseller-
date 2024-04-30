@@ -183,11 +183,12 @@ io.on('connection', (socket)=> {
 
     socket.on('get_playerstrategy', (data) => {
         const strategy = userLogger('getStrategy', socket.id);
-        socket.emit("register_currentplayer", strategy);
+        const color = userLogger('getColor', socket.id);
+        socket.emit("register_currentplayer", {strategy: strategy, color: color});
     })
 
 })
 
 server.listen(3001, () => {
-    console.log('server is running on port 3001, I think')
+    console.log('server is running on port 3001, I hope')
 })

@@ -4,7 +4,7 @@ import {socket} from '../client'
 
 let selectedPawn = null;
 
-const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer}) => {
+const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
@@ -61,7 +61,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setStartPieces(data)
         });
         socket.on("register_currentplayer", (data) => {
-            setCurrentPlayer(data);
+            setCurrentPlayer(data.strategy)
+            setColor(data.color);
+            console.log(data.color)
         });
         socket.on("update_position", (data) => {
             const newPosition = data.newPosition;
@@ -103,7 +105,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         return () => {
             boardGrid.removeEventListener('click', handleClick);
         };
-    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer]);
+    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor]);
 
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
@@ -171,6 +173,7 @@ export function PlayBoard() {
     const [steps, setSteps] = useState(0)
     const [moveMade, setMoveMade] = useState(true)
     const [currentPlayer, setCurrentPlayer] = useState ('')
+    const [color, setColor] = useState('')
     const [myTurn, setMyTurn] = useState(false)
     const [selectedPawn , setSelectedPawn] = useState(<div></div>)
     const [position, setPosition] = useState("8-5")
@@ -265,7 +268,8 @@ export function PlayBoard() {
                     setSelectedPawn={setSelectedPawn}
                     setPosition={setPosition}
                     setCurrentPlayer={setCurrentPlayer}
-                    currentPlayer={currentPlayer}/>
+                    currentPlayer={currentPlayer}
+                    setColor={setColor}/>
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}

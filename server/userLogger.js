@@ -156,6 +156,41 @@ function getStrategy(socketid) {
     }
 }
 
+function getColor(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+
+    if (user) {
+        const strategy = user.strategy.toLowerCase()
+        var color = ''
+        switch (strategy) {
+            case 'top of the world':
+                color = 'green'
+                break
+            case 'jysk telepartner':
+                color = 'orange'
+                break
+            case 'domino house':
+                color = 'blue'
+                break
+            case 'lunar':
+                color = 'yellow'
+                break
+            case 'klaphatten':
+                color = 'purple'
+                break
+            case 'safeline':
+                color = 'red'
+                break
+        }
+        return color
+    } else {
+        console.error('User not found5.');
+        return null;
+    }
+}
+
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
@@ -188,6 +223,8 @@ function userLogger(method, socketid, info=""){
             return availability(socketid, info.name, info.room, info.strategy)
         case 'getData':
             return getData(socketid)
+        case 'getColor':
+            return getColor(socketid)
     }
 }
 
