@@ -1,43 +1,61 @@
 {
   "users": [
     {
-      "id": "UN6g_auYtsYzJC39AAAD",
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
       "language": "NL",
       "room": "",
       "name": "",
       "points": 0,
       "strategy": ""
-    },
-    {
-      "id": "EQcpvc0DusNqW7l-AAAF",
-      "language": "NL",
-      "room": "S0774",
-      "name": "Player1",
-      "points": 45,
-      "strategy": "Lunar"
-    },
-    {
-      "id": "HyBslm-SC5b2rtAtAAAH",
-      "language": "NL",
-      "room": "S0774",
-      "name": "Player2",
-      "points": 30,
-      "strategy": "Top of the World"
     }
   ],
   "mods": [
     {
-      "id": "UN6g_auYtsYzJC39AAAD",
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
       "language": "NL",
-      "room": "S0774",
-      "player_names": [
-        "Player1",
-        "Player2"
-      ],
-      "players_joined": [
-        "lunar",
-        "world"
-      ],
+      "room": "019TS",
+      "player_names": [],
+      "players_joined": [],
+      "turn": 0
+    },
+    {
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
+      "language": "NL",
+      "room": "T23AM",
+      "player_names": [],
+      "players_joined": [],
+      "turn": 0
+    },
+    {
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
+      "language": "NL",
+      "room": "81M58",
+      "player_names": [],
+      "players_joined": [],
+      "turn": 0
+    },
+    {
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
+      "language": "NL",
+      "room": "TSAMA",
+      "player_names": [],
+      "players_joined": [],
+      "turn": 0
+    },
+    {
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
+      "language": "NL",
+      "room": "9T1T2",
+      "player_names": [],
+      "players_joined": [],
+      "turn": 0
+    },
+    {
+      "id": "kjY_1k33Pv4ZjpkVAAAD",
+      "language": "NL",
+      "room": "7T1SS",
+      "player_names": [],
+      "players_joined": [],
       "turn": 0
     }
   ]

@@ -15,6 +15,10 @@ export function ModSettings() {
       navigate('/Gamepin');
   };
 
+  const handleHome = () => {
+    navigate('/home');
+  };
+
   const handlePlayerCountChange = (event) => {
     setPlayerCount(parseInt(event.target.value));
   };
@@ -70,6 +74,7 @@ export function ModSettings() {
       </div>
       <div className="row">
         <input type="submit" className="button continue" value="Continue" />
+        <button type="button" className="button continue" onClick={handleHome}>Home</button>
       </div>
     </form>
   );
