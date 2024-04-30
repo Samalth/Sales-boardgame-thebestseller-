@@ -181,6 +181,11 @@ io.on('connection', (socket)=> {
         socket.emit('data_leaderboard', userData);
     })
 
+    socket.on('get_playerstrategy', (data) => {
+        const strategy = userLogger('getStrategy', socket.id);
+        socket.emit("register_currentplayer", strategy);
+    })
+
 })
 
 server.listen(3001, () => {
