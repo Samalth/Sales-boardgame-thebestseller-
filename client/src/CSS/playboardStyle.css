@@ -275,7 +275,7 @@ button:hover{
     position: absolute;
 }
 
-.questionOrangeBox .questionWhiteBox {
+.questionColorBox .questionWhiteBox {
     flex: 1;
 }
 
@@ -299,12 +299,11 @@ button:hover{
     z-index: 999;
 }
 
-.questionOrangeBox {
+.questionColorBox {
     border: 2px solid white;
     font-family: 'Itim', Arial, sans-serif;
     font-size: 20px;
     color: black;
-    background-color: #C66732;
     position: fixed;
     top: 5%;
     left: 10%;
@@ -315,6 +314,30 @@ button:hover{
     z-index: 1;
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.questionColorBox .green {
+    background-color: #53A65B;
+}
+
+.questionColorBox .yellow {
+    background-color: #DAB24B;
+}
+
+.questionColorBox .orange {
+    background-color: #C66732;
+}
+
+.questionColorBox .red {
+    background-color: #BA4040;
+}
+
+.questionColorBox .purple {
+    background-color: #A83E8A;
+}
+
+.questionColorBox .blue {
+    background-color: #47A1C8;
 }
 
 .strategyName{

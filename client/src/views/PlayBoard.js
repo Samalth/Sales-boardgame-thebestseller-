@@ -303,8 +303,8 @@ export function PlayBoard() {
         </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>
-                    <div className="questionOrangeBox">
-                        <div className='strategyName'>Strategie <br/> Logo </div>
+                    <div className={`questionColorBox ${color}`}>
+                    <div className='strategyName'>Strategie <br/> Logo </div>
                         <div className='questionLabel'> <br/> Question: </div>
                         <div className="questionWhiteBox">{question}</div>
                     </div>
