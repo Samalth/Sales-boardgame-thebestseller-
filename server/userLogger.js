@@ -86,11 +86,11 @@ function getUserIDByName(name) {
 }
 
 
-function getPoints(name) {
+function getPoints(id) {
     let data = readData();
     if (!data) return null;
 
-    const user = data.users.find(user => user.name === name)
+    const user = data.users.find(user => user.id === id)
     if (user) {
         console.log(user.points + ' points test')
         return user.points;
@@ -191,6 +191,41 @@ function getColor(socketid) {
     }
 }
 
+function getReceiver(room, questionColor) {
+    let data = readData();
+    if (!data) return null;
+    const users = data.users.filter(user => user.room === room);
+
+    for (let user of users) {
+        var strategy = user.strategy.toLowerCase()
+        var color = ''
+        switch (strategy) {
+            case 'top of the world':
+                color = 'green'
+                break
+            case 'jysk telepartner':
+                color = 'orange'
+                break
+            case 'domino house':
+                color = 'blue'
+                break
+            case 'lunar':
+                color = 'yellow'
+                break
+            case 'klaphatten':
+                color = 'purple'
+                break
+            case 'safeline':
+                color = 'red'
+                break
+        }
+
+        if (questionColor === color) {
+            return user.id
+        }
+    }
+}
+
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
@@ -225,6 +260,8 @@ function userLogger(method, socketid, info=""){
             return getData(socketid)
         case 'getColor':
             return getColor(socketid)
+        case 'getReceiver':
+            return getReceiver(info.room, info.color)
     }
 }
 

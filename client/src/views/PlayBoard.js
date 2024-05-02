@@ -203,7 +203,6 @@ export function PlayBoard() {
         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
-            console.log(jsonData)
         });
         return () => {
             socket.off('data_leaderboard');
@@ -222,7 +221,7 @@ export function PlayBoard() {
 
     const handleSubmitAnswer = () => {
         setGamePaused(false);
-        socket.emit('send_textbox_content', textBoxContent)
+        socket.emit('send_textbox_content', {text: textBoxContent, color: color})
         setGamePaused2(true)
     };
 

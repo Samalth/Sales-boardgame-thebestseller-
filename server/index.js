@@ -90,8 +90,10 @@ io.on('connection', (socket)=> {
         var questionText = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
+        const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
         socket.to(room).emit('mod-pause', questionText);
-        socket.emit('receive_question', questionText);
+        io.to(receiver).emit('receive_question', questionText)
+        // socket.emit('receive_question', questionText);
     })
 
     socket.on('send_answer_request', async (data) => {
@@ -121,7 +123,6 @@ io.on('connection', (socket)=> {
 
     socket.on('send_textbox_content', (data) => {
         const room = userLogger('getRoom', socket.id);
-        console.log(data);
         socket.to(room).emit('submitted_answer', data);
     })
 
@@ -138,10 +139,10 @@ io.on('connection', (socket)=> {
     socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
         let name = modLogger('getPlayerName', socket.id)
-        const id = userLogger('getUserIDByName', socket.id , name);
-        const oldPoints = userLogger('getPoints', socket.id, name);
+        // const id = userLogger('getUserIDByName', socket.id , name);
+        const id = userLogger('getReceiver', socket.id, {color: data.color, room: room})
+        const oldPoints = userLogger('getPoints', id, id);
         const newPoints = Number(oldPoints) + Number(data.points);
-
 
         userLogger('updatePoints', id, newPoints);
 

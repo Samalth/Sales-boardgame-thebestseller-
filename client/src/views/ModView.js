@@ -143,6 +143,7 @@ export function ModView() {
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [color, setColor] = useState('')
     const [playerName, setPlayerName] = useState('')
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
@@ -204,32 +205,20 @@ export function ModView() {
 
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
-            setSubmittedAnswer(data)
-            console.log(data)
-            console.log(submittedAnswer)
+            setSubmittedAnswer(data.text)
+            setColor(data.color)
         });
         return () => {
             socket.off('submitted_answer');
         };
     })
 
-/*    const handleUpdatePoints = (buttonPoints) => {
-        setSelectedPoints((prevSelectedPoints) => {
-            if (prevSelectedPoints.includes(buttonPoints)) {
-                return prevSelectedPoints.filter((point) => point !== buttonPoints);
-            } else {
-                return [...prevSelectedPoints, buttonPoints];
-            }
-        });
-    };*/
-
     const handleUpdatePoints = (points) => {
         setSelectedPoints(points);
     };
 
-
     const handleSubmitPoints = () => {
-        socket.emit("submit_points", { points: selectedPoints });
+        socket.emit("submit_points", { points: selectedPoints, color: color});
         setSelectedPoints([]);
     };
 
@@ -272,7 +261,8 @@ export function ModView() {
             </div>
             {showPopup && (
                 <div className='scorePopup'>
-                    <div className='questionStrategyBox'>
+                    {/*<div className='questionStrategyBox'>*/}
+                    <div className={`questionColorBox ${color}`}>
                         <div className='strategyName2'> Strategy <br/> Logo </div>
                         <div className='questionLabel2'> Question: </div>
                         <div className='questionWhiteBox2'> {question} </div>
