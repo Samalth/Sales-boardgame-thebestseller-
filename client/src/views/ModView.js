@@ -187,7 +187,7 @@ export function ModView() {
     useEffect(() => {
         socket.on("mod-pause", (data) => {
             setShowPopup(true);
-            setQuestion(data.question);
+            setQuestion(data.questionText);
             setColor(data.color);
             setUserColor(data.userColor);
         });
@@ -265,7 +265,13 @@ export function ModView() {
                 <div className='scorePopup'>
                     {/*<div className='questionStrategyBox'>*/}
                     <div className={`questionColorBox ${color}`}>
-                        <div className='strategyName2'> Strategy <br/> Logo </div>
+                        <div className='strategyName2'>
+                            {color === 'yellow' ? 'Lunar':
+                            color === 'green' ? 'Top of the World' :
+                            color === 'blue' ? 'Domino House' :
+                            color === 'purple' ? 'Klaphatten' :
+                            color === 'red' ? 'Safeline' :
+                            color === 'orange' ? 'Jysk Telepartner' : 'strategy'}</div>
                         <div className='questionLabel2'> Question: </div>
                         <div className='questionWhiteBox2'> {question} </div>
                         <div className='answerLabel'> Player's answer: </div>

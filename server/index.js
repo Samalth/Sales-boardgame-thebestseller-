@@ -106,24 +106,22 @@ io.on('connection', (socket)=> {
                 popupColor = data.userColor;
                 break;
             default:
-                popupColor = data.userColor;
+                popupColor = data.questionColor;
         }
 
         console.log('popupColor: ', popupColor);
         console.log('data.userColor: ', data.userColor);
         console.log('data.questionColor: ', data.questionColor);
-        if (data.questionColor in availableColors){
+        if (availableColors.includes(data.questionColor)){
+            console.log('other color')
             const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
+            console.log(receiver)
             socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
-            io.to(receiver).emit('receive_question', questionText)
+            io.to(receiver).emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor})
         } else{
             socket.to(room).emit('mod-pause', {question: questionText, color: popupColor, userColor: data.userColor});
             socket.emit('receive_question', {questionText: questionText, color: popupColor});
         }
-        // const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
-        // socket.to(room).emit('mod-pause', questionText);
-        // io.to(receiver).emit('receive_question', questionText)
-        // socket.emit('receive_question', questionText);
     })
 
     socket.on('send_answer_request', async (data) => {
