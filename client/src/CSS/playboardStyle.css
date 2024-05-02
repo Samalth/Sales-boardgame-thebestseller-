@@ -82,6 +82,8 @@ background-size: cover;
 }
 
 .startpieces {
+    border-radius: 50%; 
+    border: 2px solid black; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,6 +194,30 @@ label{
     }
     100% {
         border: 3px solid #ffdfba;
+    }
+}
+
+.round-border {
+    border-radius: 50%; 
+    border: 2px solid transparent; 
+    animation: rotateColors 1.5s infinite linear;
+}
+
+@keyframes rotateColors {
+    0% {
+        border-color: red;
+    }
+    25% {
+        border-color: blue;
+    }
+    50% {
+        border-color: green;
+    }
+    75% {
+        border-color: yellow;
+    }
+    100% {
+        border-color: red;
     }
 }
 

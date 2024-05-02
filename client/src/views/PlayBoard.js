@@ -38,14 +38,14 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const tiles = [];
 
     const renderStartPieces = () => {
-        if (!updatedPieces){
+        if (!updatedPieces) {
             socket.emit('get_pieces', 'player')
             socket.emit('get_data', 'leaderboard_update');
             socket.emit('get_playerstrategy', 'player');
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
+            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id === piece ? 'round-border' : ''}`} id={`${piece}`}/>
         ));
     };
 
@@ -203,7 +203,6 @@ export function PlayBoard() {
         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
-            console.log(jsonData)
         });
         return () => {
             socket.off('data_leaderboard');
@@ -239,6 +238,7 @@ export function PlayBoard() {
         socket.on('players_turn', (data) => {
             try {
                 const pawn = document.querySelector('#' + data)
+                console.log(pawn)
                 const parent = pawn.parentElement
                 const parentPosition = parent.getAttribute('pos')
                 setPosition(parentPosition)

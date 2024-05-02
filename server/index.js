@@ -186,6 +186,10 @@ io.on('connection', (socket)=> {
         const color = userLogger('getColor', socket.id);
         socket.emit("register_currentplayer", {strategy: strategy, color: color});
     })
+    socket.on('get_current', (data) => {
+        const strategy = modLogger('getPlayerTurn', socket.id)
+        socket.emit('set_current_player', strategy)
+    })
 
 })
 

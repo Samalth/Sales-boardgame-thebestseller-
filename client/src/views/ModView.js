@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
 
-let selectedPawn = null;
-
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
     const boardWidth = 15;
     const boardHeight = 9;
@@ -43,7 +41,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
+            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id === piece ? 'round-border' : ''}`} id={`${piece}`}/>
         ));
     };
 
@@ -162,12 +160,12 @@ export function ModView() {
     }, [sortedUserData]);
 
     useEffect(() => {
-            socket.on('players_name', (data) => {
+        socket.on('players_name', (data) => {
             setPlayerName(data)
          })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
-            console.log(jsonData)
+            socket.emit('get_current', 'mod')
         });
         return () => {
             socket.off('data_leaderboard');
@@ -205,23 +203,23 @@ export function ModView() {
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
             setSubmittedAnswer(data)
-            console.log(data)
-            console.log(submittedAnswer)
         });
         return () => {
             socket.off('submitted_answer');
         };
     })
-
-/*    const handleUpdatePoints = (buttonPoints) => {
-        setSelectedPoints((prevSelectedPoints) => {
-            if (prevSelectedPoints.includes(buttonPoints)) {
-                return prevSelectedPoints.filter((point) => point !== buttonPoints);
-            } else {
-                return [...prevSelectedPoints, buttonPoints];
+    useEffect(() => {
+        socket.on('set_current_player', (data) => {
+            try {
+                const pawn = document.querySelector('#' + data)
+                setSelectedPawn(pawn)
+            } catch (TypeError) {
+                socket.emit('pawns_request_failed', '')
             }
-        });
-    };*/
+        })
+    },[]);
+
+    
 
     const handleUpdatePoints = (points) => {
         setSelectedPoints(points);
