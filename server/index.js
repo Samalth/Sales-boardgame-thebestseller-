@@ -87,12 +87,42 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_question_request', async (data) => {
+        const availableColors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
         var questionText = await databaseQuestion(data.questionColor);
+        var popupColor = data.questionColor;
 
         const room = userLogger('getRoom', socket.id);
-        const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
-        socket.to(room).emit('mod-pause', questionText);
-        io.to(receiver).emit('receive_question', questionText)
+        switch (data.questionColor) {
+            case 'chance':
+                popupColor = 'black';
+                break;
+            case 'sales':
+                popupColor = 'black';
+                break;
+            case 'megatrends':
+                popupColor = 'black';
+                break;
+            case 'rainbow':
+                popupColor = data.userColor;
+                break;
+            default:
+                popupColor = data.userColor;
+        }
+
+        console.log('popupColor: ', popupColor);
+        console.log('data.userColor: ', data.userColor);
+        console.log('data.questionColor: ', data.questionColor);
+        if (data.questionColor in availableColors){
+            const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
+            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
+            io.to(receiver).emit('receive_question', questionText)
+        } else{
+            socket.to(room).emit('mod-pause', {question: questionText, color: popupColor, userColor: data.userColor});
+            socket.emit('receive_question', {questionText: questionText, color: popupColor});
+        }
+        // const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
+        // socket.to(room).emit('mod-pause', questionText);
+        // io.to(receiver).emit('receive_question', questionText)
         // socket.emit('receive_question', questionText);
     })
 

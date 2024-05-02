@@ -56,6 +56,10 @@ background-color: #C66732;
 background-color: #A83E8A;
 }
 
+.black {
+    background-color: #000000;
+}
+
 .start {
 background-color: #000000;
 background-size: 60px;
@@ -98,7 +102,7 @@ background-size: cover;
     background-size: cover;
 }
 .piecelunar {
-    background-image: url('../images/Lunar.png');
+    background-image: url('../images/LUNAR.png');
     background-size: cover;
 }
 .piecedomino {
@@ -106,7 +110,7 @@ background-size: cover;
     background-size: cover;
 }
 .piecesafeline {
-    background-image: url('../images/Safeline.png');
+    background-image: url('../images/SAFELINE.png');
     background-size: cover;
 }
 .piecejysk {
@@ -312,30 +316,6 @@ button:hover{
     z-index: 1;
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.questionColorBox .green {
-    background-color: #53A65B;
-}
-
-.questionColorBox .yellow {
-    background-color: #DAB24B;
-}
-
-.questionColorBox .orange {
-    background-color: #C66732;
-}
-
-.questionColorBox .red {
-    background-color: #BA4040;
-}
-
-.questionColorBox .purple {
-    background-color: #A83E8A;
-}
-
-.questionColorBox .blue {
-    background-color: #47A1C8;
 }
 
 .strategyName{

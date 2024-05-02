@@ -144,6 +144,7 @@ export function ModView() {
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
     const [color, setColor] = useState('')
+    const [userColor, setUserColor] = useState('')
     const [playerName, setPlayerName] = useState('')
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
@@ -168,7 +169,6 @@ export function ModView() {
          })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
-            console.log(jsonData)
         });
         return () => {
             socket.off('data_leaderboard');
@@ -187,7 +187,9 @@ export function ModView() {
     useEffect(() => {
         socket.on("mod-pause", (data) => {
             setShowPopup(true);
-            setQuestion(data);
+            setQuestion(data.question);
+            setColor(data.color);
+            setUserColor(data.userColor);
         });
         return () => {
             socket.off('mod-pause');
@@ -206,7 +208,6 @@ export function ModView() {
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
             setSubmittedAnswer(data.text)
-            setColor(data.color)
         });
         return () => {
             socket.off('submitted_answer');
@@ -218,7 +219,8 @@ export function ModView() {
     };
 
     const handleSubmitPoints = () => {
-        socket.emit("submit_points", { points: selectedPoints, color: color});
+        socket.emit("submit_points", { points: selectedPoints, color: userColor});
+        setSubmittedAnswer('');
         setSelectedPoints([]);
     };
 

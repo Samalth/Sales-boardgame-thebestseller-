@@ -4,7 +4,7 @@ import {socket} from '../client'
 
 let selectedPawn = null;
 
-const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor}) => {
+const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
@@ -49,8 +49,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         ));
     };
 
-    const sendQuestionRequest = (color) => {
-        socket.emit("send_question_request", { questionColor: color });
+    const sendQuestionRequest = (colorTile) => {
+        socket.emit("send_question_request", { questionColor: colorTile, userColor: color });
     };
 
     useEffect(() => {
@@ -63,7 +63,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         socket.on("register_currentplayer", (data) => {
             setCurrentPlayer(data.strategy)
             setColor(data.color);
-            console.log(data.color)
         });
         socket.on("update_position", (data) => {
             const newPosition = data.newPosition;
@@ -105,7 +104,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         return () => {
             boardGrid.removeEventListener('click', handleClick);
         };
-    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor]);
+    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor, color]);
 
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
@@ -174,6 +173,7 @@ export function PlayBoard() {
     const [moveMade, setMoveMade] = useState(true)
     const [currentPlayer, setCurrentPlayer] = useState ('')
     const [color, setColor] = useState('')
+    const [popupColor, setPopupColor] = useState('')
     const [myTurn, setMyTurn] = useState(false)
     const [selectedPawn , setSelectedPawn] = useState(<div></div>)
     const [position, setPosition] = useState("8-5")
@@ -211,7 +211,8 @@ export function PlayBoard() {
 
     useEffect(() => {
         socket.on("receive_question", (data) => {
-            setQuestion(data);
+            setPopupColor(data.color)
+            setQuestion(data.questionText);
             setGamePaused(true);
         });
         return () => {
@@ -222,6 +223,7 @@ export function PlayBoard() {
     const handleSubmitAnswer = () => {
         setGamePaused(false);
         socket.emit('send_textbox_content', {text: textBoxContent, color: color})
+        setTextBoxContent('')
         setGamePaused2(true)
     };
 
@@ -268,7 +270,8 @@ export function PlayBoard() {
                     setPosition={setPosition}
                     setCurrentPlayer={setCurrentPlayer}
                     currentPlayer={currentPlayer}
-                    setColor={setColor}/>
+                    setColor={setColor}
+                    color={color}/>
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
@@ -302,7 +305,7 @@ export function PlayBoard() {
         </div>
             {gamePaused && (
                 <div className='questionBoxPopup'>
-                    <div className={`questionColorBox ${color}`}>
+                    <div className={`questionColorBox ${popupColor}`}>
                     <div className='strategyName'>
                         {color === 'yellow' ? 'Lunar':
                         color === 'green' ? 'Top of the World' :
