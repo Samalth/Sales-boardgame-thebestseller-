@@ -56,7 +56,7 @@ io.on('connection', (socket)=> {
             socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
-            userLogger('updatePoints', socket.id, data.points)
+
             userLogger('updateStrategy', socket.id, data.strategy)
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())

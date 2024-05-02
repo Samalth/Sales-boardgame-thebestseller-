@@ -1,0 +1,35 @@
+.leaderBoard {
+    position: absolute;
+    left: 70%;
+    width: 400px;
+    margin-top: 5%;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    align-content: center;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 25px;
+    color: #F9E513;
+    background-color: #5E676D;
+    border: 2px solid white;
+}
+.pointsLeaderboard{
+    margin-right: 10px;
+}
+
+.leaderboardItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+    width: 80%;
+    margin:auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid yellow;
+}
+.leaderboardItem:last-child {
+    border-bottom: none;
+}

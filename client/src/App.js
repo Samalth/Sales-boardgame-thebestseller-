@@ -3,8 +3,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { HomeScreen } from './HomeScreen/HomeScreen';
 import { ModSettings } from './ModeratorScreen/ModSettings'
 import { Game } from './PlayerScreen/Game';
-import { JoinGame } from './JoinGameScreen/JoinGame';
-import { Gamepin } from './Gamepin/Gamepin'
+import { JoinGame } from './JoinGame/JoinGame';
+import { Gamepin } from './CreateGame/Gamepin'
 import { ModView } from './ModeratorScreen/ModView'
 
 function App() {

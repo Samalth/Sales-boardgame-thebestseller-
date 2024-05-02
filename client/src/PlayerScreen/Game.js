@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './GameStyle.css';
-import '../PlayBoard/Dice.css';
-import DiceContainer from '../PlayBoard/Dice';
+import DiceContainer from '../GameScreen/Dice';
 import {socket} from '../client'
+import LeaderBoard from "../GameScreen/LeaderBoard";
+import PlayerPopUps from "../GameScreen/PlayerPopUps";
+import PlayerTurns from "../GameScreen/PlayerTurns";
 
-let selectedPawn;
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
-    const boardWidth = 15;
-    const boardHeight = 9;
-    const totalTiles = boardWidth * boardHeight;
+
     const [startPieces, setStartPieces] = useState([]);
     const [validPositions, setValidPositions] = useState([]);
     const [updatedPieces, setUpdatedPieces] = useState(false);
@@ -102,6 +101,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         };
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
 
+    const totalTiles = tileInfo.length;
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
         const isHighlighted = validPositions.includes(position);
@@ -113,7 +113,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 </div>
             );
         } else {
-            tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}></div>);
+            tiles.push(<div key={i} className={tileClass} tile-id={i} pos={position}/>);
         }
     }
     return (
@@ -215,46 +215,20 @@ export function Game() {
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
-                    position={position}></DiceContainer>
-        <div className='leaderBoard'>
-            <h2>Leaderboard</h2>
-            {sortedUserData.map(data => {
-                return (
-                    <div className="leaderboardItem" key={data.id}>
-                        <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
-                            data.strategy === 'Lunar' ? 'piecelunar' :
-                                data.strategy === 'Domino House' ? 'piecedomino' :
-                                    data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
-                                        data.strategy === 'Top of the World' ? 'pieceworld' :
-                                            data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
-                        />
-                        <div>{data.name}</div>
-                        <div className="pointsLeaderboard"> {data.points} </div>
-                    </div>
-                )
-            })}
+                    position={position}/>
+                <LeaderBoard
+                    sortedUserData={sortedUserData}/>
+                <PlayerTurns
+                    playerName={playerName}/>
         </div>
-            <div className='playerTurn'> {playerName} is rolling the dice </div>
-        </div>
-            {gamePaused && (
-                <div className='questionBoxPopup'>
-                    <div className="questionOrangeBox">
-                        <div className='strategyName'>Strategy <br/> Logo </div>
-                        <div className='questionLabel'> <br/> Question: </div>
-                        <div className="questionWhiteBox">{question}</div>
-                    </div>
-                    <div className="answerPopup">
-                        <div className='answerText'> Your answer: </div>
-                        <textarea className={'answerInput'} value={textBoxContent} placeholder='Enter your answer here...' onChange={handleTextBoxChange} />
-                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
-                    </div>
-                </div>
-                )}
-        {gamePaused2 && (
-            <div className='waitingScreenPopup'>
-                <div className='waitingScreenText'> Waiting for moderator to assign points ... </div>
-            </div>
-        )}
+                <PlayerPopUps
+                    gamePaused={gamePaused}
+                    gamePaused2={gamePaused2}
+                    question={question}
+                    textBoxContent={textBoxContent}
+                    handleTextBoxChange={handleTextBoxChange}
+                    handleSubmitAnswer={handleSubmitAnswer}
+            />
         </>
     )
 }

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../PlayerScreen/GameStyle.css';
 import {socket} from '../client'
+import DiceContainer from '../GameScreen/Dice';
+import LeaderBoard from "../GameScreen/LeaderBoard";
+import ModeratorPopUps from "../GameScreen/ModeratorPopUps";
+//import BoardGrid from '../GameScreen/BoardGrid';
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
     const boardWidth = 15;
@@ -89,45 +93,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     return (
         <div className='board-grid'>
             {tiles}
-        </div>
-    );
-};
-
-const DiceContainer = ({ setSteps, setMoveMade, position }) => {
-    const [diceValue, setDiceValue] = useState(1);
-    const [playerName, setPlayerName] = useState('')
-
-    useEffect(() => {
-        socket.on("set_dice", (data) => {
-            const images = ["../Dia1.JPG", "../Dia2.JPG", "../Dia3.JPG", "../Dia4.JPG", "../Dia5.JPG", "../Dia6.JPG"];
-            const dice = document.querySelector(".diceImage");
-            dice.classList.add("shake");
-
-            let interval = setInterval(function () {
-                let diceValue = Math.floor(Math.random() * 6) + 1;
-                dice.setAttribute("src", images[diceValue - 1]);
-            }, 100);
-
-            setTimeout(function () {
-                clearInterval(interval);
-                dice.classList.remove("shake");
-                setDiceValue(data);
-                dice.setAttribute("src", images[data - 1]);
-                socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
-                setMoveMade(false);
-            }, 1000);
-        })
-        socket.on('players_name', (data) => {
-            setPlayerName(data);
-        })
-    })
-
-    return (
-        <div className='dice-container'>
-            <div className='dice-wrapper'>
-                <img className='diceImage' src={`../Dia${diceValue}.JPG`} alt='#die-1' />
-            </div>
-            <div className='turnsModView'> {playerName} is rolling the dice </div>
         </div>
     );
 };
@@ -235,50 +200,21 @@ export function ModView() {
                 <DiceContainer
                     setMoveMade= {setMoveMade}
                     position={position}
-                    diceValue={diceValue}/>
-            <div className='leaderBoard'>
-                <h2>Leaderboard</h2>
-                {sortedUserData.map(data => {
-                    return (
-                        <div className="leaderboardItem" key={data.id}>
-                            <img className={data.strategy === 'Safeline' ? 'piecesafeline' :
-                                data.strategy === 'Lunar' ? 'piecelunar' :
-                                    data.strategy === 'Domino House' ? 'piecedomino' :
-                                        data.strategy === 'Klaphatten' ? 'pieceklaphatten' :
-                                            data.strategy === 'Top of the World' ? 'pieceworld' :
-                                                data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
-                            />
-                            <div>{data.name}</div>
-                            <div className="pointsLeaderboard"> {data.points} </div>
-                        </div>
-                    )
-                })}
+                    diceValue={diceValue}
+                    isModeratorScreen={true}/>
+                <LeaderBoard
+                    sortedUserData={sortedUserData}/>
             </div>
-            </div>
-            {showPopup && (
-                <div className='scorePopup'>
-                    <div className='questionStrategyBox'>
-                        <div className='strategyName2'> Strategy <br/> Logo </div>
-                        <div className='questionLabel2'> Question: </div>
-                        <div className='questionWhiteBox2'> {question} </div>
-                        <div className='answerLabel'> Player's answer: </div>
-                        <div className='questionWhiteBox3'> {submittedAnswer} </div>
-                    </div>
-                    <div className='assignScoreBox'>
-                        <div className='correctAnswerText'> Correct answer: </div>
-                        <div className='correctAnswerBox'></div>
-                        <div className='assignScoreText'> Assign score: </div>
-                        <div className='scoreButtons'>
-                            <button className={selectedPoints.includes(0) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(0)}> 0 </button>
-                            <button className={selectedPoints.includes(5) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(5)}> 5 </button>
-                            <button className={selectedPoints.includes(10) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(10)}> 10 </button>
-                            <button className={selectedPoints.includes(15) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
-                            <button className={selectedPoints.includes(20) ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
-                        </div>
-                        <button className='submitScoreButton' onClick={() => { setShowPopup(false); handleSubmitPoints(); }}>Submit</button>
-                    </div>
-                </div>
-            )}
+                <ModeratorPopUps
+                    showPopup={showPopup}
+                    question={question}
+                    submittedAnswer={submittedAnswer}
+                    selectedPoints={selectedPoints}
+                    setShowPopup={setShowPopup}
+                    handleSubmitPoints={handleSubmitPoints}
+                    handleUpdatePoints={handleUpdatePoints}
+
+                />
         </>
     );
 }
