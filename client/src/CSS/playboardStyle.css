@@ -33,27 +33,45 @@ img {
 }
 
 .yellow {
-background-color: #DAB24B;
+    background-color: #DAB24B;
+}
+.pieceyellow{
+    color:#DAB24B
 }
 
 .blue {
-background-color: #47A1C8;
+    background-color: #47A1C8;
+}
+.pieceblue{
+    color:#47A1C8
 }
 
 .red {
-background-color: #BA4040;
+    background-color: #BA4040;
+}
+.piecered{
+    color:#BA4040   
 }
 
 .green {
-background-color: #53A65B;
+    background-color: #53A65B;
+}
+.piecegreen{
+    color:#53A65B
 }
 
 .orange {
-background-color: #C66732;
+    background-color: #C66732;
+}
+.pieceorange{
+    color:#C66732
 }
 
 .purple {
-background-color: #A83E8A;
+    background-color: #A83E8A;
+}
+.piecepurple{
+    color:#A83E8A
 }
 
 .black {
@@ -659,3 +677,4 @@ button:hover{
     font-size: 35px;
     left: 4%;
 }
+
