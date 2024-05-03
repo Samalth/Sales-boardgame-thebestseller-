@@ -150,7 +150,7 @@ margin: 2px;
  width: 300px;
  padding: 20px;
  position: fixed;
- top: 70%;
+ top: 75%;
  right: 5%;
  border-radius: 8px;
  display: flex;
@@ -613,7 +613,7 @@ button:hover{
     font-family: 'Itim', Arial, sans-serif;
     font-size: 35px;
     margin-left: 4%;
-    margin-top: 45%;
+    margin-top: 42%;
 }
 
 /* leader board */
@@ -623,14 +623,14 @@ button:hover{
     left: 70%;
     width: 400px;
     margin-top: 5%;
-    margin-bottom: 50px;
-    padding-bottom: 50px;
+    margin-bottom: 45px;
+    padding-bottom: 25px;
     align-content: center;
     display: grid;
     grid-template-columns: auto;
-    gap: 10px;
+    gap: 9px;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 23px;
     color: #F9E513;
     background-color: #5E676D;
     border: 2px solid white;
@@ -644,7 +644,7 @@ button:hover{
     flex-direction: row;
     align-items: center;
     align-content: center;
-    gap: 10px;
+    gap: 9px;
     width: 80%;
     margin:auto;
     padding-bottom: 10px;
