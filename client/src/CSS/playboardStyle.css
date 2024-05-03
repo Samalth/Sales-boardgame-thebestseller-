@@ -156,6 +156,7 @@ margin: 2px;
  display: flex;
  flex-direction: column;
  align-items: center;
+    z-index: 1000;
 }
 
 .dice-wrapper{
@@ -623,14 +624,14 @@ button:hover{
     left: 70%;
     width: 400px;
     margin-top: 5%;
-    margin-bottom: 50px;
-    padding-bottom: 50px;
+    margin-bottom: 45px;
+    padding-bottom: 25px;
     align-content: center;
     display: grid;
     grid-template-columns: auto;
-    gap: 10px;
+    gap: 9px;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 23px;
     color: #F9E513;
     background-color: #5E676D;
     border: 2px solid white;
@@ -644,7 +645,7 @@ button:hover{
     flex-direction: row;
     align-items: center;
     align-content: center;
-    gap: 10px;
+    gap: 9px;
     width: 80%;
     margin:auto;
     padding-bottom: 10px;
