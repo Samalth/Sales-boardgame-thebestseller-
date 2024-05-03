@@ -141,13 +141,26 @@ export function ModView() {
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
     const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [color, setColor] = useState('')
+    const [userColor, setUserColor] = useState('')
     const [playerName, setPlayerName] = useState('')
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
-    const [submittedAnswer, setSubmittedAnswer] = useState('')
+    const [submittedAnswer, setSubmittedAnswer] = useState('Waiting for player to submit an answer')
     const [diceValue, setDiceValue] = useState(1);
     const [selectedPoints, setSelectedPoints] = useState(null);
+    const [currentRound, setCurrentRound] = useState(0)
+    const [totalRounds, setTotalRounds] = useState(0)
+    const [roundText, setRoundText] = useState('')
+
+    useEffect(() =>{
+        socket.on('rounds', (data) => {
+            setTotalRounds(data.totalRounds)
+            setCurrentRound(data.currentRound)
+            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+        })
+    })
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
@@ -184,7 +197,9 @@ export function ModView() {
     useEffect(() => {
         socket.on("mod-pause", (data) => {
             setShowPopup(true);
-            setQuestion(data);
+            setQuestion(data.questionText);
+            setColor(data.color);
+            setUserColor(data.userColor);
         });
         return () => {
             socket.off('mod-pause');
@@ -202,7 +217,7 @@ export function ModView() {
 
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
-            setSubmittedAnswer(data)
+            setSubmittedAnswer(data.text)
         });
         return () => {
             socket.off('submitted_answer');
@@ -219,21 +234,25 @@ export function ModView() {
         })
     },[]);
 
-    
+
 
     const handleUpdatePoints = (points) => {
         setSelectedPoints(points);
     };
 
-
     const handleSubmitPoints = () => {
-        socket.emit("submit_points", { points: selectedPoints });
-        setSelectedPoints([]);
+        if (submittedAnswer !== 'Waiting for player to submit an answer') {
+            setShowPopup(false)
+            socket.emit("submit_points", { points: selectedPoints, color: userColor});
+            setSubmittedAnswer('Waiting for player to submit an answer');
+            setSelectedPoints([]);
+        }
     };
 
     return (
         <>
             <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+                <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     moveMade={moveMade}
                     setMoveMade= {setMoveMade}
@@ -270,8 +289,14 @@ export function ModView() {
             </div>
             {showPopup && (
                 <div className='scorePopup'>
-                    <div className='questionStrategyBox'>
-                        <div className='strategyName2'> Strategy <br/> Logo </div>
+                    <div className={`questionColorBox ${color}`}>
+                        <div className='strategyName2'>
+                            {color === 'yellow' ? 'Lunar':
+                            color === 'green' ? 'Top of the World' :
+                            color === 'blue' ? 'Domino House' :
+                            color === 'purple' ? 'Klaphatten' :
+                            color === 'red' ? 'Safeline' :
+                            color === 'orange' ? 'Jysk Telepartner' : 'strategy'}</div>
                         <div className='questionLabel2'> Question: </div>
                         <div className='questionWhiteBox2'> {question} </div>
                         <div className='answerLabel'> Player's answer: </div>
@@ -288,7 +313,7 @@ export function ModView() {
                             <button className={selectedPoints === 15 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
                             <button className={selectedPoints === 20 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
                         </div>
-                        <button className='submitScoreButton' onClick={() => { setShowPopup(false); handleSubmitPoints(); }}>Submit</button>
+                        <button className='submitScoreButton' onClick={() => { handleSubmitPoints(); }}>Submit</button>
                     </div>
                 </div>
             )}

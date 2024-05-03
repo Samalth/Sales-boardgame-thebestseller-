@@ -55,7 +55,7 @@ export function JoinGame() {
             <input type="text" id="fullName" className='input' name="fullName" value={username} placeholder='Enter name' onChange={event => setUsername(event.target.value)}/>
         </div>
         <div className="joinscreen-row">
-            <input type="submit" className="start button" value="Start!" onClick={() => setName(username, gamepin, strategy)}/>
+            <input type="submit" className="startgame button" value="Start!" onClick={() => setName(username, gamepin, strategy)}/>
             <input type="submit" className="back button" value="Home" onClick={handleHome}/>
         </div>
     </div>

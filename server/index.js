@@ -27,7 +27,7 @@ const io = new Server(server, {
 io.on('connection', (socket)=> {
 
     socket.on('create_room', (data) => {
-        const room = modLogger('log', socket.id);
+        const room = modLogger('log', socket.id, data);
         socket.join(room)
         socket.emit('send_gamepin', room);
     })
@@ -87,11 +87,36 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_question_request', async (data) => {
+        const availableColors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
         var questionText = await databaseQuestion(data.questionColor);
+        var popupColor = data.questionColor;
 
         const room = userLogger('getRoom', socket.id);
-        socket.to(room).emit('mod-pause', questionText);
-        socket.emit('receive_question', questionText);
+        switch (data.questionColor) {
+            case 'chance':
+                popupColor = 'black';
+                break;
+            case 'sales':
+                popupColor = 'black';
+                break;
+            case 'megatrends':
+                popupColor = 'black';
+                break;
+            case 'rainbow':
+                popupColor = data.userColor;
+                break;
+            default:
+                popupColor = data.questionColor;
+        }
+
+        if (availableColors.includes(data.questionColor)){
+            const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
+            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: popupColor});
+            io.to(receiver).emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor})
+        } else{
+            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
+            socket.emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor});
+        }
     })
 
     socket.on('send_answer_request', async (data) => {
@@ -121,7 +146,6 @@ io.on('connection', (socket)=> {
 
     socket.on('send_textbox_content', (data) => {
         const room = userLogger('getRoom', socket.id);
-        console.log(data);
         socket.to(room).emit('submitted_answer', data);
     })
 
@@ -138,11 +162,9 @@ io.on('connection', (socket)=> {
     socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
         let name = modLogger('getPlayerName', socket.id)
-        const id = userLogger('getUserIDByName', socket.id , name);
-        const oldPoints = userLogger('getPoints', socket.id, name);
+        const id = userLogger('getReceiver', socket.id, {color: data.color, room: room})
+        const oldPoints = userLogger('getPoints', id, id);
         const newPoints = Number(oldPoints) + Number(data.points);
-
-
         userLogger('updatePoints', id, newPoints);
 
         socket.to(room).emit('submitted_points', data.points);
@@ -155,6 +177,10 @@ io.on('connection', (socket)=> {
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('start_turn', (data) => {
@@ -165,6 +191,10 @@ io.on('connection', (socket)=> {
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('pawns_request_failed', (data) => {
@@ -189,6 +219,10 @@ io.on('connection', (socket)=> {
     socket.on('get_current', (data) => {
         const strategy = modLogger('getPlayerTurn', socket.id)
         socket.emit('set_current_player', strategy)
+    })
+
+    socket.on('settings', (data) => {
+        modLogger('updateSettings', socket.id, data);
     })
 
 })

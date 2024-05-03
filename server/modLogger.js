@@ -1,5 +1,6 @@
 const { json } = require('express');
 const fs = require('fs');
+const { get } = require('http');
 
 function generateGamepin() {
     const characters = '01234A5S678T9M';
@@ -135,6 +136,7 @@ const nextTurn = (socketid) => {
     mod.turn += 1
     if (mod.players_joined.length === mod.turn) {
         mod.turn = 0
+        mod.current_round += 1
     }
     writeData(data)
 }
@@ -163,11 +165,20 @@ const getPlayerName = (socketid) => {
     return name;
 }
 
+const getRound = (socketid) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.id === socketid);
+    if (!mod) return null;
+    return {currentRound: mod.current_round, totalRounds: mod.total_rounds}
+}
+
+
 function modLogger(method, socketid, info='temp'){
     switch(method){
         case 'log':
             const gamepin = generateGamepin();
-            addMods({id: socketid, language: 'NL', room: gamepin, player_names: [], players_joined: [], turn: 0});
+            addMods({id: socketid, language: 'NL', room: gamepin, player_names: [], players_joined: [], total_players: info.playerCount,turn: 0, current_round: 1, total_rounds: info.roundsCount});
             return gamepin
         case 'delete':
             deleteMods(socketid)
@@ -207,6 +218,9 @@ function modLogger(method, socketid, info='temp'){
             break
         case 'getPlayerName':
             return getPlayerName(socketid)
+            break
+        case 'getRound':
+            return getRound(socketid)
             break
     }
 }
