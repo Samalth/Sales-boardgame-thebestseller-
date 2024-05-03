@@ -200,6 +200,7 @@ export function ModView() {
             setQuestion(data.questionText);
             setColor(data.color);
             setUserColor(data.userColor);
+            setAnswer(data.answer);
         });
         return () => {
             socket.off('mod-pause');
@@ -303,9 +304,9 @@ export function ModView() {
                         <div className='questionWhiteBox3'> {submittedAnswer} </div>
                     </div>
                     <div className='assignScoreBox'>
-                        <div className='correctAnswerText'> Correct answer:</div>
-                        <div className='correctAnswerBox'></div>
-                        <div className='assignScoreText'> Assign score:</div>
+                        <div className='correctAnswerText'> Correct answer: </div>
+                        <div className='correctAnswerBox'>{answer}</div>
+                        <div className='assignScoreText'> Assign score: </div>
                         <div className='scoreButtons'>
                             <button className={selectedPoints === 0 ? 'selected points' : 'points'}
                                     onClick={() => handleUpdatePoints(0)}> 0
