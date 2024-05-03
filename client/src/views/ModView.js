@@ -291,6 +291,15 @@ export function ModView() {
             {showPopup && (
                 <div className='scorePopup'>
                     <div className={`questionColorBox ${color}`}>
+                    <div className='rowpopup'>
+                        <img className={`${
+                                color === 'red' ? 'piecesafeline' :
+                                color === 'yellow' ? 'piecelunar' :
+                                color === 'blue' ? 'piecedomino' :
+                                color === 'purple' ? 'pieceklaphatten' :
+                                color === 'green' ? 'pieceworld' :
+                                color === 'orange' ? 'piecejysk' : ''}`} 
+                            alt="" />
                         <div className='strategyName2'>
                             {color === 'yellow' ? 'Lunar':
                             color === 'green' ? 'Top of the World' :
@@ -298,6 +307,7 @@ export function ModView() {
                             color === 'purple' ? 'Klaphatten' :
                             color === 'red' ? 'Safeline' :
                             color === 'orange' ? 'Jysk Telepartner' : 'strategy'}</div>
+                        </div>
                         <div className='questionLabel2'> Question: </div>
                         <div className='questionWhiteBox2'> {question} </div>
                         <div className='answerLabel'> Player's answer: </div>

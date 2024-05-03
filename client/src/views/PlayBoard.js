@@ -334,15 +334,26 @@ export function PlayBoard() {
             {gamePaused && (
                 <div className='questionBoxPopup'>
                     <div className={`questionColorBox ${popupColor}`}>
-                    <div className='strategyName'>
-                        {color === 'yellow' ? 'Lunar':
-                        color === 'green' ? 'Top of the World' :
-                        color === 'blue' ? 'Domino House' :
-                        color === 'purple' ? 'Klaphatten' :
-                        color === 'red' ? 'Safeline' :
-                        color === 'orange' ? 'Jysk Telepartner' : 'strategy'} </div>
+                    <div className='rowpopup'>
+                        <img className={`${
+                                color === 'red' ? 'piecesafeline' :
+                                color === 'yellow' ? 'piecelunar' :
+                                color === 'blue' ? 'piecedomino' :
+                                color === 'purple' ? 'pieceklaphatten' :
+                                color === 'green' ? 'pieceworld' :
+                                color === 'orange' ? 'piecejysk' : ''}`} 
+                            alt="" />
+                        <div className='strategyName'>
+                            {color === 'yellow' ? 'Lunar':
+                            color === 'green' ? 'Top of the World' :
+                            color === 'blue' ? 'Domino House' :
+                            color === 'purple' ? 'Klaphatten' :
+                            color === 'red' ? 'Safeline' :
+                            color === 'orange' ? 'Jysk Telepartner' : 'strategy'} </div>
+                        </div>
                         <div className='questionLabel'> <br/> Question: </div>
                         <div className="questionWhiteBox">{question}</div>
+                        
                     </div>
                     <div className="answerPopup">
                         <div className='answerText'> Your answer: </div>
