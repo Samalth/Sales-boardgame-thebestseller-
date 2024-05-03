@@ -627,3 +627,9 @@ button:hover{
 .leaderboardItem:last-child {
     border-bottom: none;
 }
+
+.roundscounter{
+    position: absolute;
+    font-size: 35px;
+    left: 4%;
+}

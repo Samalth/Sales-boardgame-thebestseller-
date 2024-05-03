@@ -9,7 +9,7 @@ export function ModSettings() {
   const navigate = useNavigate();
 
   const createRoom = () => {
-    socket.emit("create_room");
+    socket.emit("create_room", { playerCount, roundsCount });
   }
   const handleGame = () => {
       navigate('/Gamepin');
@@ -73,7 +73,7 @@ export function ModSettings() {
         <div className="rounds plus" onClick={incrementRoundsCount}>+</div>
       </div>
       <div className="row">
-        <input type="submit" className="button continue" value="Continue" />
+        <input type="submit" className="button continue" value="Continue"/>
         <button type="button" className="button continue" onClick={handleHome}>Home</button>
       </div>
     </form>

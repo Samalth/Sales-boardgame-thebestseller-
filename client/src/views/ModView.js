@@ -152,6 +152,17 @@ export function ModView() {
     const [submittedAnswer, setSubmittedAnswer] = useState('Waiting for player to submit an answer')
     const [diceValue, setDiceValue] = useState(1);
     const [selectedPoints, setSelectedPoints] = useState(null);
+    const [currentRound, setCurrentRound] = useState(0)
+    const [totalRounds, setTotalRounds] = useState(0)
+    const [roundText, setRoundText] = useState('')
+
+    useEffect(() =>{
+        socket.on('rounds', (data) => {
+            setTotalRounds(data.totalRounds)
+            setCurrentRound(data.currentRound)
+            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+        })
+    })
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
@@ -229,7 +240,9 @@ export function ModView() {
 
     return (
         <>
+            
             <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+                <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     moveMade={moveMade}
                     setMoveMade= {setMoveMade}

@@ -182,9 +182,20 @@ export function PlayBoard() {
     const [textBoxContent, setTextBoxContent] = useState('')
     const [playerName, setPlayerName] = useState('')
     const [turnText, setTurnText] = useState('Waiting for moderator to start game')
+    const [currentRound, setCurrentRound] = useState(0)
+    const [totalRounds, setTotalRounds] = useState(0)
+    const [roundText, setRoundText] = useState('')
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
     };
+
+    useEffect(() =>{
+        socket.on('rounds', (data) => {
+            setTotalRounds(data.totalRounds)
+            setCurrentRound(data.currentRound)
+            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+        })
+    })
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
@@ -199,7 +210,7 @@ export function PlayBoard() {
     useEffect(() => {
         socket.on('players_name', (data) => {
             setPlayerName(data)
-            setTurnText(`It's ${data} turn to roll the dice and answer the question`)
+            setTurnText(`It's ${data}'s turn to roll the dice and answer the question`)
         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
@@ -261,6 +272,7 @@ export function PlayBoard() {
     return (
     <>
         <div className={gamePaused || gamePaused2 ? 'playboard blurred' : 'playboard'}>
+            <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     steps={steps}
                     moveMade={moveMade}

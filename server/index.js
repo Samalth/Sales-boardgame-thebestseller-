@@ -27,7 +27,7 @@ const io = new Server(server, {
 io.on('connection', (socket)=> {
 
     socket.on('create_room', (data) => {
-        const room = modLogger('log', socket.id);
+        const room = modLogger('log', socket.id, data);
         socket.join(room)
         socket.emit('send_gamepin', room);
     })
@@ -177,6 +177,10 @@ io.on('connection', (socket)=> {
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('start_turn', (data) => {
@@ -187,6 +191,10 @@ io.on('connection', (socket)=> {
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('pawns_request_failed', (data) => {
@@ -207,6 +215,10 @@ io.on('connection', (socket)=> {
         const strategy = userLogger('getStrategy', socket.id);
         const color = userLogger('getColor', socket.id);
         socket.emit("register_currentplayer", {strategy: strategy, color: color});
+    })
+
+    socket.on('settings', (data) => {
+        modLogger('updateSettings', socket.id, data);
     })
 
 })

@@ -1,4 +1,47 @@
 {
-  "users": [],
-  "mods": []
+  "users": [
+    {
+      "id": "gfFGP_QJY133JOi6AAAD",
+      "language": "NL",
+      "room": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    },
+    {
+      "id": "BQ5I2Dz89vLRqTXzAAAF",
+      "language": "NL",
+      "room": "67160",
+      "name": "Sam",
+      "points": 0,
+      "strategy": "Safeline"
+    },
+    {
+      "id": "K8qdj-Q5WHxKK81tAAAH",
+      "language": "NL",
+      "room": "67160",
+      "name": "Noordin",
+      "points": 0,
+      "strategy": "Jysk Telepartner"
+    }
+  ],
+  "mods": [
+    {
+      "id": "gfFGP_QJY133JOi6AAAD",
+      "language": "NL",
+      "room": "67160",
+      "player_names": [
+        "Sam",
+        "Noordin"
+      ],
+      "players_joined": [
+        "safeline",
+        "jysk"
+      ],
+      "total_players": 2,
+      "turn": 0,
+      "current_round": 1,
+      "total_rounds": 7
+    }
+  ]
 }
