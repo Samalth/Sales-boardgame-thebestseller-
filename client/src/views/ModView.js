@@ -303,19 +303,41 @@ export function ModView() {
                         <div className='questionWhiteBox3'> {submittedAnswer} </div>
                     </div>
                     <div className='assignScoreBox'>
-                        <div className='correctAnswerText'> Correct answer: </div>
+                        <div className='correctAnswerText'> Correct answer:</div>
                         <div className='correctAnswerBox'></div>
-                        <div className='assignScoreText'> Assign score: </div>
+                        <div className='assignScoreText'> Assign score:</div>
                         <div className='scoreButtons'>
-                            <button className={selectedPoints === 0 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(0)}> 0 </button>
-                            <button className={selectedPoints === 5 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(5)}> 5 </button>
-                            <button className={selectedPoints === 10 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(10)}> 10 </button>
-                            <button className={selectedPoints === 15 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
-                            <button className={selectedPoints === 20 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
-                            <button className={selectedPoints === 25 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(25)}> 25 </button>
-                            <button className={selectedPoints === 30 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(30)}> 30 </button>
+                            <button className={selectedPoints === 0 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(0)}> 0
+                            </button>
+                            <button className={selectedPoints === 5 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(5)}> 5
+                            </button>
+                            <button className={selectedPoints === 10 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(10)}> 10
+                            </button>
+                            <button className={selectedPoints === 15 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(15)}> 15
+                            </button>
+                            <button className={selectedPoints === 20 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(20)}> 20
+                            </button>
+                            <button className={selectedPoints === 25 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(25)}> 25
+                            </button>
+                            <button className={selectedPoints === 30 ? 'selected points' : 'points'}
+                                    onClick={() => handleUpdatePoints(30)}> 30
+                            </button>
                         </div>
-                        <button className='submitScoreButton' onClick={() => { handleSubmitPoints(); }}>Submit</button>
+                        {/*<button className='submitScoreButton' onClick={() => { handleSubmitPoints(); }}>Submit</button>*/}
+                        <button
+                            className='submitScoreButton' onClick={() => {
+                                if (selectedPoints !== null) {handleSubmitPoints();
+                                } else {alert('Select points before submitting');}
+                            }}
+                        >
+                            Submit
+                        </button>
                     </div>
                 </div>
             )}
