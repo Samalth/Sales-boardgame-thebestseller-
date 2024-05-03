@@ -16,13 +16,13 @@ const questionIDs = {
     orange: [7, 8],
     red: [9, 10],
     blue: [11, 12],
-    sales: [13, 14, 15],
+    sales: [13, 14, 15],    
     megatrends: [16, 17, 18],
     chance: [19, 20, 21],
     rainbow: [1]
 };
 
-async function modulePopUp(color, sort='question') {
+async function modulePopUp(color, sort = 'english') {
     let number;
 
     switch (color) {
@@ -49,32 +49,30 @@ async function modulePopUp(color, sort='question') {
             break;
     }
 
+    let queryMod;
     switch (sort) {
-        case 'question':
-            queryMod = 'SELECT QEnglish FROM questionstable where ID=?';
-            break
-        case 'answer':
-            queryMod = 'SELECT QDanish FROM questionstable where ID=?';
-            break
+        case 'english':
+            queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';
+            break;
+        case 'danish':
+            queryMod = 'SELECT QDanish AS question, ADanish AS answer FROM questionstable WHERE ID=?';
+            break;
+        default:
+            queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';
+            break;
     }
 
-            return new Promise((resolve, reject) => {
-                connection.query(queryMod, [number], (error, results) => {
-                    if (error) {
-                        reject(error);
-                        return;
-                    }
+    return new Promise((resolve, reject) => {
+        connection.query(queryMod, [number], (error, results) => {
+            if (error) {
+                reject(error);
+                return;
+            }
 
-                    const resultsString = JSON.stringify(results);
-                    const values = results.map(entry => Object.values(entry)[0]);
-                    const resultsString2 = values.join('');
-                    const stringWithoutBrackets = resultsString2.replace(/^\[|\]$/g, '');
-                    const stringWithoutNewlines = stringWithoutBrackets.replace(/\\n/g, '');
-                    const stringFinal = stringWithoutNewlines.replace(/{|}/g, '');
-                    resolve(stringFinal);
-                });
-            });
-
+            const { question, answer } = results[0];
+            resolve({ question, answer });
+        });
+    });
 }
 
-module.exports=modulePopUp;
+module.exports = modulePopUp;

@@ -93,7 +93,7 @@ io.on('connection', (socket)=> {
             data.questionColor = data.userColor
             popupColor = data.userColor;
         }
-        var questionText = await databaseQuestion(data.questionColor);
+        const { question, answer } = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
         switch (data.questionColor) {
@@ -112,11 +112,11 @@ io.on('connection', (socket)=> {
 
         if (availableColors.includes(data.questionColor)){
             const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
-            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: popupColor});
-            io.to(receiver).emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor})
+            socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: popupColor, answer: answer});
+            io.to(receiver).emit('receive_question', {questionText: question, color: popupColor, userColor: data.userColor})
         } else{
-            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
-            socket.emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor});
+            socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: data.userColor, answer: answer});
+            socket.emit('receive_question', {questionText: question, color: popupColor, userColor: data.userColor});
         }
     })
 

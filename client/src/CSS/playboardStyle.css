@@ -33,27 +33,45 @@ img {
 }
 
 .yellow {
-background-color: #DAB24B;
+    background-color: #DAB24B;
+}
+.pieceyellow{
+    color:#DAB24B
 }
 
 .blue {
-background-color: #47A1C8;
+    background-color: #47A1C8;
+}
+.pieceblue{
+    color:#47A1C8
 }
 
 .red {
-background-color: #BA4040;
+    background-color: #BA4040;
+}
+.piecered{
+    color:#BA4040   
 }
 
 .green {
-background-color: #53A65B;
+    background-color: #53A65B;
+}
+.piecegreen{
+    color:#53A65B
 }
 
 .orange {
-background-color: #C66732;
+    background-color: #C66732;
+}
+.pieceorange{
+    color:#C66732
 }
 
 .purple {
-background-color: #A83E8A;
+    background-color: #A83E8A;
+}
+.piecepurple{
+    color:#A83E8A
 }
 
 .black {
@@ -150,7 +168,7 @@ margin: 2px;
  width: 300px;
  padding: 20px;
  position: fixed;
- top: 70%;
+ top: 75%;
  right: 5%;
  border-radius: 8px;
  display: flex;
@@ -614,7 +632,7 @@ button:hover{
     font-family: 'Itim', Arial, sans-serif;
     font-size: 35px;
     margin-left: 4%;
-    margin-top: 45%;
+    margin-top: 42%;
 }
 
 /* leader board */
@@ -660,3 +678,4 @@ button:hover{
     font-size: 35px;
     left: 4%;
 }
+
