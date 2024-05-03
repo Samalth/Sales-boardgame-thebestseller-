@@ -88,8 +88,12 @@ io.on('connection', (socket)=> {
 
     socket.on('send_question_request', async (data) => {
         const availableColors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
-        var questionText = await databaseQuestion(data.questionColor);
         var popupColor = data.questionColor;
+        if (data.questionColor === 'rainbow') {
+            data.questionColor = data.userColor
+            popupColor = data.userColor;
+        }
+        var questionText = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
         switch (data.questionColor) {
@@ -101,9 +105,6 @@ io.on('connection', (socket)=> {
                 break;
             case 'megatrends':
                 popupColor = 'black';
-                break;
-            case 'rainbow':
-                popupColor = data.userColor;
                 break;
             default:
                 popupColor = data.questionColor;
