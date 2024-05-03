@@ -10,9 +10,13 @@ export function JoinGame() {
     const [information, setInformation] = useState("");
     const navigate = useNavigate();
 
-  const setName = (username) => {
-    socket.emit("join_room", { name: username, room: gamepin, strategy: strategy});
-  };
+    const setName = (username) => {
+        if (!username) {
+            setInformation("Please enter a name");
+            return;
+        }
+        socket.emit("join_room", { name: username, room: gamepin, strategy: strategy});
+    };
 
   useEffect(() =>{
     socket.on('join_succes', (data) => {
