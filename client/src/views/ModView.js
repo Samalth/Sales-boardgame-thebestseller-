@@ -149,7 +149,7 @@ export function ModView() {
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
-    const [submittedAnswer, setSubmittedAnswer] = useState('')
+    const [submittedAnswer, setSubmittedAnswer] = useState('Waiting for player to submit an answer')
     const [diceValue, setDiceValue] = useState(1);
     const [selectedPoints, setSelectedPoints] = useState(null);
 
@@ -219,9 +219,12 @@ export function ModView() {
     };
 
     const handleSubmitPoints = () => {
-        socket.emit("submit_points", { points: selectedPoints, color: userColor});
-        setSubmittedAnswer('');
-        setSelectedPoints([]);
+        if (submittedAnswer !== 'Waiting for player to submit an answer') {
+            setShowPopup(false)
+            socket.emit("submit_points", { points: selectedPoints, color: userColor});
+            setSubmittedAnswer('Waiting for player to submit an answer');
+            setSelectedPoints([]);
+        }
     };
 
     return (
@@ -288,7 +291,7 @@ export function ModView() {
                             <button className={selectedPoints === 15 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(15)}> 15 </button>
                             <button className={selectedPoints === 20 ? 'selected points' : 'points'} onClick={() => handleUpdatePoints(20)}> 20 </button>
                         </div>
-                        <button className='submitScoreButton' onClick={() => { setShowPopup(false); handleSubmitPoints(); }}>Submit</button>
+                        <button className='submitScoreButton' onClick={() => { handleSubmitPoints(); }}>Submit</button>
                     </div>
                 </div>
             )}

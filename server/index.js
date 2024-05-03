@@ -109,18 +109,13 @@ io.on('connection', (socket)=> {
                 popupColor = data.questionColor;
         }
 
-        console.log('popupColor: ', popupColor);
-        console.log('data.userColor: ', data.userColor);
-        console.log('data.questionColor: ', data.questionColor);
         if (availableColors.includes(data.questionColor)){
-            console.log('other color')
             const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
-            console.log(receiver)
-            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
+            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: popupColor});
             io.to(receiver).emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor})
         } else{
-            socket.to(room).emit('mod-pause', {question: questionText, color: popupColor, userColor: data.userColor});
-            socket.emit('receive_question', {questionText: questionText, color: popupColor});
+            socket.to(room).emit('mod-pause', {questionText: questionText, color: popupColor, userColor: data.userColor});
+            socket.emit('receive_question', {questionText: questionText, color: popupColor, userColor: data.userColor});
         }
     })
 
@@ -167,11 +162,9 @@ io.on('connection', (socket)=> {
     socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
         let name = modLogger('getPlayerName', socket.id)
-        // const id = userLogger('getUserIDByName', socket.id , name);
         const id = userLogger('getReceiver', socket.id, {color: data.color, room: room})
         const oldPoints = userLogger('getPoints', id, id);
         const newPoints = Number(oldPoints) + Number(data.points);
-
         userLogger('updatePoints', id, newPoints);
 
         socket.to(room).emit('submitted_points', data.points);

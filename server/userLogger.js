@@ -92,7 +92,6 @@ function getPoints(id) {
 
     const user = data.users.find(user => user.id === id)
     if (user) {
-        console.log(user.points + ' points test')
         return user.points;
     } else {
         console.error('User not found3.');
