@@ -280,10 +280,10 @@ export function PlayBoard() {
         })
     },[currentPlayer]);
 
-    useEffect(() => {
-        const audio = new Audio(audioFile);
-        audio.play();
-    }, []);
+    // useEffect(() => {
+    //     const audio = new Audio(audioFile);
+    //     audio.play();
+    // }, []);
 
     return (
     <>
