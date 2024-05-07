@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../CSS/playboardStyle.css';
 import {socket} from '../client'
+import audioFile from '../images/applicationAudio.mp3';
+
 
 let selectedPawn = null;
 
@@ -270,6 +272,11 @@ export function PlayBoard() {
         })
     },[currentPlayer]);
 
+    useEffect(() => {
+        const audio = new Audio(audioFile);
+        audio.play();
+    }, []);
+
     return (
     <>
         <div className={gamePaused || gamePaused2 ? 'playboard blurred' : 'playboard'}>
@@ -341,7 +348,7 @@ export function PlayBoard() {
                                 color === 'blue' ? 'piecedomino' :
                                 color === 'purple' ? 'pieceklaphatten' :
                                 color === 'green' ? 'pieceworld' :
-                                color === 'orange' ? 'piecejysk' : ''}`} 
+                                color === 'orange' ? 'piecejysk' : ''}`}
                             alt="" />
                         <div className='strategyName'>
                             {color === 'yellow' ? 'Lunar':
@@ -353,7 +360,6 @@ export function PlayBoard() {
                         </div>
                         <div className='questionLabel'> <br/> Question: </div>
                         <div className="questionWhiteBox">{question}</div>
-                        
                     </div>
                     <div className="answerPopup">
                         <div className='answerText'> Your answer: </div>
