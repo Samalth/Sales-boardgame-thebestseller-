@@ -161,7 +161,9 @@ background-size: cover;
 .pieceworld {
     background-image: url('../images/TopOfTheWorld.png');
     background-size: cover;
+    border-radius: 50%;
 }
+
 .piecelunar {
     background-image: url('../images/Lunar.png');
     background-size: cover;
@@ -709,7 +711,7 @@ button:hover{
     font-family: 'Itim', Arial, sans-serif;
     font-size: 23px;
     color: #F9E513;
-    background-color: #5E676D;
+    background-color: #2d2f30;
     border: 2px solid white;
 }
 .pointsLeaderboard{
