@@ -225,6 +225,10 @@ io.on('connection', (socket)=> {
     socket.on('settings', (data) => {
         modLogger('updateSettings', socket.id, data);
     })
+    
+    socket.on('delete_mod', (data) => {
+        modLogger('delete', socket.id);
+    })
 
 })
 
