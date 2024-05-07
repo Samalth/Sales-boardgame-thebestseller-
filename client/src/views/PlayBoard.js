@@ -4,7 +4,7 @@ import {socket} from '../client'
 
 let selectedPawn = null;
 
-const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color}) => {
+const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color, setMyTurn}) => {
     const boardWidth = 15;
     const boardHeight = 9;
     const totalTiles = boardWidth * boardHeight;
@@ -52,7 +52,12 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     };
 
     const sendQuestionRequest = (colorTile) => {
-        socket.emit("send_question_request", { questionColor: colorTile, userColor: color });
+        if (colorTile !== 'start') {
+            socket.emit("send_question_request", { questionColor: colorTile, userColor: color });
+        } else {
+            setMoveMade(false)
+            setMyTurn(true)
+        }
     };
 
     useEffect(() => {
@@ -83,18 +88,15 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             const targetTile = event.target.closest('.tile');
             if (startPieces.includes(event.target.id)) {
                 event.target.classList.add('highlight');
-                // setSelectedPawn(event.target);
-                console.log(event.target)
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
                 if (validPositions.includes(newPosition) && !moveMade) {
                     if (selectedPawn instanceof HTMLElement) {
                     event.target.appendChild(selectedPawn);
                     const color = targetTile.className.split(' ')[1];
-                    sendQuestionRequest(color);
                     setMoveMade(true);
+                    sendQuestionRequest(color);
                     document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                    // setPosition(newPosition);
                     socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
                     } else {
                         console.error("Selected pawn is not a valid DOM element");
@@ -290,7 +292,8 @@ export function PlayBoard() {
                     setCurrentPlayer={setCurrentPlayer}
                     currentPlayer={currentPlayer}
                     setColor={setColor}
-                    color={color}/>
+                    color={color}
+                    setMyTurn={setMyTurn}/>
                 <DiceContainer
                     setSteps={setSteps}
                     setMoveMade={setMoveMade}
