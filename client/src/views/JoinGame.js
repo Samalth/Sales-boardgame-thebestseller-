@@ -46,12 +46,12 @@ export function JoinGame() {
             <label htmlFor="strategy">Strategy:</label>
             <select name="strategy" id="strategy" onChange={event => setStrategy(event.target.value)}>
                 <option value="" hidden="hidden">Pick a strategy</option>
-                <option value="Lunar">1. Lunar</option>
-                <option value="Top of the World">2. Top of the World</option>
-                <option value="Safeline">3. Safeline</option>
-                <option value="Jysk Telepartner">4. Jysk Telepartner</option>
-                <option value="Domino House">5. Domino House</option>
-                <option value="Klaphatten">6. Klaphatten</option>
+                <option className='dropyellow' value="Lunar">1. Lunar</option>
+                <option className='dropgreen' value="Top of the World">2. Top of the World</option>
+                <option className='dropred' value="Safeline">3. Safeline</option>
+                <option className='droporange' value="Jysk Telepartner">4. Jysk Telepartner</option>
+                <option className='dropblue' value="Domino House">5. Domino House</option>
+                <option className='droppurple' value="Klaphatten">6. Klaphatten</option>
             </select>
         </div>
         <div className="joinscreen-row name">
