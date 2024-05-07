@@ -31,6 +31,7 @@ export function Gamepin() {
 
     const handleHome = () => {
         navigate('/home')
+        socket.emit('delete_mod', 'data')
     }
 
     const handlePlayerCountChange = (event) => {
