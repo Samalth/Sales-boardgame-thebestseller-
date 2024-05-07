@@ -28,8 +28,9 @@ io.on('connection', (socket)=> {
 
     socket.on('create_room', (data) => {
         const room = modLogger('log', socket.id, data);
+        const playerNeeded = modLogger('getPlayerTotal', socket.id)
         socket.join(room)
-        socket.emit('send_gamepin', room);
+        socket.emit('send_gamepin', {room: room, playerTotal: playerNeeded});
     })
 
     userLogger('log', socket.id)
@@ -50,6 +51,10 @@ io.on('connection', (socket)=> {
         }
         if(data.strategy === ''){
             availability = 'Choose a strategy'
+        }
+        var roomIsFull = modLogger('checkFull', socket.id, data.room)
+        if (roomIsFull === 'full') {
+            availability = 'Room is full'
         }
         if (availability === 'available') {
             socket.join(data.room)
