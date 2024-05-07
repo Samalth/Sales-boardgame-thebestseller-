@@ -1,4 +1,13 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "5hRS8a9tgpPU6o3TAAAL",
+      "language": "NL",
+      "room": "",
+      "name": "",
+      "points": 0,
+      "strategy": ""
+    }
+  ],
   "mods": []
 }

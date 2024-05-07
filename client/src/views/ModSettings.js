@@ -4,7 +4,7 @@ import '../CSS/settings.css';
 import {socket} from '../client'
 
 export function ModSettings() {
-  const [playerCount, setPlayerCount] = useState(2);
+  const [playerCount, setPlayerCount] = useState(6);
   const [roundsCount, setRoundsCount] = useState(5);
   const navigate = useNavigate();
 

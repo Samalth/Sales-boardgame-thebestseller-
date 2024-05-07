@@ -41,7 +41,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id === piece ? 'round-border' : ''}`} id={`${piece}`}/>
+            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id !== piece ? 'black-border-piece' : ''}`} id={`${piece}`}>
+                {selectedPawn && selectedPawn.id === piece && <div className="gradient-background round-border"></div>}
+            </div>
         ));
     };
 
@@ -281,8 +283,22 @@ export function ModView() {
                                             data.strategy === 'Top of the World' ? 'pieceworld' :
                                                 data.strategy === 'Jysk Telepartner' ? 'piecejysk' : "../Dia1.JPG"} alt=""
                             />
-                            <div className={data.name === playerName ? `flicker` : ""}>{data.name}</div>
-                            <div className={data.name === playerName ? `flicker pointsLeaderboard` : "pointsLeaderboard"}> {data.points} </div>
+                            <div className={`${data.name === playerName ? 'flicker' : ''} ${
+                                data.strategy === 'Safeline' ? 'piecered' :
+                                data.strategy === 'Lunar' ? 'pieceyellow' :
+                                data.strategy === 'Domino House' ? 'pieceblue' :
+                                data.strategy === 'Klaphatten' ? 'piecepurple' :
+                                data.strategy === 'Top of the World' ? 'piecegreen' :
+                                data.strategy === 'Jysk Telepartner' ? 'pieceorange' : ''}` 
+                            }>{data.name}</div>
+                            <div className={`${data.name === playerName ? 'flicker pointsLeaderboard' : 'pointsLeaderboard'} ${
+                                data.strategy === 'Safeline' ? 'piecered' :
+                                data.strategy === 'Lunar' ? 'pieceyellow' :
+                                data.strategy === 'Domino House' ? 'pieceblue' :
+                                data.strategy === 'Klaphatten' ? 'piecepurple' :
+                                data.strategy === 'Top of the World' ? 'piecegreen' :
+                                data.strategy === 'Jysk Telepartner' ? 'pieceorange' : ''}` 
+                            }>{data.points}</div>
                         </div>
                     )
                 })}

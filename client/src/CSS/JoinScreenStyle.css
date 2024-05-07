@@ -57,3 +57,22 @@ label{
 .joinScreenButton:hover{
     background-color: #3f6072;
 }
+
+.dropyellow{
+    color:#DAB24B
+}
+.dropblue{
+    color:#47A1C8
+}
+.dropred{
+    color:#BA4040   
+}
+.dropgreen{
+    color:#53A65B
+}
+.droporange{
+    color:#C66732
+}
+.droppurple{
+    color:#A83E8A
+}

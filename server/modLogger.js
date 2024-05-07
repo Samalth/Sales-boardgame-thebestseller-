@@ -173,6 +173,26 @@ const getRound = (socketid) => {
     return {currentRound: mod.current_round, totalRounds: mod.total_rounds}
 }
 
+const getPlayerTotal = (socketid) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.id === socketid);
+    if (!mod) return null;
+    return mod.total_players
+}
+
+const checkFull = (room) => {
+    let data = readData();
+    if (!data) return null;
+    const mod = data.mods.find(mods => mods.room === room);
+    if (!mod) return null;
+//     return mod.total_players === mod.players_joined.length
+    if (mod.players_joined.length >= mod.total_players) {
+        return 'full';
+    } else {
+        return 'space';
+    }
+}
 
 function modLogger(method, socketid, info='temp'){
     switch(method){
@@ -222,6 +242,11 @@ function modLogger(method, socketid, info='temp'){
         case 'getRound':
             return getRound(socketid)
             break
+        case 'getPlayerTotal':
+            return getPlayerTotal(socketid)
+            break
+        case 'checkFull':
+            return checkFull(info)
     }
 }
 
