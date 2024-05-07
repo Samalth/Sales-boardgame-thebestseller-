@@ -234,6 +234,10 @@ export function PlayBoard() {
     }, []);
 
     const handleSubmitAnswer = () => {
+        if (textBoxContent.trim() === '') {
+            alert('Write down an answer then press submit.');
+            return;
+        }
         setGamePaused(false);
         socket.emit('send_textbox_content', {text: textBoxContent, color: color})
         setTextBoxContent('')
