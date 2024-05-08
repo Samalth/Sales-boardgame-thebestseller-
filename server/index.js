@@ -17,7 +17,7 @@ fs.writeFileSync('data.json', '{\n  "users": [],\n  "mods": []\n}');
 
 const server = http.createServer(app)
 
-const io = new Server(server, { 
+const io = new Server(server, {
     cors: {
         origin: 'http://localhost:3000',
         methods: ['GET', 'POST']
@@ -27,9 +27,10 @@ const io = new Server(server, {
 io.on('connection', (socket)=> {
 
     socket.on('create_room', (data) => {
-        const room = modLogger('log', socket.id);
+        const room = modLogger('log', socket.id, data);
+        const playerNeeded = modLogger('getPlayerTotal', socket.id)
         socket.join(room)
-        socket.emit('send_gamepin', room);
+        socket.emit('send_gamepin', {room: room, playerTotal: playerNeeded});
     })
 
     userLogger('log', socket.id)
@@ -51,12 +52,17 @@ io.on('connection', (socket)=> {
         if(data.strategy === ''){
             availability = 'Choose a strategy'
         }
+        var roomIsFull = modLogger('checkFull', socket.id, data.room)
+        if (roomIsFull === 'full') {
+            availability = 'Room is full'
+        }
         if (availability === 'available') {
             socket.join(data.room)
             socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
-
+            /*  const points = data.points !== undefined ? parseInt(data.points) : 0;*/
+            /* userLogger('updatePoints', socket.id, data.points)*/
             userLogger('updateStrategy', socket.id, data.strategy)
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())
@@ -86,11 +92,37 @@ io.on('connection', (socket)=> {
     })
 
     socket.on('send_question_request', async (data) => {
-        var questionText = await databaseQuestion(data.questionColor);
+        const availableColors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
+        var popupColor = data.questionColor;
+        if (data.questionColor === 'rainbow') {
+            data.questionColor = data.userColor
+            popupColor = data.userColor;
+        }
+        const { question, answer } = await databaseQuestion(data.questionColor);
 
         const room = userLogger('getRoom', socket.id);
-        socket.to(room).emit('mod-pause', questionText);
-        socket.emit('receive_question', questionText);
+        switch (data.questionColor) {
+            case 'chance':
+                popupColor = 'black';
+                break;
+            case 'sales':
+                popupColor = 'black';
+                break;
+            case 'megatrends':
+                popupColor = 'black';
+                break;
+            default:
+                popupColor = data.questionColor;
+        }
+
+        if (availableColors.includes(data.questionColor)){
+            const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
+            socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: popupColor, answer: answer});
+            io.to(receiver).emit('receive_question', {questionText: question, color: popupColor, userColor: data.userColor})
+        } else{
+            socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: data.userColor, answer: answer});
+            socket.emit('receive_question', {questionText: question, color: popupColor, userColor: data.userColor});
+        }
     })
 
     socket.on('send_answer_request', async (data) => {
@@ -120,7 +152,6 @@ io.on('connection', (socket)=> {
 
     socket.on('send_textbox_content', (data) => {
         const room = userLogger('getRoom', socket.id);
-        console.log(data);
         socket.to(room).emit('submitted_answer', data);
     })
 
@@ -136,15 +167,26 @@ io.on('connection', (socket)=> {
 
     socket.on('submit_points', (data) => {
         const room = modLogger('room', socket.id);
+        let name = modLogger('getPlayerName', socket.id)
+        const id = userLogger('getReceiver', socket.id, {color: data.color, room: room})
+        const oldPoints = userLogger('getPoints', id, id);
+        const newPoints = Number(oldPoints) + Number(data.points);
+        userLogger('updatePoints', id, newPoints);
+
         socket.to(room).emit('submitted_points', data.points);
-        console.log('send points to playboard: ' + data.points);
+        socket.emit('players_name', name)
         modLogger('nextTurn', socket.id)
+        name = modLogger('getPlayerName', socket.id);
         const strategy = modLogger('getPlayerTurn', socket.id)
         socket.emit('players_turn', strategy)
-        const name = modLogger('getPlayerName', socket.id)
+
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('start_turn', (data) => {
@@ -155,6 +197,10 @@ io.on('connection', (socket)=> {
         socket.emit('players_name', name)
         socket.to(room).emit('players_turn', strategy)
         socket.to(room).emit('players_name', name)
+
+        const roundInfo = modLogger('getRound', socket.id);
+        socket.to(room).emit('rounds', roundInfo);
+        socket.emit('rounds', roundInfo);
     })
 
     socket.on('pawns_request_failed', (data) => {
@@ -171,8 +217,22 @@ io.on('connection', (socket)=> {
         socket.emit('data_leaderboard', userData);
     })
 
+    socket.on('get_playerstrategy', (data) => {
+        const strategy = userLogger('getStrategy', socket.id);
+        const color = userLogger('getColor', socket.id);
+        socket.emit("register_currentplayer", {strategy: strategy, color: color});
+    })
+    socket.on('get_current', (data) => {
+        const strategy = modLogger('getPlayerTurn', socket.id)
+        socket.emit('set_current_player', strategy)
+    })
+
+    socket.on('settings', (data) => {
+        modLogger('updateSettings', socket.id, data);
+    })
+
 })
 
 server.listen(3001, () => {
-    console.log('server is running on port 3001, I think')
+    console.log('server is running on port 3001, I hope')
 })

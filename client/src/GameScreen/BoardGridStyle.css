@@ -2,10 +2,10 @@
     width: 65%;
     float: left;
     display: grid;
-    grid-template-columns: repeat(15, 70px); /* Alle vakjes zijn 56px breed */
-    grid-template-rows: repeat(9, 70px); /* Alle vakjes zijn 56px hoog */
+    grid-template-columns: repeat(15, 70px);
+    grid-template-rows: repeat(9, 70px);
     margin-top: 5%;
-    margin-left: 0%;
+    margin-left: 0;
     justify-content: center;
     align-content: center;
 }
@@ -24,35 +24,72 @@ img {
     position: relative;
     justify-content: space-around;
     align-items: center;
+    z-index: 0;
+}
+
+.tile.blink {
+    animation: blink-Border 0.6s infinite alternate;
+}
+
+@keyframes blink-Border {
+    0% {
+        border: 3px solid transparent;
+    }
+    100% {
+        border: 3px solid #ffdfba;
+    }
 }
 
 .yellow {
     background-color: #DAB24B;
 }
+.pieceyellow{
+    color:#DAB24B
+}
 
 .blue {
     background-color: #47A1C8;
+}
+.pieceblue{
+    color:#47A1C8
 }
 
 .red {
     background-color: #BA4040;
 }
+.piecered{
+    color:#BA4040
+}
 
 .green {
     background-color: #53A65B;
+}
+.piecegreen{
+    color:#53A65B
 }
 
 .orange {
     background-color: #C66732;
 }
+.pieceorange{
+    color:#C66732
+}
 
 .purple {
     background-color: #A83E8A;
 }
+.piecepurple{
+    color:#A83E8A
+}
+
+.black {
+    background-color: #000000;
+}
 
 .start {
-    background-color: #000000;
+    background-color: black;
     background-size: 60px;
+
 }
 
 .sales {
@@ -74,13 +111,111 @@ img {
     background-image: url('../Assets/MegaTrends.png');
     background-size: cover;
 }
-.startpieces {
+
+/* .startpieces {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: auto;
     max-width: 100%;
     max-height: 100%;
+    border: 2px solid black;
+    border-radius: 50%;;
+} */
+
+.startpieces {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+.black-border-piece {
+    inset: -1px;
+    background: #000000;
+
 }
 
+.gradient-background {
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(-45deg, #00ff66, #00ffff, #ff00ff, #ff0099, #099fff, #00ff66);
+    background-size: 400%;
+    border-radius: 50%;
+    z-index: -1;
+    animation: change 10s linear infinite;
+}
+
+
+@keyframes change {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 400%, 0;
+    }
+    100% {
+        background-position: 0, 0;
+    }
+}
+
+.round-border::after{
+    filter:blur(5px);
+    opacity: 0.5;
+}
+
+
+
+.pieceworld {
+    background-image: url('../Assets/WORLD.png');
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.piecelunar {
+    background-image: url('../Assets/LUNAR.png');
+    background-size: cover;
+}
+.piecedomino {
+    background-image: url('../Assets/DOMINO.png');
+    background-size: cover;
+}
+.piecesafeline {
+    background-image: url('../Assets/SAFELINE.png');
+    background-size: cover;
+}
+.piecejysk {
+    background-image: url('../Assets/JYSK.png');
+    background-size: cover;
+}
+.pieceklaphatten {
+    background-image: url('../Assets/KLAPPENHATTEN.png');
+    background-size: cover;
+}
+
+.startpieces:only-child {
+    width: 35px;
+    height: 35px;
+}
+
+.startpieces:not(:only-child) {
+    width: 18px;
+    height: 18px;
+}
+
+img {
+    width: 55px;
+    height: 55px;
+    margin: 2px;
+}
+
+.tile img {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    /* z-index: auto; */
+}
+
+path {
+    position: relative;
+    /* z-index: auto; */
+}

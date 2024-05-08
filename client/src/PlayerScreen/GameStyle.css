@@ -1,145 +1,7 @@
-.board-grid {
-    width: 65%;
-    float: left;
-    display: grid;
-    grid-template-columns: repeat(15, 70px);
-    grid-template-rows: repeat(9, 70px);
-    margin-top: 5%;
-    margin-left: 0%;
-    justify-content: center;
-    align-content: center;
-}
-
-img {
-    width: 55px;
-    height: 55px;
-    margin: 2px;
-}
-
-.tile {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    margin: 2px;
+body{
+    margin: 0;
+    background: #195678;
     position: relative;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.yellow {
-background-color: #DAB24B;
-}
-
-.blue {
-background-color: #47A1C8;
-}
-
-.red {
-background-color: #BA4040;
-}
-
-.green {
-background-color: #53A65B;
-}
-
-.orange {
-background-color: #C66732;
-}
-
-.purple {
-background-color: #A83E8A;
-}
-
-.start {
-background-color: #000000;
-background-size: 60px;
-}
-
-.sales {
-background-image: url('../Assets/Sales.png');
-background-size: cover;
-}
-
-.chance{
-background-image: url('../Assets/Chance.png');
-background-size: cover;
-}
-
-.rainbow{
-background-image: url('../Assets/Rainbow.png');
-background-size: cover;
-}
-
-.megatrends{
-background-image: url('../Assets/MegaTrends.png');
-background-size: cover;
-}
-
-.startpieces {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: auto;
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.pieceworld {
-    background-image: url('../Assets/WORLD.png');
-    background-size: cover;
-}
-.piecelunar {
-    background-image: url('../Assets/LUNAR.png');
-    background-size: cover;
-}
-.piecedomino {
-    background-image: url('../Assets/DOMINO.png');
-    background-size: cover;
-}
-.piecesafeline {
-    background-image: url('../Assets/SAFELINE.png');
-    background-size: cover;
-}
-.piecejysk {
-    background-image: url('../Assets/JYSK.png');
-    background-size: cover;
-}
-.pieceklaphatten {
-    background-image: url('../Assets/KLAPPENHATTEN.png');
-    background-size: cover;
-}
-
-.startpieces:only-child {
-    width: 35px;
-    height: 35px;
-}
-
-.startpieces:not(:only-child) {
-    width: 20px; 
-    height: 20px;
-}
-
-.highlight {
-    border: 2px solid yellow;
-}
-
-img {
-width: 55px;
-height: 55px;
-margin: 2px;
-}
-
-.tile img {
- width: 20px;
- height: 20px;
- position: relative;
- z-index: auto;
-}
-
-path {
- position: relative;
- z-index: auto;
 }
 
 label{
@@ -149,20 +11,29 @@ label{
     font-weight: 500;
 }
 
-.tile.blink {
-    animation: blink-Border 0.6s infinite alternate;
+
+.flicker {
+    animation: flicker 1s linear infinite;
 }
 
-@keyframes blink-Border {
-    0% {
-        border: 3px solid transparent;
-    }
-    100% {
-        border: 3px solid #ffdfba;
-    }
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.25; }
+    100% { opacity: 1; }
 }
 
-button{
+
+.flicker {
+    animation: flicker 1s linear infinite;
+}
+
+.rowpopup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
     background-color: goldenrod;
     border: none;
     outline: none;
@@ -176,18 +47,33 @@ button{
 }
 
 #player{
-font-family: Arial, Helvetica, sans-serif;
-font-size: 36px;
-color: white;
-margin: 30px 0;
-font-weight: 500;
-position: absolute;
-top: 80%;
-left: 4%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    color: white;
+    margin: 30px 0;
+    font-weight: 500;
+    position: absolute;
+    top: 80%;
+    left: 4%;
 }
 
 button:hover{
     background-color: gold;
+}
+
+.shake{
+    animation: shake 0.5s infinite;
+}
+@keyframes shake{
+    0%{
+        transform: rotate(10deg);
+    }
+    50%{
+        transform: rotate(-10deg);
+    }
+    100%{
+        transform: rotate(10deg);
+    }
 }
 
 .playboard-container {
@@ -200,10 +86,23 @@ button:hover{
     filter: blur(5px);
 }
 
+
 .playerTurn {
     position: absolute;
     font-family: 'Itim', Arial, sans-serif;
     font-size: 35px;
     margin-left: 4%;
-    margin-top: 45%;
+    margin-top: 42%;
 }
+
+.turnsModView {
+    font-family: 'Itim', Arial, sans-serif;
+    font-size: 35px;
+}
+
+.roundscounter{
+    position: absolute;
+    font-size: 35px;
+    left: 4%;
+}
+

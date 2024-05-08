@@ -7,10 +7,13 @@ export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
     const navigate = useNavigate();
     const [playerCount, setPlayerCount] = useState(0);
+    const [playerNeeded, setPlayerNeeded] = useState(0);
+    const [errorcode, setErrorCode] = useState('');
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
-            setGamepin(data);
+            setGamepin(data.room);
+            setPlayerNeeded(data.playerTotal);
         });
         socket.on('add_user', () => {
             setPlayerCount(prevCount => prevCount + 1);
@@ -25,8 +28,15 @@ export function Gamepin() {
     }, []);
 
     const handleGame = () => {
-        socket.emit('start_turn', 'data')
-        navigate('/modview');
+        if (playerCount === playerNeeded) {
+            socket.emit('start_turn', 'data')
+            navigate('/modview');
+        } else if (playerCount < playerNeeded) {
+            setErrorCode('Not enough players')
+        } else {
+            setErrorCode('Too many players')
+        }
+
     };
 
     const handleHome = () => {
@@ -37,7 +47,7 @@ export function Gamepin() {
         setPlayerCount(parseInt(event.target.value));
     };
 
-    const copyGamePin = (event) => {
+    const copygamepin = (event) => {
         event.target.select();
         document.execCommand('copy');
         // alert('copied gamepin');
@@ -47,7 +57,7 @@ export function Gamepin() {
         <div className="parent-container">
             <div className="row gamepin">
                 <label>Gamepin:</label>
-                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copyGamePin} readOnly
+                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
                        onChange={event => setGamepin(event.target.value)}/>
             </div>
             <div className="row">
@@ -57,9 +67,11 @@ export function Gamepin() {
                        onChange={handlePlayerCountChange}/>
             </div>
             <div className="row">
-            <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
+                <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
                 <input type="submit" className="gamePinButton" value="Home" onClick={handleHome}/>
             </div>
+            <div className="row">{errorcode}</div>
         </div>
     );
 }
+

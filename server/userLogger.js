@@ -3,11 +3,11 @@ const fs = require('fs');
 
 const readData = () => {
     try {
-      const data = fs.readFileSync('data.json', 'utf8');
-      return JSON.parse(data);
+        const data = fs.readFileSync('data.json', 'utf8');
+        return JSON.parse(data);
     } catch (err) {
-      console.error('Error reading file:', err);
-      return null;
+        console.error('Error reading file:', err);
+        return null;
     }
 };
 
@@ -50,11 +50,11 @@ const updateUser = (userId, newData) => {
     if (!data) return;
 
     const index = data.users.findIndex(user => user.id === userId);
-        if (index !== -1) {
+    if (index !== -1) {
         data.users[index] = { ...data.users[index], ...newData };
         writeData(data);
     } else {
-        console.error('User not found.');
+        console.error('User not found1.');
     }
 };
 
@@ -66,20 +66,35 @@ function getRoom(socketid) {
     if (user) {
         return user.room;
     } else {
-        console.error('User not found.');
+        console.error('User not found2.');
         return null;
     }
 };
 
-function getPoints(socketid) {
+// Get user by name
+function getUserIDByName(name) {
     let data = readData();
     if (!data) return null;
 
-    const user = data.users.find(user => user.id === socketid);
+    const user = data.users.find(user => user.name === name);
+    if (user) {
+        return user.id;
+    } else {
+        console.error('User not found!2');
+        return null;
+    }
+}
+
+
+function getPoints(id) {
+    let data = readData();
+    if (!data) return null;
+
+    const user = data.users.find(user => user.id === id)
     if (user) {
         return user.points;
     } else {
-        console.error('User not found.');
+        console.error('User not found3.');
         return null;
     }
 }
@@ -108,8 +123,105 @@ function getData(socketid) {
     if (users) {
         return users
     } else {
-        console.error('User not found.');
+        console.error('User not found4.');
         return null;
+    }
+}
+function getStrategy(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+
+    if (user) {
+        var strategy = user.strategy.toLowerCase()
+        switch (strategy) {
+            case 'top of the world':
+                strategy = 'world'
+                break
+            case 'jysk telepartner':
+                strategy = 'jysk'
+                break
+            case 'domino house':
+                strategy = 'domino'
+                break
+            default:
+                strategy = strategy
+                break
+        }
+        return strategy
+    } else {
+        console.error('User not found5.');
+        return null;
+    }
+}
+
+function getColor(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+
+    if (user) {
+        const strategy = user.strategy.toLowerCase()
+        var color = ''
+        switch (strategy) {
+            case 'top of the world':
+                color = 'green'
+                break
+            case 'jysk telepartner':
+                color = 'orange'
+                break
+            case 'domino house':
+                color = 'blue'
+                break
+            case 'lunar':
+                color = 'yellow'
+                break
+            case 'klaphatten':
+                color = 'purple'
+                break
+            case 'safeline':
+                color = 'red'
+                break
+        }
+        return color
+    } else {
+        console.error('User not found5.');
+        return null;
+    }
+}
+
+function getReceiver(room, questionColor) {
+    let data = readData();
+    if (!data) return null;
+    const users = data.users.filter(user => user.room === room);
+
+    for (let user of users) {
+        var strategy = user.strategy.toLowerCase()
+        var color = ''
+        switch (strategy) {
+            case 'top of the world':
+                color = 'green'
+                break
+            case 'jysk telepartner':
+                color = 'orange'
+                break
+            case 'domino house':
+                color = 'blue'
+                break
+            case 'lunar':
+                color = 'yellow'
+                break
+            case 'klaphatten':
+                color = 'purple'
+                break
+            case 'safeline':
+                color = 'red'
+                break
+        }
+
+        if (questionColor === color) {
+            return user.id
+        }
     }
 }
 
@@ -136,11 +248,19 @@ function userLogger(method, socketid, info=""){
         case 'getRoom':
             return getRoom(socketid)
         case 'getPoints':
-            return getPoints(socketid)
+            return getPoints(info)
+        case 'getStrategy':
+            return getStrategy(socketid)
+        case 'getUserIDByName':
+            return getUserIDByName(info);
         case 'checkAvailability':
             return availability(socketid, info.name, info.room, info.strategy)
         case 'getData':
             return getData(socketid)
+        case 'getColor':
+            return getColor(socketid)
+        case 'getReceiver':
+            return getReceiver(info.room, info.color)
     }
 }
 

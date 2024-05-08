@@ -10,14 +10,16 @@ class Pawns extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startPieces: [Lunar, DominoHouse, SafeLine, KlapHatten, Jysk],
+            startPieces: [],
             updatedPieces: false
         }
     }
 
     componentDidMount() {
-        socket.on('add_piece')
         this.fetchStartPieces();
+        socket.on('add_piece',(data) => {
+            this.setState({ startPieces: data})
+        })
     }
 
     componentWillUnmount() {
@@ -25,15 +27,15 @@ class Pawns extends Component {
     }
 
     fetchStartPieces = () => {
-        if (!this.updatedPieces) {
+        if (!this.state.updatedPieces) {
             socket.emit('get_pieces', 'player');
             socket.emit('get_data', 'leaderboard_update');
-            this.updatedPieces(true);
+            this.setState({updatedPieces: true});
         }
     }
 
     renderStartPieces = () => {
-        return this.startPieces.map((piece, index) => (
+        return this.state.startPieces.map((piece, index) => (
             <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
         ));
     };

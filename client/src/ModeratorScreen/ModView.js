@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../PlayerScreen/GameStyle.css';
 import {socket} from '../client'
-import DiceContainer from '../GameScreen/Dice';
+import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
 import ModeratorPopUps from "../GameScreen/ModeratorPopUps";
 //import BoardGrid from '../GameScreen/BoardGrid';
@@ -99,20 +99,36 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
 export function ModView() {
     const [data, setData] = useState([]);
+    const [users, setUsers] = useState([]);
     const sortedUserData = data.sort((a, b) => b.points - a.points);
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
     const [moveMade, setMoveMade] = useState(false);
+    const [currentPlayer, setCurrentPlayer] = useState (0)
+    const [color, setColor] = useState('')
+    const [userColor, setUserColor] = useState('')
+    const [playerName, setPlayerName] = useState('')
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
-    const [submittedAnswer, setSubmittedAnswer] = useState('')
+    const [submittedAnswer, setSubmittedAnswer] = useState('Waiting for player to submit an answer')
     const [diceValue, setDiceValue] = useState(1);
-    const [selectedPoints, setSelectedPoints] = useState([]);
+    const [selectedPoints, setSelectedPoints] = useState(null);
+    const [currentRound, setCurrentRound] = useState(0)
+    const [totalRounds, setTotalRounds] = useState(0)
+    const [roundText, setRoundText] = useState('')
+
+    useEffect(() =>{
+        socket.on('rounds', (data) => {
+            setTotalRounds(data.totalRounds)
+            setCurrentRound(data.currentRound)
+            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+        })
+    })
 
     useEffect(() => {
         const numPlayers = sortedUserData.length;
-        const heightScoreboard = 105 * numPlayers;
+        const heightScoreboard = 95 * numPlayers;
         // Set the height of the leaderboard container
         const leaderboardContainer = document.querySelector('.leaderBoard');
         if (leaderboardContainer) {
@@ -121,12 +137,12 @@ export function ModView() {
     }, [sortedUserData]);
 
     useEffect(() => {
-        // socket.on('players_name', (data) => {
-        //     setPlayerName(data)
-        // })
+        socket.on('players_name', (data) => {
+            setPlayerName(data)
+        })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
-            console.log(jsonData)
+            socket.emit('get_current', 'mod')
         });
         return () => {
             socket.off('data_leaderboard');
@@ -145,7 +161,10 @@ export function ModView() {
     useEffect(() => {
         socket.on("mod-pause", (data) => {
             setShowPopup(true);
-            setQuestion(data);
+            setQuestion(data.questionText);
+            setColor(data.color);
+            setUserColor(data.userColor);
+            setAnswer(data.answer);
         });
         return () => {
             socket.off('mod-pause');
@@ -163,42 +182,50 @@ export function ModView() {
 
     useEffect(() => {
         socket.on("submitted_answer", (data) => {
-            setSubmittedAnswer(data)
-            console.log(data)
-            console.log(submittedAnswer)
+            setSubmittedAnswer(data.text)
         });
         return () => {
             socket.off('submitted_answer');
         };
     })
-
-    const handleUpdatePoints = (buttonPoints) => {
-        setSelectedPoints((prevSelectedPoints) => {
-            if (prevSelectedPoints.includes(buttonPoints)) {
-                return prevSelectedPoints.filter((point) => point !== buttonPoints);
-            } else {
-                return [...prevSelectedPoints, buttonPoints];
+    useEffect(() => {
+        socket.on('set_current_player', (data) => {
+            try {
+                const pawn = document.querySelector('#' + data)
+                setSelectedPawn(pawn)
+            } catch (TypeError) {
+                socket.emit('pawns_request_failed', '')
             }
-        });
+        })
+    },[]);
+
+
+
+    const handleUpdatePoints = (points) => {
+        setSelectedPoints(points);
     };
 
     const handleSubmitPoints = () => {
-        console.log("submitted to index", selectedPoints);
-        socket.emit("submit_points", { points: selectedPoints });
-        setSelectedPoints([]);
+        if (submittedAnswer !== 'Waiting for player to submit an answer') {
+            setShowPopup(false)
+            socket.emit("submit_points", { points: selectedPoints, color: userColor});
+            setSubmittedAnswer('Waiting for player to submit an answer');
+            setSelectedPoints([]);
+        }
     };
 
     return (
         <>
             <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+                <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     moveMade={moveMade}
-                    setMoveMade= {setMoveMade}
+                    setMoveMade={setMoveMade}
                     setPosition={setPosition}
                     selectedPawn={selectedPawn}
                     setSelectedPawn={setSelectedPawn}/>
                 <DiceContainer
-                    setMoveMade= {setMoveMade}
+                    setMoveMade={setMoveMade}
                     position={position}
                     diceValue={diceValue}
                     isModeratorScreen={true}/>
@@ -206,15 +233,15 @@ export function ModView() {
                     sortedUserData={sortedUserData}/>
             </div>
                 <ModeratorPopUps
+                    answer={answer}
+                    color={color}
                     showPopup={showPopup}
+                    setShowPopup={setShowPopup}
                     question={question}
                     submittedAnswer={submittedAnswer}
                     selectedPoints={selectedPoints}
-                    setShowPopup={setShowPopup}
                     handleSubmitPoints={handleSubmitPoints}
-                    handleUpdatePoints={handleUpdatePoints}
-
-                />
+                    handleUpdatePoints={handleUpdatePoints}/>
         </>
     );
 }

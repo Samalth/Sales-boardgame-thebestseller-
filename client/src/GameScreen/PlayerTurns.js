@@ -1,6 +1,6 @@
-const PlayerTurns = ({ playerName }) => {
+const PlayerTurns = ({ turnText }) => {
     return (
-        <div className='playerTurn'>{playerName} is rolling the dice</div>
+        <div className='playerTurn'>{turnText}</div>
     );
 };
 

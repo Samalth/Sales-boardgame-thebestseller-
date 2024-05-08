@@ -14,16 +14,18 @@ class DiceContainer extends React.Component {
         super(props);
         this.state = {
             diceValue: 1,
-            playerName: ''
+            playerName: '',
+            myTurn: true
         };
     }
 
     roll = () => {
         socket.emit("roll_dice")
+        this.setState({ myTurn: false });
     };
 
     componentDidMount() {
-        const { position, setMoveMade } = this.props;
+        const { position } = this.props;
         const images = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
         socket.on("set_dice", (data) => {
@@ -41,7 +43,6 @@ class DiceContainer extends React.Component {
                 this.setState({ diceValue: data });
                 dice.setAttribute("src", images[data - 1]);
                 socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
-                setMoveMade(false);
             }, 1000);
         });
 
@@ -61,7 +62,7 @@ class DiceContainer extends React.Component {
     }
 
     render() {
-        const { diceValue, playerName } = this.state;
+        const { diceValue, playerName, myTurn } = this.state;
         const { isModeratorScreen } = this.props;
         const images = [ Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
@@ -74,7 +75,7 @@ class DiceContainer extends React.Component {
                 {isModeratorScreen ?
                     <div className="turnsModView"> {playerName} is rolling the dice </div> :
                     <div>
-                        <button type='button' onClick={this.roll}>Roll the dice</button>
+                        { myTurn && <button type='button' onClick={this.roll}>Roll the dice</button> }
                     </div>
                 }
             </div>
