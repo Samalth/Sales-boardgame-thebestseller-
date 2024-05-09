@@ -15,17 +15,18 @@ class DiceContainer extends React.Component {
         this.state = {
             diceValue: 1,
             playerName: '',
-            myTurn: true
         };
     }
 
     roll = () => {
+        const {setMyTurn} = this.props;
         socket.emit("roll_dice")
-        this.setState({ myTurn: false });
+        setMyTurn(false)
+    //    this.setState({ myTurn: false });
     };
 
     componentDidMount() {
-        const { position } = this.props;
+        const { position, myTurn } = this.props;
         const images = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
         socket.on("set_dice", (data) => {
@@ -62,8 +63,8 @@ class DiceContainer extends React.Component {
     }
 
     render() {
-        const { diceValue, playerName, myTurn } = this.state;
-        const { isModeratorScreen } = this.props;
+        const { diceValue, playerName } = this.state;
+        const { isModeratorScreen, myTurn } = this.props;
         const images = [ Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
 
