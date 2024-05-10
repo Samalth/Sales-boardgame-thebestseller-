@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './settings.css';
+import home from '../Assets/back-button.png'
 import {socket} from '../client'
 
 export function ModSettings() {
@@ -59,23 +60,30 @@ export function ModSettings() {
   };
 
   return (
+      <div className="settings-wrapper">
       <form onSubmit={handleSubmit}>
+        <button className='Home' type="button" onClick={handleHome}>
+          <img src={home} alt='Home' className='home-image'/>
+        </button>
         <div className="row">
           <div className="settings text">Players</div>
           <div className="player minus" onClick={decrementPlayerCount}>-</div>
-          <input id="playerCount" name="playerCount" className="player count" value={playerCount} onChange={handlePlayerCountChange} />
+          <input id="playerCount" name="playerCount" className="player count" value={playerCount} onChange={handlePlayerCountChange}/>
           <div className="player plus" onClick={incrementPlayerCount}>+</div>
         </div>
+
         <div className="row">
           <div className="settings text">Rounds</div>
           <div className="rounds minus" onClick={decrementRoundsCount}>-</div>
-          <input id="roundsCount" name="roundsCount" className="rounds count" value={roundsCount} onChange={handleRoundsCountChange} />
+          <input id="roundsCount" name="roundsCount" className="rounds count" value={roundsCount}
+                 onChange={handleRoundsCountChange}/>
           <div className="rounds plus" onClick={incrementRoundsCount}>+</div>
         </div>
+
         <div className="row">
           <input type="submit" className="button continue" value="Continue"/>
-          <button type="button" className="button continue" onClick={handleHome}>Home</button>
         </div>
       </form>
+        </div>
   );
 }

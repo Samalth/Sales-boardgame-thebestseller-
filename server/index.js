@@ -234,5 +234,5 @@ io.on('connection', (socket)=> {
 })
 
 server.listen(3001, () => {
-    console.log('server is running on port 3001, I hope')
+    console.log('server is running on port 3001')
 })

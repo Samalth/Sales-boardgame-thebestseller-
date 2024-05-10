@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import './gamepinStyle.css';
 import {socket} from '../client'
 import React, { useEffect, useState } from "react"
+import back from "../Assets/back-button.png";
 
 export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
     const navigate = useNavigate();
     const [playerCount, setPlayerCount] = useState(0);
     const [playerNeeded, setPlayerNeeded] = useState(0);
-    const [errorcode, setErrorCode] = useState('');
+    const [errorCode, setErrorCode] = useState('');
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
@@ -43,6 +44,10 @@ export function Gamepin() {
         navigate('/home')
     }
 
+    const handleBack = () => {
+        navigate('/configuration')
+    }
+
     const handlePlayerCountChange = (event) => {
         setPlayerCount(parseInt(event.target.value));
     };
@@ -55,23 +60,25 @@ export function Gamepin() {
 
     return (
         <div className="parent-container">
-            <div className="row gamepin">
-                <label>Gamepin:</label>
-                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
-                       onChange={event => setGamepin(event.target.value)}/>
-            </div>
-            <div className="row">
-                <label>Players:</label>
-                <div className="row gamepin"></div>
-                <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
-                       onChange={handlePlayerCountChange}/>
-            </div>
-            <div className="row">
-                <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
-                <input type="submit" className="gamePinButton" value="Home" onClick={handleHome}/>
-            </div>
-            <div className="row">{errorcode}</div>
+            <button className='Home' type="button" onClick={handleBack}>
+                <img src={back} alt='Home' className='home-image'/>
+            </button>
+                <div className="row gamepin">
+                    <label>Gamepin:</label>
+                    <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
+                           onChange={event => setGamepin(event.target.value)}/>
+                </div>
+                <div className="row">
+                    <label>Players:</label>
+                    <div className="row gamepin"></div>
+                    <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
+                           onChange={handlePlayerCountChange}/>
+                </div>
+                <div className="row">
+                    <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
+                    <input type="submit" className="gamePinButton" value="Home" onClick={handleHome}/>
+                </div>
+                <div className="row">{errorCode}</div>
         </div>
-    );
+);
 }
-

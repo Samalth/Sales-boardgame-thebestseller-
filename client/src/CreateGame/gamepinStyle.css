@@ -1,7 +1,7 @@
-body{
-    background-color: #195678;
-    font-family: itim, serif;
-    font-size: 60px;
+.parent-container{
+    display: grid;
+    grid-template-rows: repeat(3, 0fr);
+    margin-top: 1rem;
 }
 
 .text{
@@ -9,10 +9,7 @@ body{
 }
 
 .row{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+
 }
 
 .gamePinButton {
@@ -22,9 +19,7 @@ body{
     border-radius: 10px;
     font-family: itim, serif;
     font-size: 42px;
-    /*padding-left: 20%;*/
-    /*padding-right: 20%;*/
-    padding: 5px;
+    padding: 0;
     cursor: pointer;
     margin: 70px;
     width: 10cm;
@@ -73,11 +68,7 @@ output{
 }
 
 .gamepin{
-    margin-top: 8%;
 }
 
 label {
-    position: absolute;
-    padding: 5px;
-    left: 25%
 }

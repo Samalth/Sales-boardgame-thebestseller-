@@ -1,8 +1,25 @@
-.App {
-  margin: 0;
-  text-align: center;
-  background-color: #195678;
-  min-height: 100vh;
-  position: relative;
+*,
+* ::before,
+* ::after{
+  box-sizing: border-box;
 }
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  font-family: 'Itim', Arial, sans-serif;
+  text-align: center;
+  max-width: 90%;
+  margin-inline: auto;
+}
+
+body {
+  font-size: 60px;
+  background-color: #195678;
+}
+
+
 
