@@ -16,7 +16,7 @@ const questionIDs = {
     orange: [7, 8],
     red: [9, 10],
     blue: [11, 12],
-    sales: [13, 14, 15],    
+    sales: [13, 14, 15],
     megatrends: [16, 17, 18],
     chance: [19, 20, 21],
     rainbow: [1]

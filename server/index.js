@@ -17,7 +17,7 @@ fs.writeFileSync('data.json', '{\n  "users": [],\n  "mods": []\n}');
 
 const server = http.createServer(app)
 
-const io = new Server(server, { 
+const io = new Server(server, {
     cors: {
         origin: 'http://localhost:3000',
         methods: ['GET', 'POST']
@@ -61,8 +61,8 @@ io.on('connection', (socket)=> {
             socket.to(data.room).emit('add_user', "adding")
             userLogger('updateName', socket.id, data.name)
             userLogger('updateRoom', socket.id, data.room)
-          /*  const points = data.points !== undefined ? parseInt(data.points) : 0;*/
-           /* userLogger('updatePoints', socket.id, data.points)*/
+            /*  const points = data.points !== undefined ? parseInt(data.points) : 0;*/
+            /* userLogger('updatePoints', socket.id, data.points)*/
             userLogger('updateStrategy', socket.id, data.strategy)
             const modID = modLogger('getMod', socket.id, data.room)
             modLogger('addPlayer', modID, data.strategy.toLowerCase())
@@ -103,18 +103,18 @@ io.on('connection', (socket)=> {
         const room = userLogger('getRoom', socket.id);
         switch (data.questionColor) {
             case 'chance':
-                popupColor = 'black';
+                popupColor = 'black1';
                 break;
             case 'sales':
-                popupColor = 'black';
+                popupColor = 'black2';
                 break;
             case 'megatrends':
-                popupColor = 'black';
+                popupColor = 'black3';
                 break;
             default:
                 popupColor = data.questionColor;
         }
-
+            console.log(data.questionColor, data.userColor, popupColor)
         if (availableColors.includes(data.questionColor)){
             const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
             socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: popupColor, answer: answer});
@@ -230,13 +230,9 @@ io.on('connection', (socket)=> {
     socket.on('settings', (data) => {
         modLogger('updateSettings', socket.id, data);
     })
-    
-    socket.on('delete_mod', (data) => {
-        modLogger('delete', socket.id);
-    })
 
 })
 
 server.listen(3001, () => {
-    console.log('server is running on port 3001, I hope')
+    console.log('server is running on port 3001')
 })

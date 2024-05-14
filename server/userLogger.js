@@ -3,11 +3,11 @@ const fs = require('fs');
 
 const readData = () => {
     try {
-      const data = fs.readFileSync('data.json', 'utf8');
-      return JSON.parse(data);
+        const data = fs.readFileSync('data.json', 'utf8');
+        return JSON.parse(data);
     } catch (err) {
-      console.error('Error reading file:', err);
-      return null;
+        console.error('Error reading file:', err);
+        return null;
     }
 };
 
@@ -131,22 +131,22 @@ function getStrategy(socketid) {
     let data = readData();
     if (!data) return null;
     const user = data.users.find(user => user.id === socketid);
-    
+
     if (user) {
         var strategy = user.strategy.toLowerCase()
         switch (strategy) {
             case 'top of the world':
-            strategy = 'world'
-            break
-        case 'jysk telepartner':
-            strategy = 'jysk'
-            break
-        case 'domino house':
-            strategy = 'domino'
-            break
-        default:
-            strategy = strategy
-            break
+                strategy = 'world'
+                break
+            case 'jysk telepartner':
+                strategy = 'jysk'
+                break
+            case 'domino house':
+                strategy = 'domino'
+                break
+            default:
+                strategy = strategy
+                break
         }
         return strategy
     } else {
