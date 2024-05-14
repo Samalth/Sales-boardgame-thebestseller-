@@ -103,18 +103,18 @@ io.on('connection', (socket)=> {
         const room = userLogger('getRoom', socket.id);
         switch (data.questionColor) {
             case 'chance':
-                popupColor = 'black';
+                popupColor = 'black1';
                 break;
             case 'sales':
-                popupColor = 'black';
+                popupColor = 'black2';
                 break;
             case 'megatrends':
-                popupColor = 'black';
+                popupColor = 'black3';
                 break;
             default:
                 popupColor = data.questionColor;
         }
-
+            console.log(data.questionColor, data.userColor, popupColor)
         if (availableColors.includes(data.questionColor)){
             const receiver = userLogger('getReceiver', socket.id, {color: data.questionColor, room: room})
             socket.to(room).emit('mod-pause', {questionText: question, color: popupColor, userColor: popupColor, answer: answer});

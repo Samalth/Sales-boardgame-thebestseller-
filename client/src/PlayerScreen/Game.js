@@ -141,10 +141,11 @@ export function Game() {
                 playerName={playerName}/>
             <PlayerTurns
                 turnText={turnText}/>
-            </div>
+        </div>
             <PlayerPopUps
+                setPopupColor={setPopupColor}
                 color={color}
-                popUpColor={popupColor}
+                popupColor={popupColor}
                 gamePaused={gamePaused}
                 gamePaused2={gamePaused2}
                 question={question}

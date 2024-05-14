@@ -166,7 +166,7 @@ img {
 
 
 .pieceworld {
-    background-image: url('../Assets/WORLD.png');
+    background-image: url('../Assets/TopOfTheWorld.png');
     background-size: cover;
     border-radius: 50%;
 }
@@ -176,7 +176,7 @@ img {
     background-size: cover;
 }
 .piecedomino {
-    background-image: url('../Assets/DOMINO.png');
+    background-image: url('../Assets/DominoHouse.png');
     background-size: cover;
 }
 .piecesafeline {
@@ -184,11 +184,11 @@ img {
     background-size: cover;
 }
 .piecejysk {
-    background-image: url('../Assets/JYSK.png');
+    background-image: url('../Assets/JYSKTelepartner.png');
     background-size: cover;
 }
 .pieceklaphatten {
-    background-image: url('../Assets/KLAPPENHATTEN.png');
+    background-image: url('../Assets/Klaphatten.png');
     background-size: cover;
 }
 

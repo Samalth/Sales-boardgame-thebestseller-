@@ -10,6 +10,7 @@
     flex: 1;
 }
 
+
 .questionWhiteBox {
     font-family: 'Itim', Arial, sans-serif;
     font-size: 20px;
@@ -44,6 +45,18 @@
     border-radius: 5px;
     z-index: 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.questionColorBox.black1{
+    background-color: black;
+}
+
+.questionColorBox.black2{
+    background-color: black;
+}
+
+.questionColorBox.black3{
+    background-color: black;
 }
 
 .strategyName{

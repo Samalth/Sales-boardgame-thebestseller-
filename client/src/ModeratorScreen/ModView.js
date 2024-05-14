@@ -4,12 +4,9 @@ import {socket} from '../client'
 import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
 import ModeratorPopUps from "../GameScreen/ModeratorPopUps";
-//import BoardGrid from '../GameScreen/BoardGrid';
+
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
-    const boardWidth = 15;
-    const boardHeight = 9;
-    const totalTiles = boardWidth * boardHeight;
     const [validPositions, setValidPositions] = useState([]);
     const [startPieces, setStartPieces] = useState([]);
     const [updatedPieces, setUpdatedPieces] = useState(false);
@@ -74,6 +71,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         const boardGrid = document.querySelector('.board-grid');
 
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
+
+    const totalTiles = tileInfo.length;
 
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
@@ -230,7 +229,8 @@ export function ModView() {
                     diceValue={diceValue}
                     isModeratorScreen={true}/>
                 <LeaderBoard
-                    sortedUserData={sortedUserData}/>
+                    sortedUserData={sortedUserData}
+                    playerName={playerName}/>
             </div>
                 <ModeratorPopUps
                     answer={answer}

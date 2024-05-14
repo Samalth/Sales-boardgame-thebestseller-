@@ -1,6 +1,7 @@
 import React from 'react';
+import './PopUpStyle.css'
 
-const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handleTextBoxChange, handleSubmitAnswer, popupColor, color }) => {
+const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handleTextBoxChange, handleSubmitAnswer, popupColor, color, setPopupColor }) => {
     return (
         <>
             {gamePaused && (

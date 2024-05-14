@@ -3,9 +3,6 @@ import './BoardGridStyle.css'
 import {socket} from "../client";
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color}) => {
-    const boardWidth = 15;
-    const boardHeight = 9;
-    const totalTiles = boardWidth * boardHeight;
     const [startPieces, setStartPieces] = useState([]);
     const [validPositions, setValidPositions] = useState([]);
     const [updatedPieces, setUpdatedPieces] = useState(false);
@@ -107,6 +104,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         };
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor, color]);
 
+    const totalTiles = tileInfo.length;
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
         const isHighlighted = validPositions.includes(position);
