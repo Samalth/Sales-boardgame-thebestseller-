@@ -19,14 +19,13 @@ class DiceContainer extends React.Component {
     }
 
     roll = () => {
-        const {setMyTurn} = this.props;
+        const {setMyTurn, position} = this.props;
         socket.emit("roll_dice")
         setMyTurn(false)
-    //    this.setState({ myTurn: false });
     };
 
     componentDidMount() {
-        const { position, myTurn } = this.props;
+        const { position, myTurn, setPosition} = this.props;
         const images = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
         socket.on("set_dice", (data) => {
@@ -52,14 +51,16 @@ class DiceContainer extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.position !== prevProps.position) {
+            const newPosition = this.props.position
+        }
+    }
+
     componentWillUnmount() {
         // Cleanup logic if needed
         socket.off("set_dice");
         socket.off("players_name");
-    }
-
-    getDiceValue = () => {
-        return this.state.diceValue;
     }
 
     render() {

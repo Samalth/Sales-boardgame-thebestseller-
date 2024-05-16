@@ -58,7 +58,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setStartPieces(data)
         });
         socket.on("register_currentplayer", (data) => {
-            console.log(data)
+
             setCurrentPlayer(data.strategy)
             setColor(data.color);
         });
@@ -80,7 +80,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             if (startPieces.includes(event.target.id)) {
                 event.target.classList.add('highlight');
                 // setSelectedPawn(event.target);
-                console.log(event.target)
+
             } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
                 const newPosition = targetTile.getAttribute('pos');
                 if (validPositions.includes(newPosition) && !moveMade) {
