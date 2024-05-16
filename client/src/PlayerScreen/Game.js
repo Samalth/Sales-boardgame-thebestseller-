@@ -96,7 +96,6 @@ export function Game() {
         socket.on('players_turn', (data) => {
             try {
                 const pawn = document.querySelector('#' + data)
-                console.log(pawn)
                 const parent = pawn.parentElement
                 const parentPosition = parent.getAttribute('pos')
                 setPosition(parentPosition)
