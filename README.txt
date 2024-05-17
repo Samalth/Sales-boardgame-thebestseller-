@@ -30,7 +30,7 @@ IMPORTANT for anyone wanting to change the database, if the database is not star
 
 Lastly, you should start both sides (client and server) of the project:
 - Type "npm start" in the 'server' window
-- Type "npm start" in the 'server' window
+- Type "npm start" in the 'client' window
 
 
 IMPORTANT NOTE:

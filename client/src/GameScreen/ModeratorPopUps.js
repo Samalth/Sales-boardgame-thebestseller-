@@ -15,20 +15,20 @@ const ModeratorPopUps = ({ setShowPopup, showPopup, question, submittedAnswer, s
                                 color === 'purple' ? 'pieceklaphatten' :
                                 color === 'green' ? 'pieceworld' :
                                 color === 'orange' ? 'piecejysk' : 
-                                    color === 'black1'? 'chance' :
-                                    color === 'black2'? 'sales' :
-                                    color === 'black3'? 'megatrends' : ''}`}
+                                color === 'black1'? 'chance' :
+                                color === 'black2'? 'sales' :
+                                color === 'black3'? 'megatrends' : ''}`}
                                  alt="" />
                             <div className='strategyName2'>
                                 {color === 'yellow' ? 'Lunar':
-                                    color === 'green' ? 'Top of the World' :
-                                        color === 'blue' ? 'Domino House' :
-                                            color === 'purple' ? 'Klaphatten' :
-                                                color === 'red' ? 'Safeline' :
-                                                    color === 'orange' ? 'Jysk Telepartner' :
-                                                    color === 'black1' ? 'Chance':
-                                                    color === 'black2' ? 'Sales' :
-                                                    color === 'black3' ? 'Megatrends' :
+                                 color === 'green' ? 'Top of the World' :
+                                 color === 'blue' ? 'Domino House' :
+                                 color === 'purple' ? 'Klaphatten' :
+                                 color === 'red' ? 'Safeline' :
+                                 color === 'orange' ? 'Jysk Telepartner' :
+                                 color === 'black1' ? 'Chance':
+                                 color === 'black2' ? 'Sales' :
+                                 color === 'black3' ? 'Megatrends' :
                                 'strategy'}</div>
                         </div>
                         <div className='questionLabel2'> Question: </div>
