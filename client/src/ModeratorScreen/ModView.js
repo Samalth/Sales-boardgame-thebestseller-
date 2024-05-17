@@ -42,7 +42,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setUpdatedPieces(true);
         }
         return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece}`} id={`${piece}`}/>
+            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id !== piece ? 'black-border-piece' : ''}`} id={`${piece}`}>
+                {selectedPawn && selectedPawn.id === piece && <div className="gradient-background round-border"></div>}
+            </div>
         ));
     };
 

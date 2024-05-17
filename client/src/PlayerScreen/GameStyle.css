@@ -87,6 +87,7 @@ button:hover{
     position: absolute;
     font-family: 'Itim', Arial, sans-serif;
     font-size: 35px;
+    color: #F9E513;
     margin-left: 4%;
     margin-top: 42%;
 }
@@ -99,6 +100,7 @@ button:hover{
 .roundscounter{
     position: absolute;
     font-size: 35px;
+    color: #F9E513;
     left: 4%;
 }
 

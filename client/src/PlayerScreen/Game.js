@@ -99,6 +99,7 @@ export function Game() {
                 const parent = pawn.parentElement
                 const parentPosition = parent.getAttribute('pos')
                 setPosition(parentPosition)
+                console.log('game', parentPosition)
                 setSelectedPawn(pawn)
                 if (currentPlayer === data) {
                     setMyTurn(true)

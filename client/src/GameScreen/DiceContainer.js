@@ -43,6 +43,7 @@ class DiceContainer extends React.Component {
                 this.setState({ diceValue: data });
                 dice.setAttribute("src", images[data - 1]);
                 socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
+                console.log('dicecontainer', position)
             }, 1000);
         });
 
