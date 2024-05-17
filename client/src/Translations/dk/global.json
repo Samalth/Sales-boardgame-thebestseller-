@@ -1,0 +1,32 @@
+{
+  "HomeScreen": {
+    "header": "The Best Seller",
+    "join": "Deltag i spil",
+    "create": "Skabe spil"
+  },
+
+  "JoinGame": {
+    "gamepin": "Værelseskode:",
+    "strategy": "Strategi",
+    "username": "Brugernavn",
+    "gamePlaceholder": "Indtast værelseskode",
+    "namePlaceholder": "Indtast brugernavn",
+    "strategyPlaceholder": "Vælg en strategi",
+    "start": "Start Spil!",
+    "home": "Tilbage"
+  },
+
+  "ModSettings": {
+  "players": "Antal spillere",
+  "rounds": "Antal runder",
+  "continue": "Blive ved"
+},
+
+  "GamePin": {
+    "gamepin": "Værelseskode:",
+    "players": "Spillere kom med:",
+    "start": "Start Spil!",
+    "home": "Startskærmen"
+
+  }
+}

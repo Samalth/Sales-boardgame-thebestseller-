@@ -3,6 +3,8 @@ import './gamepinStyle.css';
 import {socket} from '../client'
 import React, { useEffect, useState } from "react"
 import back from "../Assets/back-button.png";
+import {useTranslation} from "react-i18next";
+
 
 export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
@@ -10,6 +12,7 @@ export function Gamepin() {
     const [playerCount, setPlayerCount] = useState(0);
     const [playerNeeded, setPlayerNeeded] = useState(0);
     const [errorCode, setErrorCode] = useState('');
+    const {t,i18n} = useTranslation('global');
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
@@ -64,19 +67,19 @@ export function Gamepin() {
                 <img src={back} alt='Home' className='home-image'/>
             </button>
                 <div className="row gamepin">
-                    <label>Gamepin:</label>
+                    <label>{t("GamePin.gamepin")}</label>
                     <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
                            onChange={event => setGamepin(event.target.value)}/>
                 </div>
                 <div className="row">
-                    <label>Players:</label>
+                    <label>{t("GamePin.players")}</label>
                     <div className="row gamepin"></div>
                     <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
                            onChange={handlePlayerCountChange}/>
                 </div>
                 <div className="row">
-                    <input type="submit" className="gamePinButton" value="Start!" onClick={handleGame}/>
-                    <input type="submit" className="gamePinButton" value="Home" onClick={handleHome}/>
+                    <input type="submit" className="gamePinButton" value={t("GamePin.start")} onClick={handleGame}/>
+                    <input type="submit" className="gamePinButton" value={t("GamePin.home")} onClick={handleHome}/>
                 </div>
                 <div className="row">{errorCode}</div>
         </div>

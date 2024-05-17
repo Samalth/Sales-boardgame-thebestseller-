@@ -1,0 +1,34 @@
+{
+  "HomeScreen": {
+    "header": "The Best Seller",
+    "join": "Join game",
+    "create": "Create game"
+  },
+
+  "JoinGame": {
+    "gamepin": "Room code:",
+    "strategy": "Strategy:",
+    "username": "Username:",
+    "gamePlaceholder": "Enter room code",
+    "namePlaceholder": "Enter username",
+    "strategyPlaceholder": "Pick a strategy",
+    "start": "Start!",
+    "home": "Home"
+  },
+
+  "ModSettings": {
+    "players": "Players",
+    "rounds": "Rounds",
+    "continue": "Continue"
+  },
+
+  "GamePin": {
+    "gamepin": "Room code:",
+    "players": "Players joined:",
+    "start": "Start!",
+    "home": "Home"
+  },
+  "Game":{
+    "TurnText": "is rolling the dice"
+  }
+}

@@ -19,13 +19,13 @@ class DiceContainer extends React.Component {
     }
 
     roll = () => {
-        const {setMyTurn, position} = this.props;
+        const { setMyTurn } = this.props;
         socket.emit("roll_dice")
         setMyTurn(false)
     };
 
     componentDidMount() {
-        const { position, myTurn, setPosition} = this.props;
+        const { position } = this.props;
         const images = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
 
         socket.on("set_dice", (data) => {
@@ -42,19 +42,13 @@ class DiceContainer extends React.Component {
                 dice.classList.remove("shake");
                 this.setState({ diceValue: data });
                 dice.setAttribute("src", images[data - 1]);
-                socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
+                socket.emit("send_dice_roll_and_position", { diceValue: data, position: this.props.position });
             }, 1000);
         });
 
         socket.on('players_name', (data) => {
             this.setState({ playerName: data });
         });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.position !== prevProps.position) {
-            const newPosition = this.props.position
-        }
     }
 
     componentWillUnmount() {

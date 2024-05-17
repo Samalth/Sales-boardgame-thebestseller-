@@ -1,0 +1,31 @@
+{
+  "HomeScreen": {
+    "header": "The Best Seller",
+    "join": "Speel mee",
+    "create": "Spel aanmaken"
+  },
+
+  "JoinGame": {
+    "gamepin": "Room code:",
+    "strategy": "Strategie:",
+    "username": "Gebruikersnaam:",
+    "gamePlaceholder": "Voor kamercode in ",
+    "namePlaceholder": "Vul gebruikersnaam in",
+    "strategyPlaceholder": "Kies een strategie",
+    "start": "Start spel!",
+    "home": "Terug"
+  },
+
+  "ModSettings": {
+  "players": "Aantal spelers",
+  "rounds": "Aantal rondes",
+  "continue": "Doorgaan"
+},
+
+  "GamePin": {
+    "gamepin": "Room code:",
+    "players": "Toegetreden spelers:",
+    "start": "Start spel!",
+    "home": "Startscherm"
+  }
+}

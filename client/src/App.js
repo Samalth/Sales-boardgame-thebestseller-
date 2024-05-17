@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { HomeScreen } from './HomeScreen/HomeScreen';
-import { ModSettings } from './ModeratorScreen/ModSettings'
+import { ModSettings } from './CreateGame/ModSettings'
 import { Game } from './PlayerScreen/Game';
 import { JoinGame } from './JoinGame/JoinGame';
 import { Gamepin } from './CreateGame/Gamepin'
