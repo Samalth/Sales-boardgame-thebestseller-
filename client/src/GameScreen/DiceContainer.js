@@ -42,7 +42,7 @@ class DiceContainer extends React.Component {
                 dice.classList.remove("shake");
                 this.setState({ diceValue: data });
                 dice.setAttribute("src", images[data - 1]);
-                socket.emit("send_dice_roll_and_position", { diceValue: data, position: position });
+                socket.emit("send_dice_roll_and_position", { diceValue: data, position: this.props.position });
                 console.log('dicecontainer', position)
             }, 1000);
         });
@@ -52,11 +52,6 @@ class DiceContainer extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.position !== prevProps.position) {
-            const newPosition = this.props.position
-        }
-    }
 
     componentWillUnmount() {
         // Cleanup logic if needed
