@@ -1,7 +1,11 @@
 import React from "react";
 import './PopUpStyle.css'
+import {useTranslation} from "react-i18next";
 
 const ModeratorPopUps = ({ setShowPopup, showPopup, question, submittedAnswer, selectedPoints, handleSubmitPoints, handleUpdatePoints, answer, color}) => {
+
+    const { t, i18n } = useTranslation('global');
+
     return (
         <>
             {showPopup && (
@@ -31,15 +35,15 @@ const ModeratorPopUps = ({ setShowPopup, showPopup, question, submittedAnswer, s
                                                     color === 'black3' ? 'Megatrends' :
                                 'strategy'}</div>
                         </div>
-                        <div className='questionLabel2'> Question: </div>
+                        <div className='questionLabel2'> {t("PopUps.question")}</div>
                         <div className='questionWhiteBox2'> {question} </div>
-                        <div className='answerLabel'> Player's answer: </div>
+                        <div className='answerLabel'> {t("PopUps.modAnswer")} </div>
                         <div className='questionWhiteBox3'> {submittedAnswer} </div>
                     </div>
                     <div className='assignScoreBox'>
-                        <div className='correctAnswerText'> Correct answer: </div>
+                        <div className='correctAnswerText'> {t("PopUps.correct")} </div>
                         <div className='correctAnswerBox'>{answer}</div>
-                        <div className='assignScoreText'> Assign score: </div>
+                        <div className='assignScoreText'> {t("PopUps.assign")} </div>
                         <div className='scoreButtons'>
                             <button className={selectedPoints === 0 ? 'selected points' : 'points'}
                                     onClick={() => handleUpdatePoints(0)}> 0
@@ -67,10 +71,10 @@ const ModeratorPopUps = ({ setShowPopup, showPopup, question, submittedAnswer, s
                         <button
                             className='submitScoreButton' onClick={() => {
                             if (selectedPoints !== null) {handleSubmitPoints();
-                            } else {alert('Select points before submitting');}
+                            } else {alert(t("PopUps.alert"));}
                         }}
                         >
-                            Submit
+                            {t("PopUps.submit")}
                         </button>
                     </div>
                 </div>

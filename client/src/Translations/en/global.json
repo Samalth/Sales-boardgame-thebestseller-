@@ -29,6 +29,23 @@
     "home": "Home"
   },
   "Game":{
-    "TurnText": "is rolling the dice"
+    "wait": "Waiting for moderator to start game",
+    "TurnText": "is rolling the dice",
+    "setTurnText": "It's {{data}}'s turn to roll the dice and answer a question",
+    "rollDice": "Roll the dice",
+    "leaderboard": "Leaderboard",
+    "modWait": "Waiting for player to submit an answer"
+  },
+  "PopUps": {
+    "question": "Question:",
+    "playerAnswer": "Your answer:",
+    "playerHolder": "Enter your answer here...",
+    "submitAns": "Submit answer",
+    "wait": "Waiting for moderator to assign points ...",
+    "modAnswer": "Player's answer:",
+    "correct": "Correct answer:",
+    "assign": "Assign score:",
+    "alert": "Select points before submitting",
+    "submit": "Submit"
   }
 }

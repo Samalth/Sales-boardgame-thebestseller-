@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 i18next
     .use(initReactI18next)
     .init({
-    interpolation: {escapeValue: false},
+
     lng: 'en',
     resources: {
         en: {

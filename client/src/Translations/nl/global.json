@@ -27,5 +27,25 @@
     "players": "Toegetreden spelers:",
     "start": "Start spel!",
     "home": "Startscherm"
+  },
+  "Game":{
+    "wait": "Wachten tot de moderator het spel start",
+    "TurnText": "gooit dobbelsteen",
+    "setTurnText": "Het is {{data}}'s beurt om met de dobbelsteen te gooien en een vraag te beantwoorden",
+    "rollDice": "Gooi dobbelsteen",
+    "leaderboard": "Scorebord",
+    "modWait": "Wachten tot de speler een antwoord heeft ingediend"
+  },
+  "PopUps": {
+    "question": "Vraag:",
+    "playerAnswer": "Jouw antwoord:",
+    "playerHolder": "Vul hier jouw antwoord in...",
+    "submitAns": "Verstuur antwoord",
+    "wait": "Wachten tot de moderator punten toekent...",
+    "modAnswer": "Het antwoord van de speler:",
+    "correct": "Het juiste antwoord:",
+    "assign": "Punten toekennen",
+    "alert": "Selecteer punten voordat je deze toekent",
+    "submit": "Verstuur"
   }
 }

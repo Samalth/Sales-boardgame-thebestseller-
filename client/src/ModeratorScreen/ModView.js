@@ -4,6 +4,7 @@ import {socket} from '../client'
 import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
 import ModeratorPopUps from "../GameScreen/ModeratorPopUps";
+import {useTranslation} from "react-i18next";
 
 
 const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition }) => {
@@ -68,7 +69,6 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             }
         });
 
-        const boardGrid = document.querySelector('.board-grid');
 
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn]);
 
@@ -97,6 +97,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 };
 
 export function ModView() {
+    const { t, i18n } = useTranslation('global');
     const [data, setData] = useState([]);
     const [users, setUsers] = useState([]);
     const sortedUserData = data.sort((a, b) => b.points - a.points);
@@ -110,7 +111,7 @@ export function ModView() {
     const [selectedPawn , setSelectedPawn] = useState()
     const [showPopup, setShowPopup] = useState(false);
     const [position, setPosition] = useState("8-5")
-    const [submittedAnswer, setSubmittedAnswer] = useState('Waiting for player to submit an answer')
+    const [submittedAnswer, setSubmittedAnswer] = useState(t("Game.modWait"))
     const [diceValue, setDiceValue] = useState(1);
     const [selectedPoints, setSelectedPoints] = useState(null);
     const [currentRound, setCurrentRound] = useState(0)
@@ -205,10 +206,10 @@ export function ModView() {
     };
 
     const handleSubmitPoints = () => {
-        if (submittedAnswer !== 'Waiting for player to submit an answer') {
+        if (submittedAnswer !== t("Game.modWait")) {
             setShowPopup(false)
             socket.emit("submit_points", { points: selectedPoints, color: userColor});
-            setSubmittedAnswer('Waiting for player to submit an answer');
+            setSubmittedAnswer(t("Game.modWait"));
             setSelectedPoints([]);
         }
     };

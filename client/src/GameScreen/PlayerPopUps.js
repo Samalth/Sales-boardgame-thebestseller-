@@ -1,7 +1,9 @@
 import React from 'react';
 import './PopUpStyle.css'
+import {useTranslation} from "react-i18next";
 
-const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handleTextBoxChange, handleSubmitAnswer, popupColor, color, setPopupColor }) => {
+const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handleTextBoxChange, handleSubmitAnswer, popupColor, setPopupColor }) => {
+    const { t, i18n } = useTranslation('global');
     return (
         <>
             {gamePaused && (
@@ -9,35 +11,42 @@ const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handl
                     <div className={`questionColorBox ${popupColor}`}>
                         <div className='rowpopup'>
                             <img className={`${
-                                color === 'red' ? 'piecesafeline' :
-                                    color === 'yellow' ? 'piecelunar' :
-                                        color === 'blue' ? 'piecedomino' :
-                                            color === 'purple' ? 'pieceklaphatten' :
-                                                color === 'green' ? 'pieceworld' :
-                                                    color === 'orange' ? 'piecejysk' : ''}`}
+                                popupColor === 'red' ? 'piecesafeline' :
+                                    popupColor === 'yellow' ? 'piecelunar' :
+                                        popupColor === 'blue' ? 'piecedomino' :
+                                            popupColor === 'purple' ? 'pieceklaphatten' :
+                                                popupColor === 'green' ? 'pieceworld' :
+                                                    popupColor === 'orange' ? 'piecejysk' :
+                                                        popupColor === 'black1' ? 'chance' :
+                                                            popupColor === 'black2' ? 'sales' :
+                                                                popupColor === 'black3' ? 'megatrends' : ''}`}
                                  alt="" />
                             <div className='strategyName'>
-                                {color === 'yellow' ? 'Lunar':
-                                    color === 'green' ? 'Top of the World' :
-                                        color === 'blue' ? 'Domino House' :
-                                            color === 'purple' ? 'Klaphatten' :
-                                                color === 'red' ? 'Safeline' :
-                                                    color === 'orange' ? 'Jysk Telepartner' : 'strategy'} </div>
+                                {popupColor === 'yellow' ? 'Lunar':
+                                    popupColor === 'green' ? 'Top of the World' :
+                                        popupColor === 'blue' ? 'Domino House' :
+                                            popupColor === 'purple' ? 'Klaphatten' :
+                                                popupColor === 'red' ? 'Safeline' :
+                                                    popupColor === 'orange' ? 'Jysk Telepartner' :
+                                                            popupColor === 'black1' ? 'Chance':
+                                                                popupColor === 'black2' ? 'Sales' :
+                                                                    popupColor === 'black3' ? 'Megatrends' :
+                                                        'strategy'} </div>
                         </div>
-                        <div className='questionLabel'> <br/> Question: </div>
+                        <div className='questionLabel'> <br/> {t("PopUps.question")} </div>
                         <div className="questionWhiteBox">{question}</div>
 
                     </div>
                     <div className="answerPopup">
-                        <div className='answerText'> Your answer: </div>
-                        <textarea className={'answerInput'} value={textBoxContent} placeholder='Enter your answer here...' onChange={handleTextBoxChange} />
-                        <button className={'submitButton'} onClick={handleSubmitAnswer}>Submit answer</button>
+                        <div className='answerText'> {t("PopUps.playerAnswer")} </div>
+                        <textarea className={'answerInput'} value={textBoxContent} placeholder={t("PopUps.playerHolder")} onChange={handleTextBoxChange} />
+                        <button className={'submitButton'} onClick={handleSubmitAnswer}>{t("PopUps.submitAns")}</button>
                     </div>
                 </div>
             )}
             {gamePaused2 && (
                 <div className='waitingScreenPopup'>
-                    <div className='waitingScreenText'> Waiting for moderator to assign points ... </div>
+                    <div className='waitingScreenText'> {t("PopUps.wait")} </div>
                 </div>
             )}
         </>

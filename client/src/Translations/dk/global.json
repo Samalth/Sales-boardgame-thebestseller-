@@ -27,6 +27,25 @@
     "players": "Spillere kom med:",
     "start": "Start Spil!",
     "home": "Startskærmen"
-
+  },
+  "Game":{
+    "wait": "Venter på, at moderator starter spillet",
+    "TurnText": "kaster terningerne",
+    "setTurnText": "Det er {{data}}s tur til at kaste terningerne og svare på et spørgsmål",
+    "rollDice": "Kaste terningerne",
+    "leaderboard": "Måltavle",
+    "modWait": "Venter på, at spilleren sender et svar"
+  },
+  "PopUps": {
+    "question": "Spørgsmål:",
+    "playerAnswer": "Dit svar:",
+    "playerHolder": "Indtast dit svar her...",
+    "submitAns": "Indsend svar",
+    "wait": "Venter på, at moderator tildeler point...",
+    "modAnswer": "Spillerens svar:",
+    "correct": "Rigtigt svar:",
+    "assign": "Tildel score:",
+    "alert": "Vælg punkter før indsendelse",
+    "submit": "Indsend"
   }
 }
