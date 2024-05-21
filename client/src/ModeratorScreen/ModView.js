@@ -126,6 +126,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 } else {
                     currentColor = tileInfo[i];
                 }
+                break;
             case 2:
                 if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3' || tileInfo[i] === 'color4' || tileInfo[i] === 'color5' || tileInfo[i] === 'color6') {
                     currentColor = joinedColors[0];

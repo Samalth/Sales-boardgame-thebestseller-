@@ -4,13 +4,16 @@ import den_flag from '../Assets/den_flag.png';
 import uk_flag from '../Assets/uk_flag.png';
 import nl_flag from '../Assets/nl_flag.png';
 import {useTranslation} from "react-i18next";
+import {useState} from "react";
 
 export function HomeScreen() {
     const navigate = useNavigate();
     const {t,i18n} = useTranslation('global');
+    const [language, setLanguage] = useState('en')
 
     const handleChangeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        setLanguage(lng);
     }
 
     const handleCreateGame = () => {
@@ -21,14 +24,25 @@ export function HomeScreen() {
         navigate('/joinGame')
     }
 
+    const handleGuide = () => {
+        const guideMapping = {
+            en: '/GuideEN.pdf',
+            nl: '/GuideNL.pdf',
+            dk: '/GuideDK.pdf',
+        }
+        const pdfPath = guideMapping [language]
+        window.open(pdfPath, '_blank')
+    }
+
     return (
         <div className='wrapper'>
             <div className="row" id="data-container">
-                <h1 className="yes"> {t("HomeScreen.header")}</h1>
+                <img className="logoGif" src='/Logo.gif'/>
                 <input
                     type="button"
                     className="Qbutton"
                     value="?"
+                    onClick={handleGuide}
                 />
             </div>
             <div className="row">
