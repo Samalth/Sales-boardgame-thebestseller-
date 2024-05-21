@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './settings.css';
 import home from '../Assets/back-button.png'
 import {socket} from '../client'
+import {useTranslation} from "react-i18next";
 
 export function ModSettings() {
   const [playerCount, setPlayerCount] = useState(6);
   const [roundsCount, setRoundsCount] = useState(5);
   const navigate = useNavigate();
+  const {t,i18n} = useTranslation('global');
 
   const createRoom = () => {
     socket.emit("create_room", { playerCount, roundsCount });
@@ -66,14 +68,14 @@ export function ModSettings() {
           <img src={home} alt='Home' className='home-image'/>
         </button>
         <div className="row">
-          <div className="settings text">Players</div>
+          <div className="settings text">{t("ModSettings.players")}</div>
           <div className="player minus" onClick={decrementPlayerCount}>-</div>
           <input id="playerCount" name="playerCount" className="player count" value={playerCount} onChange={handlePlayerCountChange}/>
           <div className="player plus" onClick={incrementPlayerCount}>+</div>
         </div>
 
         <div className="row">
-          <div className="settings text">Rounds</div>
+          <div className="settings text">{t("ModSettings.rounds")}</div>
           <div className="rounds minus" onClick={decrementRoundsCount}>-</div>
           <input id="roundsCount" name="roundsCount" className="rounds count" value={roundsCount}
                  onChange={handleRoundsCountChange}/>
@@ -81,7 +83,7 @@ export function ModSettings() {
         </div>
 
         <div className="row">
-          <input type="submit" className="button continue" value="Continue"/>
+          <input type="submit" className="button continue" value={t("ModSettings.continue")}/>
         </div>
       </form>
         </div>

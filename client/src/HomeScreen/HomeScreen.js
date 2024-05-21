@@ -3,42 +3,43 @@ import './startStyle.css';
 import den_flag from '../Assets/den_flag.png';
 import uk_flag from '../Assets/uk_flag.png';
 import nl_flag from '../Assets/nl_flag.png';
-import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export function HomeScreen() {
-  const navigate = useNavigate();
-  const [Language, setLanguage] = useState ('English');
+    const navigate = useNavigate();
+    const {t,i18n} = useTranslation('global');
 
-  const handleCreateGame = () => {
-      navigate('/configuration');
-  };
-  const handleJoinGame = () => {
-    navigate('/joinGame')
-  }
+    const handleChangeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    }
 
-    function handleLanguage() {
+    const handleCreateGame = () => {
+        navigate('/configuration');
+    };
 
+    const handleJoinGame = () => {
+        navigate('/joinGame')
     }
 
     return (
         <div className='wrapper'>
-          <div className="row" id="data-container">
-            <h1 className="yes">The Best Seller</h1>
-            <input
-              type="button"
-              className="Qbutton"
-              value="?"
-            />
-          </div>
-          <div className="row">
-            <input type="submit" className="button game" value="Join Game" onClick={handleJoinGame}/>
-            <input type="submit" className="button game" value="Create Game" onClick={handleCreateGame}/>
-          </div>
-          <div className="row languages">
-            <img className='flagImg' id='DEN' src={den_flag} alt='Danish' onClick={handleLanguage}/>
-            <img className='flagImg' id='EN' src={uk_flag} alt='English' onClick={handleLanguage}/>
-            <img className='flagImg' id='NL' src={nl_flag} alt='Dutch' onClick={handleLanguage}/>
-          </div>
+            <div className="row" id="data-container">
+                <h1 className="yes"> {t("HomeScreen.header")}</h1>
+                <input
+                    type="button"
+                    className="Qbutton"
+                    value="?"
+                />
+            </div>
+            <div className="row">
+                <input type="submit" className="button game" value={t("HomeScreen.join")} onClick={handleJoinGame}/>
+                <input type="submit" className="button game" value={t("HomeScreen.create")} onClick={handleCreateGame}/>
+            </div>
+            <div className="row languages">
+                <img className='flagImg' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')}/>
+                <img className='flagImg' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')}/>
+                <img className='flagImg' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')}/>
+            </div>
         </div>
     );
 }

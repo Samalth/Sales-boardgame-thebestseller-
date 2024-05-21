@@ -1,10 +1,12 @@
 import React from 'react';
 import './LeaderBoardStyle.css'
+import {useTranslation} from "react-i18next";
 
 const LeaderBoard = ({ sortedUserData, playerName }) => {
+    const { t, i18n } = useTranslation('global');
     return (
         <div className='leaderBoard'>
-            <h2>Leaderboard</h2>
+            <h2>{t("Game.leaderboard")}</h2>
             {sortedUserData.map(data => (
                 <div className="leaderboardItem" key={data.id}>
                     <img

@@ -6,8 +6,10 @@ import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
 import PlayerPopUps from "../GameScreen/PlayerPopUps";
 import PlayerTurns from "../GameScreen/PlayerTurns";
+import {useTranslation} from "react-i18next";
 
 export function Game() {
+    const { t, i18n } = useTranslation('global');
     const [data, setData] = useState([]);
     const [users, setUsers] = useState([]);
     const sortedUserData = data.sort((a, b) => b.points - a.points);
@@ -24,7 +26,7 @@ export function Game() {
     const [gamePaused2, setGamePaused2] = useState(false)
     const [textBoxContent, setTextBoxContent] = useState('')
     const [playerName, setPlayerName] = useState('')
-    const [turnText, setTurnText] = useState('Waiting for moderator to start game')
+    const [turnText, setTurnText] = useState(t("Game.wait"))
     const [currentRound, setCurrentRound] = useState(0)
     const [totalRounds, setTotalRounds] = useState(0)
     const [roundText, setRoundText] = useState('')
@@ -55,7 +57,7 @@ export function Game() {
     useEffect(() => {
         socket.on('players_name', (data) => {
             setPlayerName(data)
-            setTurnText(`It's ${data}'s turn to roll the dice and answer the question`)
+            setTurnText(t("Game.setTurnText", { data }))
         })
         socket.on('data_leaderboard', (jsonData) => {
             setData(jsonData);
@@ -144,7 +146,6 @@ export function Game() {
         </div>
             <PlayerPopUps
                 setPopupColor={setPopupColor}
-                color={color}
                 popupColor={popupColor}
                 gamePaused={gamePaused}
                 gamePaused2={gamePaused2}
