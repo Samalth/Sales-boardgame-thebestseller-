@@ -22,7 +22,7 @@ const questionIDs = {
     rainbow: [1]
 };
 
-async function modulePopUp(color, sort = 'english') {
+async function modulePopUp(color, sort = 'en') {
     let number;
 
     switch (color) {
@@ -51,11 +51,14 @@ async function modulePopUp(color, sort = 'english') {
 
     let queryMod;
     switch (sort) {
-        case 'english':
+        case 'en':
             queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';
             break;
-        case 'danish':
+        case 'dk':
             queryMod = 'SELECT QDanish AS question, ADanish AS answer FROM questionstable WHERE ID=?';
+            break;
+        case 'nl':
+            queryMod = 'SELECT QDutch AS question, ADutch AS answer FROM questionstable WHERE ID=?';
             break;
         default:
             queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';

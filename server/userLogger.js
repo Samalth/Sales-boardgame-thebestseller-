@@ -235,11 +235,22 @@ function getPlayerName(socketid) {
         return null;
     }
 }
+function getLanguage(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.language
+    } else {
+        console.error('User not found7.');
+        return null;
+    }
+}
 
 function userLogger(method, socketid, info=""){
     switch(method){
         case 'log':
-            addUser({id: socketid, language: 'NL', room: '', name: '', points: 0, strategy:''})
+            addUser({id: socketid, language: 'en', room: '', name: '', points: 0, strategy:''})
             break
         case 'delete':
             deleteUser(socketid)
@@ -256,6 +267,8 @@ function userLogger(method, socketid, info=""){
         case 'updateStrategy':
             updateUser(socketid, {strategy: info})
             break
+        case 'updateLanguage':
+            updateUser(socketid, {language: info})
         case 'getRoom':
             return getRoom(socketid)
         case 'getPoints':
@@ -274,6 +287,8 @@ function userLogger(method, socketid, info=""){
             return getReceiver(info.room, info.color)
         case 'getPlayerName':
             return getPlayerName(socketid)
+        case 'getLanguage':
+            return getLanguage(socketid)
     }
 }
 

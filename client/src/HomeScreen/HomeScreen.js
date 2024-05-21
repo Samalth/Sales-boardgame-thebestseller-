@@ -5,6 +5,7 @@ import uk_flag from '../Assets/uk_flag.png';
 import nl_flag from '../Assets/nl_flag.png';
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
+import {socket} from '../client'
 
 export function HomeScreen() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ export function HomeScreen() {
     const handleChangeLanguage = (lng) => {
         i18n.changeLanguage(lng);
         setLanguage(lng);
+        socket.emit('change_language', lng)
     }
 
     const handleCreateGame = () => {
