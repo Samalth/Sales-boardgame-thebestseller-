@@ -18,8 +18,10 @@ fs.writeFileSync('data.json', '{\n  "users": [],\n  "mods": []\n}');
 const server = http.createServer(app)
 
 const io = new Server(server, {
+    connectionStateRecovery: true,
+    path: '/server',
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'https://thebestsellergame.online',
         methods: ['GET', 'POST']
     }
 })
