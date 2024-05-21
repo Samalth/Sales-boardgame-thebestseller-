@@ -240,6 +240,9 @@ io.on('connection', (socket)=> {
     socket.on('change_language', (data) => {
         userLogger('updateLanguage', socket.id, data);
     })
+    socket.on('delete_mod', (data) => {
+        modLogger('delete', socket.id);
+    })
 })
 
 server.listen(3001, () => {
