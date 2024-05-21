@@ -36,6 +36,9 @@ io.on('connection', (socket)=> {
     userLogger('log', socket.id)
 
     socket.on("disconnect", (reason) => {
+        const room = userLogger("getRoom", socket.id)
+        const name = userLogger('getPlayerName', socket.id)
+        modLogger('removeUser', socket.id, {name: name, room: room})
         socket.to(userLogger("getRoom", socket.id)).emit('delete_user', "deleting")
         userLogger("delete", socket.id)
         modLogger("delete", socket.id)

@@ -1,47 +1,4 @@
 {
-  "users": [
-    {
-      "id": "ZN0_ystcjfozgOalAAAm",
-      "language": "NL",
-      "room": "",
-      "name": "",
-      "points": 0,
-      "strategy": ""
-    },
-    {
-      "id": "Vt2AR03xaSjImG4xAAAo",
-      "language": "NL",
-      "room": "TM8SS",
-      "name": "Sam",
-      "points": 5,
-      "strategy": "Lunar"
-    },
-    {
-      "id": "uH66SBMBsWrV5HM7AAAq",
-      "language": "NL",
-      "room": "TM8SS",
-      "name": "Kees",
-      "points": 10,
-      "strategy": "Top of the World"
-    }
-  ],
-  "mods": [
-    {
-      "id": "ZN0_ystcjfozgOalAAAm",
-      "language": "NL",
-      "room": "TM8SS",
-      "player_names": [
-        "Sam",
-        "Kees"
-      ],
-      "players_joined": [
-        "lunar",
-        "world"
-      ],
-      "total_players": 2,
-      "turn": 0,
-      "current_round": 2,
-      "total_rounds": 5
-    }
-  ]
+  "users": [],
+  "mods": []
 }

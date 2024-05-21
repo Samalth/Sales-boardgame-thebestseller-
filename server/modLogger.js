@@ -193,6 +193,19 @@ const checkFull = (room) => {
         return 'space';
     }
 }
+const removeUserFromMod = (info) => {
+    let data = readData();
+    if (!data) return null;
+    try {
+        const mod = data.mods.find(mods => mods.room === info.room);
+        const index = mod.player_names.findIndex(name => name === info.name);
+        mod.player_names.splice(index, 1);
+        mod.players_joined.splice(index, 1);
+        writeData(data);
+    } catch (error) {
+        return null;
+    }
+}
 
 function modLogger(method, socketid, info='temp'){
     switch(method){
@@ -247,6 +260,10 @@ function modLogger(method, socketid, info='temp'){
             break
         case 'checkFull':
             return checkFull(info)
+            break
+        case 'removeUser':
+            removeUserFromMod(info)
+            break
     }
 }
 

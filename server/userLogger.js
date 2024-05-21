@@ -224,6 +224,17 @@ function getReceiver(room, questionColor) {
         }
     }
 }
+function getPlayerName(socketid) {
+    let data = readData();
+    if (!data) return null;
+    const user = data.users.find(user => user.id === socketid);
+    if (user) {
+        return user.name
+    } else {
+        console.error('User not found6.');
+        return null;
+    }
+}
 
 function userLogger(method, socketid, info=""){
     switch(method){
@@ -261,6 +272,8 @@ function userLogger(method, socketid, info=""){
             return getColor(socketid)
         case 'getReceiver':
             return getReceiver(info.room, info.color)
+        case 'getPlayerName':
+            return getPlayerName(socketid)
     }
 }
 

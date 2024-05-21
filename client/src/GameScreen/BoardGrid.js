@@ -6,18 +6,42 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     const [startPieces, setStartPieces] = useState([]);
     const [validPositions, setValidPositions] = useState([]);
     const [updatedPieces, setUpdatedPieces] = useState(false);
+    const [joinedColors, setJoinedColors] = useState([]);
 
+    // const tileInfo = [
+    //     'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
+    //     'green','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
+    //     'chance','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
+    //     'orange','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
+    //     'rainbow','sales','purple','chance', 'yellow','megatrends', 'blue', 'start', 'rainbow', 'sales','blue', 'megatrends', 'yellow','green', 'sales',
+    //     'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
+    //     'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
+    //     'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
+    //     'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
+    // ];
     const tileInfo = [
-        'sales','yellow','red','megatrends','rainbow','blue','chance', 'purple', 'yellow', 'sales','rainbow', 'green','megatrends','blue','purple',
-        'green','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
-        'chance','blank','blank','blank','blank','blank', 'blank', 'red', 'blank','blank','blank', 'blank', 'blank','blank','orange',
-        'orange','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'rainbow',
-        'rainbow','sales','purple','chance', 'yellow','megatrends', 'blue', 'start', 'rainbow', 'sales','blue', 'megatrends', 'yellow','green', 'sales',
-        'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'red',
-        'blue','blank', 'blank', 'blank', 'blank','blank', 'blank', 'green', 'blank', 'blank','blank','blank','blank','blank','blue',
-        'red', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
-        'sales', 'rainbow', 'orange', 'chance', 'purple','yellow', 'megatrends', 'rainbow', 'red', 'sales','purple','green', 'chance', 'rainbow', 'orange'
+        'sales', 'color1', 'color3', 'megatrends', 'rainbow', 'color4', 'chance', 'color2', 'color7', 'sales', 'rainbow', 'color12', 'megatrends', 'color10', 'color8',
+        'color6', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'megatrends', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance',
+        'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color9', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color11',
+        'color5', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'rainbow',
+        'rainbow', 'sales', 'color8', 'chance', 'color1', 'megatrends', 'color10', 'start', 'rainbow', 'sales', 'color4', 'megatrends', 'color7', 'color6', 'sales',
+        'megatrends', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'sales', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color9',
+        'color10', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color12', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color4',
+        'color3', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'megatrends',
+        'sales', 'rainbow', 'color11', 'chance', 'color2', 'color7', 'megatrends', 'rainbow', 'color9', 'sales', 'color8', 'color6', 'chance', 'rainbow', 'color5'
     ];
+    const tileInfo2 = [
+        'sales','color1','color5','megatrends','rainbow','color4','chance', 'color2', 'color1', 'sales','rainbow', 'color3','megatrends','color4','color2',
+        'color3','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
+        'chance','blank','blank','blank','blank','blank', 'blank', 'color5', 'blank','blank','blank', 'blank', 'blank','blank','color5',
+        'color5','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank','rainbow',
+        'rainbow','sales','color2','chance', 'color1','megatrends', 'color4', 'start', 'rainbow', 'sales','color4', 'megatrends', 'color1','color3', 'sales',
+        'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'color5',
+        'color4','blank', 'blank', 'blank', 'blank','blank', 'blank', 'color3', 'blank', 'blank','blank','blank','blank','blank','color4',
+        'color5', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
+        'sales', 'rainbow', 'color5', 'chance', 'color2','color1', 'megatrends', 'rainbow', 'color5', 'sales','color2','color3', 'chance', 'rainbow', 'color5'
+    ];
+
     const possiblePositions = [
         "1-9", "2-9", "3-9", "4-9", "5-9", "6-9", "7-9", "8-9", "9-9", "10-9", "11-9", "12-9", "13-9", "14-9", "15-9",
         "1-8", "", "", "", "", "", "", "8-8", "", "", "", "", "", "", "15-8",
@@ -55,13 +79,40 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             setValidPositions(data);
         });
         socket.on("add_piece", (data) => {
+            let joinedColorsArray = [];
+            for (let i = 0; i < data.length; i++) {
+                switch (data[i]) {
+                    case "world":
+                        joinedColorsArray.push("green");
+                        break;
+                    case "lunar":
+                        joinedColorsArray.push("yellow");
+                        break;
+                    case "domino":
+                        joinedColorsArray.push("blue");
+                        break;
+                    case "jysk":
+                        joinedColorsArray.push("orange");
+                        break;
+                    case "klaphatten":
+                        joinedColorsArray.push("purple");
+                        break;
+                    case "safeline":
+                        joinedColorsArray.push("red");
+                        break;
+                    default:
+                        joinedColorsArray.push("rainbow");
+            }
+        }
             setStartPieces(data)
+            setJoinedColors(joinedColorsArray);
         });
-        socket.on("register_currentplayer", (data) => {
 
+        socket.on("register_currentplayer", (data) => {
             setCurrentPlayer(data.strategy)
             setColor(data.color);
         });
+
         socket.on("update_position", (data) => {
             const newPosition = data.newPosition;
             const selectedPawnName = data.selectedPawn;
@@ -108,7 +159,91 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
         const isHighlighted = validPositions.includes(position);
-        const tileClass = `tile ${tileInfo[i]} ${isHighlighted ? 'blink' : ''}`
+
+        let totalColors = joinedColors.length;
+        let currentColor = joinedColors[0];
+        switch (totalColors) {
+            case 1:
+                console.log('one color', joinedColors);
+                if (tileInfo[i].substring(0, 5) === 'color') {
+                    currentColor = joinedColors[0];
+                } else {
+                    currentColor = tileInfo[i];
+                }
+                break;
+            case 2:
+                console.log('two colors', joinedColors);
+                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3' || tileInfo[i] === 'color4' || tileInfo[i] === 'color5' || tileInfo[i] === 'color6') {
+                    currentColor = joinedColors[0];
+                } else if (tileInfo[i] === 'color7' || tileInfo[i] === 'color8' || tileInfo[i] === 'color9' || tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
+                    currentColor = joinedColors[1];
+                } else {
+                    currentColor = tileInfo[i];
+                }
+                break;
+            case 3:
+                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3' || tileInfo[i] === 'color4') {
+                    currentColor = joinedColors[0];
+                } else if (tileInfo[i] === 'color5' || tileInfo[i] === 'color6' || tileInfo[i] === 'color7' || tileInfo[i] === 'color8') {
+                    currentColor = joinedColors[1];
+                } else  if (tileInfo[i] === 'color9' || tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
+                    currentColor = joinedColors[2];
+                } else {
+                    currentColor = tileInfo[i];
+                }
+                break;
+            case 4:
+                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3') {
+                    currentColor = joinedColors[0];
+                } else if (tileInfo[i] === 'color4' || tileInfo[i] === 'color5' || tileInfo[i] === 'color6') {
+                    currentColor = joinedColors[1];
+                } else if (tileInfo[i] === 'color7' || tileInfo[i] === 'color8' || tileInfo[i] === 'color9') {
+                    currentColor = joinedColors[2];
+                } else if (tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
+                    currentColor = joinedColors[3];
+                } else {
+                    currentColor = tileInfo[i];
+                }
+                break;
+            case 5:
+                if (tileInfo2[i] === 'color1') {
+                    currentColor = joinedColors[0];
+                } else if (tileInfo2[i] === 'color2') {
+                    currentColor = joinedColors[1];
+                } else if (tileInfo2[i] === 'color3') {
+                    currentColor = joinedColors[2];
+                } else if (tileInfo2[i] === 'color4') {
+                    currentColor = joinedColors[3];
+                } else if (tileInfo2[i] === 'color5') {
+                    currentColor = joinedColors[4];
+                } else {
+                    currentColor = tileInfo2[i];
+                }
+                break;
+            case 6:
+                if (tileInfo2[i] === 'color1' || tileInfo2[i] === 'color7') {
+                    currentColor = joinedColors[0];
+                } else if (tileInfo2[i] === 'color2' || tileInfo2[i] === 'color8') {
+                    currentColor = joinedColors[1];
+                } else if (tileInfo2[i] === 'color3' || tileInfo2[i] === 'color9') {
+                    currentColor = joinedColors[2];
+                } else if (tileInfo2[i] === 'color4' || tileInfo2[i] === 'color10') {
+                    currentColor = joinedColors[3];
+                } else if (tileInfo2[i] === 'color5' || tileInfo2[i] === 'color11') {
+                    currentColor = joinedColors[4];
+                } else if (tileInfo2[i] === 'color6' || tileInfo2[i] === 'color12') {
+                    currentColor = joinedColors[5];
+                } else {
+                    currentColor = tileInfo[i];
+                }
+                break;
+            default:
+                currentColor = tileInfo[i];
+                break;
+        }
+
+
+        const tileClass = `tile ${currentColor} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
             tiles.push(
                 <div key={i} className={tileClass} tile-id={i} pos={position}>
