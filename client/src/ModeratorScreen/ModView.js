@@ -67,31 +67,17 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         });
 
         socket.on("add_piece", (data) => {
-            let joinedColorsArray = [];
-            for (let i = 0; i < data.length; i++) {
-                switch (data[i]) {
-                    case "world":
-                        joinedColorsArray.push("green");
-                        break;
-                    case "lunar":
-                        joinedColorsArray.push("yellow");
-                        break;
-                    case "domino":
-                        joinedColorsArray.push("blue");
-                        break;
-                    case "jysk":
-                        joinedColorsArray.push("orange");
-                        break;
-                    case "klaphatten":
-                        joinedColorsArray.push("purple");
-                        break;
-                    case "safeline":
-                        joinedColorsArray.push("red");
-                        break;
-                    default:
-                        joinedColorsArray.push("rainbow");
+
+            const colorMap = {
+                "world": "green",
+                "lunar": "yellow",
+                "domino": "blue",
+                "jysk": "orange",
+                "klaphatten": "purple",
+                "safeline": "red"
             }
-        }
+
+            const joinedColorsArray = data.map(color => colorMap[color] || 'rainbow' )
             setStartPieces(data)
             setJoinedColors(joinedColorsArray);
         });
@@ -241,7 +227,7 @@ export function ModView() {
         socket.on('rounds', (data) => {
             setTotalRounds(data.totalRounds)
             setCurrentRound(data.currentRound)
-            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+            setRoundText(t("Game.setRoundText", {data}))
         })
     })
 

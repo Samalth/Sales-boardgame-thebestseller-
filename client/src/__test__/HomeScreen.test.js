@@ -26,21 +26,18 @@ describe('HomeScreen component', () => {
         const logoGif = screen.getByAltText("Logo");
         expect(logoGif).toBeInTheDocument();
         expect(logoGif).toHaveAttribute('src', '/Logo.gif');
-        screen.debug()
     })
 
     test('clicking on join game button navigates to /joinGame', () => {
         const joinButton = screen.getByText('Join game');
         fireEvent.click(joinButton);
         expect(window.location.pathname).toBe('/joinGame');
-        screen.debug()
     })
 
     test('clicking on create game button navigates to /configuration', () => {
         const createButton = screen.getByText('Create game');
         fireEvent.click(createButton);
         expect(window.location.pathname).toBe('/configuration');
-        screen.debug()
     })
 
     test('clicking on q button opens new tab with pdf', () => {

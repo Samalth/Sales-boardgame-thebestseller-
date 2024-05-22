@@ -34,7 +34,8 @@
     "setTurnText": "Het is {{data}}'s beurt om met de dobbelsteen te gooien en een vraag te beantwoorden",
     "rollDice": "Gooi dobbelsteen",
     "leaderboard": "Scorebord",
-    "modWait": "Wachten tot de speler een antwoord heeft ingediend"
+    "modWait": "Wachten tot de speler een antwoord heeft ingediend",
+    "setRoundText": "Ronde {{data.currentRound}} van {{data.totalRounds}}"
   },
   "PopUps": {
     "question": "Vraag:",

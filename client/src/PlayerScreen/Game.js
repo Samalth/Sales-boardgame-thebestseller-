@@ -40,7 +40,7 @@ export function Game() {
         socket.on('rounds', (data) => {
             setTotalRounds(data.totalRounds)
             setCurrentRound(data.currentRound)
-            setRoundText(`Round ${data.currentRound} of ${data.totalRounds}`)
+            setRoundText(t("Game.setRoundText", {data}))
         })
     })
 
