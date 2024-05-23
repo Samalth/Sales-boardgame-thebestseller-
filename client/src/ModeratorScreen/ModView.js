@@ -68,30 +68,16 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
 
         socket.on("add_piece", (data) => {
             let joinedColorsArray = [];
-            for (let i = 0; i < data.length; i++) {
-                switch (data[i]) {
-                    case "world":
-                        joinedColorsArray.push("green");
-                        break;
-                    case "lunar":
-                        joinedColorsArray.push("yellow");
-                        break;
-                    case "domino":
-                        joinedColorsArray.push("blue");
-                        break;
-                    case "jysk":
-                        joinedColorsArray.push("orange");
-                        break;
-                    case "klaphatten":
-                        joinedColorsArray.push("purple");
-                        break;
-                    case "safeline":
-                        joinedColorsArray.push("red");
-                        break;
-                    default:
-                        joinedColorsArray.push("rainbow");
+            const colorMap = {
+                "world": "green",
+                "lunar": "yellow",
+                "domino": "blue",
+                "jysk": "orange",
+                "klaphatten": "purple",
+                "safeline": "red"
             }
-        }
+            joinedColorsArray = data.map(color => colorMap[color]);
+            
             setStartPieces(data)
             setJoinedColors(joinedColorsArray);
         });
@@ -119,82 +105,27 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         const isHighlighted = validPositions.includes(position);
         let totalColors = joinedColors.length;
         let currentColor = joinedColors[0];
-        switch (totalColors) {
-            case 1:
-                if (tileInfo[i].substring(0, 5) === 'color') {
-                    currentColor = joinedColors[0];
-                } else {
-                    currentColor = tileInfo[i];
+        let colorRanges = {
+            0: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]],
+            1: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]],
+            2: [[1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12]],
+            3: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]],
+            4: [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]],
+            5: [[1, 2, 3, 4, 5]],
+            6: [[1, 7], [2, 8], [3, 9], [4, 10], [5, 11], [6, 12]]
+        }
+        let currentTileInfo = (totalColors === 5) ? tileInfo2 : tileInfo;
+
+        if (currentTileInfo[i].startsWith('color')) {
+            let temp = parseInt(currentTileInfo[i].replace('color', ''));
+            for (let range = 0; range < colorRanges[totalColors].length; range++) {
+                if (colorRanges[totalColors][range].includes(temp)) {
+                    currentColor = joinedColors[range];
+                    break;
                 }
-                break;
-            case 2:
-                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3' || tileInfo[i] === 'color4' || tileInfo[i] === 'color5' || tileInfo[i] === 'color6') {
-                    currentColor = joinedColors[0];
-                } else if (tileInfo[i] === 'color7' || tileInfo[i] === 'color8' || tileInfo[i] === 'color9' || tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
-                    currentColor = joinedColors[1];
-                } else {
-                    currentColor = tileInfo[i];
-                }
-                break;
-            case 3:
-                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3' || tileInfo[i] === 'color4') {
-                    currentColor = joinedColors[0];
-                } else if (tileInfo[i] === 'color5' || tileInfo[i] === 'color6' || tileInfo[i] === 'color7' || tileInfo[i] === 'color8') {
-                    currentColor = joinedColors[1];
-                } else  if (tileInfo[i] === 'color9' || tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
-                    currentColor = joinedColors[2];
-                } else {
-                    currentColor = tileInfo[i];
-                }
-                break;
-            case 4:
-                if (tileInfo[i] === 'color1' || tileInfo[i] === 'color2' || tileInfo[i] === 'color3') {
-                    currentColor = joinedColors[0];
-                } else if (tileInfo[i] === 'color4' || tileInfo[i] === 'color5' || tileInfo[i] === 'color6') {
-                    currentColor = joinedColors[1];
-                } else if (tileInfo[i] === 'color7' || tileInfo[i] === 'color8' || tileInfo[i] === 'color9') {
-                    currentColor = joinedColors[2];
-                } else if (tileInfo[i] === 'color10' || tileInfo[i] === 'color11' || tileInfo[i] === 'color12') {
-                    currentColor = joinedColors[3];
-                } else {
-                    currentColor = tileInfo[i];
-                }
-                break;
-            case 5:
-                if (tileInfo2[i] === 'color1') {
-                    currentColor = joinedColors[0];
-                } else if (tileInfo2[i] === 'color2') {
-                    currentColor = joinedColors[1];
-                } else if (tileInfo2[i] === 'color3') {
-                    currentColor = joinedColors[2];
-                } else if (tileInfo2[i] === 'color4') {
-                    currentColor = joinedColors[3];
-                } else if (tileInfo2[i] === 'color5') {
-                    currentColor = joinedColors[4];
-                } else {
-                    currentColor = tileInfo2[i];
-                }
-                break;
-            case 6:
-                if (tileInfo2[i] === 'color1' || tileInfo2[i] === 'color7') {
-                    currentColor = joinedColors[0];
-                } else if (tileInfo2[i] === 'color2' || tileInfo2[i] === 'color8') {
-                    currentColor = joinedColors[1];
-                } else if (tileInfo2[i] === 'color3' || tileInfo2[i] === 'color9') {
-                    currentColor = joinedColors[2];
-                } else if (tileInfo2[i] === 'color4' || tileInfo2[i] === 'color10') {
-                    currentColor = joinedColors[3];
-                } else if (tileInfo2[i] === 'color5' || tileInfo2[i] === 'color11') {
-                    currentColor = joinedColors[4];
-                } else if (tileInfo2[i] === 'color6' || tileInfo2[i] === 'color12') {
-                    currentColor = joinedColors[5];
-                } else {
-                    currentColor = tileInfo[i];
-                }
-                break;
-            default:
-                currentColor = tileInfo[i];
-                break;
+            }
+        } else {
+            currentColor = currentTileInfo[i];
         }
         const tileClass = `tile ${currentColor} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
