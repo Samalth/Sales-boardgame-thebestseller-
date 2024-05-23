@@ -5,20 +5,21 @@
 	grid-template-rows: repeat(1, 1fr);
 }
 
-.button {
+.homeGameButton {
 	border-radius: 10px;
-	width: 400px;
+	width: 28%;
 	padding: 10px;
-	font-size: 60px;
+	font-size: 100%;
 	margin: 10px;
 	cursor: pointer;
 	background-color: #195678;
 	color: #F9E513;
 	border-color: antiquewhite;
 	font-family: 'Itim', Arial, sans-serif;
+	height: 90%;
 }
 
-.button:hover {
+.homeGameButton:hover {
 	background-color: #3f6072;
 	font-weight: bold;
 }

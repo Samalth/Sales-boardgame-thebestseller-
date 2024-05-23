@@ -48,8 +48,8 @@ export function HomeScreen() {
                 />
             </div>
             <div className="row">
-                <input type="submit" className="button game" value={t("HomeScreen.join")} onClick={handleJoinGame}/>
-                <input type="submit" className="button game" value={t("HomeScreen.create")} onClick={handleCreateGame}/>
+                <button type="submit" className="homeGameButton" onClick={handleJoinGame} > {t("HomeScreen.join")} </button>
+                <button type="submit" className="homeGameButton" onClick={handleCreateGame} > {t("HomeScreen.create")} </button>
             </div>
             <div className="row languages">
                 <img className='flagImg' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')}/>

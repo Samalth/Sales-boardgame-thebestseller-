@@ -83,7 +83,7 @@ export function ModSettings() {
         </div>
 
         <div className="row">
-          <input type="submit" className="button continue" value={t("ModSettings.continue")}/>
+          <button type="submit" className="continueButton" > {t("ModSettings.continue")} </button>
         </div>
       </form>
         </div>

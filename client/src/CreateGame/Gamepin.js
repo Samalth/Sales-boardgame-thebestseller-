@@ -80,8 +80,8 @@ export function Gamepin() {
                            onChange={handlePlayerCountChange}/>
                 </div>
                 <div className="row">
-                    <input type="submit" className="gamePinButton" value={t("GamePin.start")} onClick={handleGame}/>
-                    <input type="submit" className="gamePinButton" value={t("GamePin.home")} onClick={handleHome}/>
+                    <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
+                    <button type="submit" className="gamePinButton" onClick={handleHome} > {t("GamePin.home")} </button>
                 </div>
                 <div className="row">{errorCode}</div>
         </div>

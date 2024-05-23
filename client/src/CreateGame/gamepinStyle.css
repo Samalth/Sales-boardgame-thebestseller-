@@ -4,14 +4,6 @@
     margin-top: 1rem;
 }
 
-.text{
-    color: #F9E513;
-}
-
-.row{
-
-}
-
 .gamePinButton {
     background-color: #195678;
     color: #F9E513;
@@ -67,8 +59,4 @@ output{
     margin-left: 30%;
 }
 
-.gamepin{
-}
 
-label {
-}

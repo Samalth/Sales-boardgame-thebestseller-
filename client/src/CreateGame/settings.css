@@ -6,6 +6,10 @@
     grid-template-rows: repeat(3, 1fr);
 }
 
+.text{
+    color: #F9E513;
+}
+
 .Home{
     max-width: 8vh;
     max-height: 8vh;
@@ -15,6 +19,7 @@
     border-radius: 90%;
     background-color: #195678;
     padding: 0;
+    border: none;
 }
 
 .home-image{
@@ -58,7 +63,7 @@
     cursor: pointer;
 }
 
-.continue{
+.continueButton{
     border: 3px solid white;
     background-color: #195678;
     width: 400px;
@@ -66,9 +71,10 @@
     color: #F9E513;
     border-radius: 10px;
     cursor: pointer;
+    font-size: 100%;
 }
 
-.minus:hover, .plus:hover, .continue:hover{
+.minus:hover, .plus:hover, .continueButton:hover{
     background-color: #3f6072;
 }
 
