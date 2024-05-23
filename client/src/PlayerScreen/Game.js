@@ -6,6 +6,8 @@ import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
 import PlayerPopUps from "../GameScreen/PlayerPopUps";
 import PlayerTurns from "../GameScreen/PlayerTurns";
+import AudioPlayer from "../GameScreen/AudioPlayer";
+
 import {useTranslation} from "react-i18next";
 
 export function Game() {
@@ -144,6 +146,9 @@ export function Game() {
             <PlayerTurns
                 turnText={turnText}/>
         </div>
+        <AudioPlayer
+
+            />
             <PlayerPopUps
                 setPopupColor={setPopupColor}
                 popupColor={popupColor}
