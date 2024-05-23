@@ -101,7 +101,8 @@ io.on('connection', (socket)=> {
             data.questionColor = data.userColor
             popupColor = data.userColor;
         }
-        const { question, answer } = await databaseQuestion(data.questionColor);
+        const language = userLogger('getLanguage', socket.id)
+        const { question, answer } = await databaseQuestion(data.questionColor, sort=language);
 
         const room = userLogger('getRoom', socket.id);
         switch (data.questionColor) {
@@ -234,6 +235,12 @@ io.on('connection', (socket)=> {
         modLogger('updateSettings', socket.id, data);
     })
 
+    socket.on('change_language', (data) => {
+        userLogger('updateLanguage', socket.id, data);
+    })
+    socket.on('delete_mod', (data) => {
+        modLogger('delete', socket.id);
+    })
 })
 
 server.listen(3001, () => {

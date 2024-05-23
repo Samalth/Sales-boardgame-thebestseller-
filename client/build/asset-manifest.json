@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.aef5de4f.css",
+    "main.js": "/static/js/main.93606dac.js",
+    "static/js/453.419a5d54.chunk.js": "/static/js/453.419a5d54.chunk.js",
+    "static/media/money-background.png": "/static/media/money-background.6c62fd71be97f6f298f5.png",
+    "static/media/Rainbow.png": "/static/media/Rainbow.0e65296564b3c662f282.png",
+    "static/media/LUNAR.png": "/static/media/LUNAR.1e4563d80eada9441ed4.png",
+    "static/media/SAFELINE.png": "/static/media/SAFELINE.8d9a6f7b1fbbd299396f.png",
+    "static/media/Dia6.JPG": "/static/media/Dia6.3944411e4546da2cbc72.JPG",
+    "static/media/Dia5.JPG": "/static/media/Dia5.9a379edf86d15085a018.JPG",
+    "static/media/TopOfTheWorld.png": "/static/media/TopOfTheWorld.5b31d040c5da302e6570.png",
+    "static/media/DominoHouse.png": "/static/media/DominoHouse.e0329992323e404703c2.png",
+    "static/media/JYSKTelepartner.png": "/static/media/JYSKTelepartner.e69178725b4bda074e55.png",
+    "static/media/Dia4.JPG": "/static/media/Dia4.503829b1d213a9ab1bbb.JPG",
+    "static/media/MegaTrends.png": "/static/media/MegaTrends.5e98a4cf1b3c842566fc.png",
+    "static/media/Dia3.JPG": "/static/media/Dia3.898c9a201d3ffa2084d3.JPG",
+    "static/media/Chance.png": "/static/media/Chance.404f82c6ba35ee2836d8.png",
+    "static/media/Dia2.JPG": "/static/media/Dia2.1b9e7d5578309ded1f64.JPG",
+    "static/media/Sales.png": "/static/media/Sales.f495605bb79512e1eaca.png",
+    "static/media/Dia1.JPG": "/static/media/Dia1.add0138c60ffe87b9fa0.JPG",
+    "static/media/Klaphatten.png": "/static/media/Klaphatten.bd546564e2b528ce3ee4.png",
+    "index.html": "/index.html",
+    "main.aef5de4f.css.map": "/static/css/main.aef5de4f.css.map",
+    "main.93606dac.js.map": "/static/js/main.93606dac.js.map",
+    "453.419a5d54.chunk.js.map": "/static/js/453.419a5d54.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aef5de4f.css",
+    "static/js/main.93606dac.js"
+  ]
+}

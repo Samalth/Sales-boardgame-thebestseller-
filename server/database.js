@@ -10,19 +10,19 @@ const connection = mysql.createConnection({
 connection.connect();
 
 const questionIDs = {
-    yellow: [1, 2],
-    green: [3, 4],
-    purple: [5, 6],
-    orange: [7, 8],
-    red: [9, 10],
-    blue: [11, 12],
-    sales: [13, 14, 15],
-    megatrends: [16, 17, 18],
-    chance: [19, 20, 21],
+    yellow: [1, 2, 3, 4, 5],
+    green: [6, 7, 8, 9, 10],
+    purple: [11, 12, 13, 14, 15],
+    orange: [16, 17, 18, 19, 20],
+    red: [21, 22, 23, 24, 25],
+    blue: [26, 27, 28, 29, 30],
+    sales: [31, 32, 33],
+    megatrends: [34, 35, 36],
+    chance: [37, 38, 39],
     rainbow: [1]
 };
 
-async function modulePopUp(color, sort = 'english') {
+async function modulePopUp(color, sort = 'en') {
     let number;
 
     switch (color) {
@@ -51,11 +51,14 @@ async function modulePopUp(color, sort = 'english') {
 
     let queryMod;
     switch (sort) {
-        case 'english':
+        case 'en':
             queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';
             break;
-        case 'danish':
+        case 'dk':
             queryMod = 'SELECT QDanish AS question, ADanish AS answer FROM questionstable WHERE ID=?';
+            break;
+        case 'nl':
+            queryMod = 'SELECT QDutch AS question, ADutch AS answer FROM questionstable WHERE ID=?';
             break;
         default:
             queryMod = 'SELECT QEnglish AS question, AEnglish AS answer FROM questionstable WHERE ID=?';
