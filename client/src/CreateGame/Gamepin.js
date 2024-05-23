@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react"
 import back from "../Assets/back-button.png";
 import {useTranslation} from "react-i18next";
 
-
 export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
     const navigate = useNavigate();

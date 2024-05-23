@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import './Audio.css'
 import musicOn from '../Assets/musicOn.png'
 import musicOff from '../Assets/musicOff.png'
 
@@ -27,12 +28,10 @@ const AudioPlayer = () => {
     };
 
     return (
-
-            <button onClick={toggleAudio} className='audioButton'>
+            <button onClick={toggleAudio} className="audioButton">
                 <img
                     src={isPlaying ? musicOn : musicOff}
                     alt={isPlaying ? musicOn : musicOff}
-                    style={{ width: '30px', height: '30px' }} // Pas de grootte aan naar wens
                 />
             </button>
         // </div>

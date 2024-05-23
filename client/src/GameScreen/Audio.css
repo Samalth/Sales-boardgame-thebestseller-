@@ -1,3 +1,12 @@
-.audioButton{
-    right: 0;
+.audioButton {
+    right: -20%;
+    margin-top: 2%;
+    background-color: #195678;
+    border-color: white;
+    color: gold;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    text-align: center;
+    position: relative;
 }
