@@ -4,7 +4,7 @@ import {render, screen, fireEvent} from "@testing-library/react";
 import {I18nextProvider} from "react-i18next";
 import {HomeScreen} from "../HomeScreen/HomeScreen";
 import i18next from "i18next";
-import i18n from './i18nTest' // USED IN THE RENDER
+import i18n from './i18nTest' // !IMPORTANT! USED IN THE VIRTUAL RENDER
 import {BrowserRouter} from "react-router-dom";
 jest.mock('../Assets/den_flag.png', () => 'den_flag.png');
 jest.mock('../Assets/uk_flag.png', () => 'uk_flag.png');
@@ -41,7 +41,16 @@ describe('HomeScreen component', () => {
     })
 
     test('clicking on q button opens new tab with pdf', () => {
+        window.open = jest.fn()
         const qButton = screen.getByText('?');
+        const language = i18next.language;
         fireEvent.click(qButton);
+        const guideMapping = {
+            en: '/GuideEN.pdf',
+            nl: '/GuideNL.pdf',
+            dk: '/GuideDK.pdf',
+        }
+        const pdfPath = guideMapping [language]
+        expect(window.open).toHaveBeenCalledWith(pdfPath, '_blank')
     })
 })
