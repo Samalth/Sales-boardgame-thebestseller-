@@ -7,6 +7,7 @@ import LeaderBoard from "../GameScreen/LeaderBoard";
 import PlayerPopUps from "../GameScreen/PlayerPopUps";
 import PlayerTurns from "../GameScreen/PlayerTurns";
 import AudioPlayer from "../GameScreen/AudioPlayer";
+import '../App.css'
 
 import {useTranslation} from "react-i18next";
 
@@ -95,6 +96,13 @@ export function Game() {
             socket.off('submitted_points');
         };
     }, []);
+    useEffect(() => {
+        if (gamePaused || gamePaused2) {
+            document.body.classList.add('bodyBlurred');
+        } else {
+            document.body.classList.remove('bodyBlurred');
+        }
+    }, [gamePaused, gamePaused2]);
 
     useEffect(() => {
         socket.on('players_turn', (data) => {
@@ -121,7 +129,7 @@ export function Game() {
 
     return (
     <>
-        <div className={gamePaused || gamePaused2 ? 'playboard blurred' : 'playboard'}>
+        <div className={gamePaused || gamePaused2 ? 'appBlurred' : 'playboard'}>
             <div className='roundscounter'>{roundText}</div>
             <BoardGrid
                 steps={steps}

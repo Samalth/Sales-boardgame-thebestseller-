@@ -58,7 +58,7 @@ const DiceContainer = (props) => {
             {isModeratorScreen ?
                 <div className="turnsModView"> {playerName} {t("Game.TurnText")}</div> :
                 <div>
-                    {myTurn && <button type='button' onClick={roll}>{t("Game.rollDice")}</button>}
+                    {myTurn && <button className='diceButton' type='button' onClick={roll}>{t("Game.rollDice")}</button>}
                 </div>
             }
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../PlayerScreen/GameStyle.css';
+import '../App.css';
 import {socket} from '../client'
 import DiceContainer from '../GameScreen/DiceContainer';
 import LeaderBoard from "../GameScreen/LeaderBoard";
@@ -238,6 +239,7 @@ export function ModView() {
             socket.off('submitted_answer');
         };
     })
+
     useEffect(() => {
         socket.on('set_current_player', (data) => {
             try {
@@ -248,8 +250,6 @@ export function ModView() {
             }
         })
     },[]);
-
-
 
     const handleUpdatePoints = (points) => {
         setSelectedPoints(points);
@@ -266,7 +266,7 @@ export function ModView() {
 
     return (
         <>
-            <div className={showPopup ? 'playboard blurred' : 'playboard'}>
+            <div className={showPopup ? 'appBlurred' : 'playboard'}>
                 <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     moveMade={moveMade}

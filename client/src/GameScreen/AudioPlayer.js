@@ -8,7 +8,7 @@ const AudioPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        audioRef.current = new Audio('https://www.orangefreesounds.com/wp-content/uploads/2021/12/Melodic-ambient-electronic-music.mp3');
+        audioRef.current = new Audio('https://cdn1.suno.ai/623df9ce-734e-4c6e-bae6-ba1e46034233.mp3');
         audioRef.current.onended = () => {
             setIsPlaying(false);
         };
