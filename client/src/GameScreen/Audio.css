@@ -7,6 +7,12 @@
     border-radius: 10px;
     cursor: pointer;
     width: 2cm;
+    height: 2cm;
     text-align: center;
     position: relative;
+}
+
+.audioImage {
+    width: 90%;
+    height: 90%;
 }

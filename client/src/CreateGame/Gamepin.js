@@ -80,7 +80,6 @@ export function Gamepin() {
                 </div>
                 <div className="row">
                     <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
-                    <button type="submit" className="gamePinButton" onClick={handleHome} > {t("GamePin.home")} </button>
                 </div>
                 <div className="row">{errorCode}</div>
         </div>

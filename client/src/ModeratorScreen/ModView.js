@@ -292,7 +292,8 @@ export function ModView() {
                     submittedAnswer={submittedAnswer}
                     selectedPoints={selectedPoints}
                     handleSubmitPoints={handleSubmitPoints}
-                    handleUpdatePoints={handleUpdatePoints}/>
+                    handleUpdatePoints={handleUpdatePoints}
+                />
         </>
     );
 }

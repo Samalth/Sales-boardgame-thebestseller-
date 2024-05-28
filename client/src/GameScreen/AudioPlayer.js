@@ -29,7 +29,7 @@ const AudioPlayer = () => {
 
     return (
             <button onClick={toggleAudio} className="audioButton">
-                <img
+                <img className="audioImage"
                     src={isPlaying ? musicOn : musicOff}
                     alt={isPlaying ? musicOn : musicOff}
                 />

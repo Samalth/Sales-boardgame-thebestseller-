@@ -14,6 +14,7 @@
     border-radius: 10px;
     border: 3px solid white;
     width: 400px;
+    margin-left: 1%;
 }
 
 select{
@@ -34,22 +35,21 @@ label{
 .startgame{
     border: 3px solid white;
     background-color: #195678;
-    width: auto;
-    height: 80px;
-    /* text-align: center;
-    vertical-align: middle; */
+    width: 40%;
+    height: 8%;
     line-height: 35px;
     color: #F9E513;
     border-radius: 10px;
-    font-size: 42px;
+    font-size: 75%;
     font-family: itim;
-    padding: 20px;
-    margin: 20px ;
+    bottom: 30%;
     cursor: pointer;
+    position: absolute;
 }
 
-.joinScreenButton:hover{
+.startgame:hover{
     background-color: #3f6072;
+    font-weight: bold;
 }
 
 .dropyellow{

@@ -13,12 +13,12 @@ const ModeratorPopUps = ({ setShowPopup, showPopup, question, submittedAnswer, s
                     <div className={`questionColorBox ${color}`}>
                         <div className='rowpopup'>
                             <img className={`${
-                                color === 'red' ? 'piecesafeline' :
-                                color === 'yellow' ? 'piecelunar' :
-                                color === 'blue' ? 'piecedomino' :
-                                color === 'purple' ? 'pieceklaphatten' :
-                                color === 'green' ? 'pieceworld' :
-                                color === 'orange' ? 'piecejysk' : 
+                                color === 'red' ? 'popupsafeline' :
+                                color === 'yellow' ? 'popuplunar' :
+                                color === 'blue' ? 'popupdomino' :
+                                color === 'purple' ? 'popupklaphatten' :
+                                color === 'green' ? 'popupworld' :
+                                color === 'orange' ? 'popupjysk' : 
                                 color === 'black1'? 'chance' :
                                 color === 'black2'? 'sales' :
                                 color === 'black3'? 'megatrends' : ''}`}

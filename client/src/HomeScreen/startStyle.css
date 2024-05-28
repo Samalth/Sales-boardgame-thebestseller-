@@ -8,9 +8,9 @@
 .homeGameButton {
 	border-radius: 10px;
 	width: 28%;
-	padding: 10px;
+	padding: 1%;
 	font-size: 100%;
-	margin: 10px;
+	margin: 1%;
 	cursor: pointer;
 	background-color: #195678;
 	color: #F9E513;
@@ -60,11 +60,11 @@
 }
 
 .flagImg{
-	padding: 5px;
 	border-radius: 10px;
 	cursor: pointer;
-	width: 100px;
-	height: 50px;
+	width: 30%;
+	height: 50%;
+	bottom: 50%;
 }
 
 .languages{

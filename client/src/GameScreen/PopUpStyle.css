@@ -1,5 +1,4 @@
 /*---PLAYER POPUPS---*/
-
 .questionBoxPopup {
     flex-direction: row;
     display: flex;
@@ -39,8 +38,8 @@
     top: 5%;
     left: 10%;
     width: 35%;
-    height: 80%;
-    padding: 20px;
+    height: 85%;
+    padding: 2%;
     border-radius: 5px;
     z-index: 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -154,9 +153,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     align-content: center;
     margin-top: 20%;
-    margin-left: 35%;
+    margin-left: 30%;
     z-index: 2;
-}
+    bottom: 45%;
+ }
 
 .waitingScreenText {
     font-family: 'Itim', Arial, sans-serif;
@@ -197,7 +197,6 @@
 .questionLabel2 {
     position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
     color: white;
     left: 10%;
     margin-top: 0%;
@@ -205,21 +204,22 @@
 
 .questionWhiteBox2 {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
+    font-size: 95%;
+    text-align: left;
     background-color: white;
     color: black;
     position: absolute;
     margin-bottom: 50%;
     left: 10%;
-    width: 70%;
-    height: 65%;
+    width: 80%;
+    height: 75%;
     min-height: 30%;
-    max-height: 30%;
-    bottom: 0px;
-    padding: 20px;
+    max-height: 38%;
+    padding: 1%;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
+    margin-top: 6%;
 }
 
 .answerLabel {
@@ -239,38 +239,38 @@
     position: absolute;
     margin-bottom: 2%;
     left: 10%;
-    width: 70%;
-    height: 65%;
+    width: 80%;
+    height: 60%;
     min-height: 30%;
     max-height: 30%;
-    bottom: 0px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
+    margin-top: 55%;
 }
 
 .assignScoreBox {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
+    font-size: 100%;
     color: black;
     position: fixed;
     top: 5%;
     background-color: grey;
-    padding: 20px;
+    padding: 2%;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     right: 10%;
     width: 35%;
-    height: 80%;
-    z-index: 2;
+    height: 85%;
+    z-index: 100;
     border: 2px solid white;
 }
 
 .correctAnswerText {
     position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
+    font-size: 100%;
     color: white;
     left: 10%;
     margin-top: 0%;
@@ -278,7 +278,7 @@
 
 .correctAnswerBox {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
+    font-size: 50%;
     background-color: white;
     color: black;
     position: absolute;
@@ -352,4 +352,53 @@
 }
 .submitScoreButton:hover {
     background-color: goldenrod;
+}
+
+.popupworld {
+    background-image: url('../Assets/TopOfTheWorld.png');
+    background-size: cover;
+    border-radius: 50%;
+    border-color: #2d2f30;
+    width: 18%;
+    height: 6vw;
+}
+
+.popuplunar {
+    background-image: url('../Assets/LUNAR.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 18%;
+    height: 6vw;
+}
+
+.popupdomino {
+    background-image: url('../Assets/DominoHouse.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 18%;
+    height: 6vw;
+}
+
+.popupsafeline {
+    background-image: url('../Assets/SAFELINE.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 18%;
+    height: 6vw;
+}
+
+.popupjysk {
+    background-image: url('../Assets/JYSKTelepartner.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 18%;
+    height: 6vw;
+}
+
+.popupklaphatten {
+    background-image: url('../Assets/Klaphatten.png');
+    background-size: cover;
+    border-radius: 50%;
+    width: 18%;
+    height: 6vw;
 }

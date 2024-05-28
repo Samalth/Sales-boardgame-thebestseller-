@@ -11,12 +11,12 @@ const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handl
                     <div className={`questionColorBox ${popupColor}`}>
                         <div className='rowpopup'>
                             <img className={`${
-                                popupColor === 'red' ? 'piecesafeline' :
-                                    popupColor === 'yellow' ? 'piecelunar' :
-                                        popupColor === 'blue' ? 'piecedomino' :
-                                            popupColor === 'purple' ? 'pieceklaphatten' :
-                                                popupColor === 'green' ? 'pieceworld' :
-                                                    popupColor === 'orange' ? 'piecejysk' :
+                                popupColor === 'red' ? 'popupsafeline' :
+                                    popupColor === 'yellow' ? 'popuplunar' :
+                                        popupColor === 'blue' ? 'popupdomino' :
+                                            popupColor === 'purple' ? 'popupklaphatten' :
+                                                popupColor === 'green' ? 'popupworld' :
+                                                    popupColor === 'orange' ? 'popupjysk' :
                                                         popupColor === 'black1' ? 'chance' :
                                                             popupColor === 'black2' ? 'sales' :
                                                                 popupColor === 'black3' ? 'megatrends' : ''}`}

@@ -18,16 +18,13 @@
 
 body {
   font-size: 60px;
-  background: url('./Assets/money-background.png');
-  background-color: #195678;
   z-index: 1;
-  position: relative;
+  background: url('./Assets/money-background.png');
 }
 
-body .appBlurred{
+.appBlurred{
   background-image: url('./Assets/money-backgroundBlur.png');
-  background-color: #195678;
   filter: blur(5px);
-  z-index: 1000;
+  z-index: 0;
 }
 
