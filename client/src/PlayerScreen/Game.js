@@ -31,52 +31,9 @@ export function Game() {
     const [totalRounds, setTotalRounds] = useState(0)
     const [roundText, setRoundText] = useState('')
 
-
     const handleTextBoxChange = (event) => {
         setTextBoxContent(event.target.value);
     };
-
-    useEffect(() =>{
-        socket.on('rounds', (data) => {
-            setTotalRounds(data.totalRounds)
-            setCurrentRound(data.currentRound)
-            setRoundText(t("Game.setRoundText", {data}))
-        })
-    })
-
-    useEffect(() => {
-        const numPlayers = sortedUserData.length;
-        const heightScoreboard = 95 * numPlayers;
-        // Set the height of the leaderboard container
-        const leaderboardContainer = document.querySelector('.leaderBoard');
-        if (leaderboardContainer) {
-            leaderboardContainer.style.height = `${heightScoreboard}px`;
-        }
-    }, [sortedUserData]);
-
-    useEffect(() => {
-        socket.on('players_name', (data) => {
-            setPlayerName(data)
-            setTurnText(t("Game.setTurnText", { data }))
-        })
-        socket.on('data_leaderboard', (jsonData) => {
-            setData(jsonData);
-        });
-        return () => {
-            socket.off('data_leaderboard');
-        };
-    }, []);
-
-    useEffect(() => {
-        socket.on("receive_question", (data) => {
-            setPopupColor(data.color)
-            setQuestion(data.questionText);
-            setGamePaused(true);
-        });
-        return () => {
-            socket.off('receive_question');
-        };
-    }, []);
 
     const handleSubmitAnswer = () => {
         setGamePaused(false);
@@ -85,37 +42,60 @@ export function Game() {
         setGamePaused2(true)
     };
 
-    useEffect(() => {
-        socket.on("submitted_points", (data) => {
-            setGamePaused2(false)
-        });
-        return () => {
-            socket.off('submitted_points');
-        };
-    }, []);
+    useEffect(() =>{
 
-    useEffect(() => {
-        socket.on('players_turn', (data) => {
-            try {
-                const pawn = document.querySelector('#' + data)
-                const parent = pawn.parentElement
-                const parentPosition = parent.getAttribute('pos')
-                setPosition(parentPosition)
-                console.log('game', parentPosition)
-                setSelectedPawn(pawn)
-                if (currentPlayer === data) {
-                    setMyTurn(true)
-                    setMoveMade(false)
-                } else {
-                    setMyTurn(false)
-                    setMoveMade(true)
+        const socketHandlers = {
+            'rounds': (data) => {
+                setTotalRounds(data.totalRounds)
+                setCurrentRound(data.currentRound)
+                setRoundText(t("Game.setRoundText", {data}))
+            },
+            'players_name': (data) => {
+                setPlayerName(data)
+                setTurnText(t("Game.setTurnText", { data }))
+            },
+            'data_leaderboard': (jsonData) => {
+                setData(jsonData)
+            },
+            'receive_question': (data) => {
+                setPopupColor(data.color)
+                setQuestion(data.questionText);
+                setGamePaused(true);
+            },
+            'submitted_points' : (data) => {
+                setGamePaused2(false)
+            },
+            'players_turn': (data) => {
+                try {
+                    const pawn = document.querySelector('#' + data)
+                    const parent = pawn.parentElement
+                    const parentPosition = parent.getAttribute('pos')
+                    setPosition(parentPosition)
+                    console.log('game', parentPosition)
+                    setSelectedPawn(pawn)
+                    if (currentPlayer === data) {
+                        setMyTurn(true)
+                        setMoveMade(false)
+                    } else {
+                        setMyTurn(false)
+                        setMoveMade(true)
+                    }
+                    socket.emit('get_data', 'leaderboard_update');
+                } catch (TypeError) {
+                    socket.emit('pawns_request_failed', '')
                 }
-                socket.emit('get_data', 'leaderboard_update');
-            } catch (TypeError) {
-                socket.emit('pawns_request_failed', '')
             }
+        }
+        Object.keys(socketHandlers).forEach(event => {
+            socket.on(event, socketHandlers[event])
         })
-    },[currentPlayer]);
+
+        return () => {
+            Object.keys(socketHandlers).forEach(event => {
+                socket.off(event, socketHandlers[event])
+            })
+        }
+    },[currentPlayer])
 
     return (
     <>
@@ -131,7 +111,8 @@ export function Game() {
                 setCurrentPlayer={setCurrentPlayer}
                 currentPlayer={currentPlayer}
                 color={color}
-                setColor={setColor}/>
+                setColor={setColor}
+                gameScreen={true}/>
             <DiceContainer
                 setSteps={setSteps}
                 setMoveMade={setMoveMade}

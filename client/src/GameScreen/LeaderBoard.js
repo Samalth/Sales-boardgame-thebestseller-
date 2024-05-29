@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './LeaderBoardStyle.css'
 import {useTranslation} from "react-i18next";
 
 const LeaderBoard = ({ sortedUserData, playerName }) => {
     const { t, i18n } = useTranslation('global');
+
+    useEffect(() => {
+        const numPlayers = sortedUserData.length;
+        const heightScoreboard = 95 * numPlayers;
+        // Set the height of the leaderboard container
+        const leaderboardContainer = document.querySelector('.leaderBoard');
+        if (leaderboardContainer) {
+            leaderboardContainer.style.height = `${heightScoreboard}px`;
+        }
+    }, [sortedUserData]);
+
     return (
         <div className='leaderBoard'>
             <h2>{t("Game.leaderboard")}</h2>
