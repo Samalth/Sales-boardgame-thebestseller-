@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react"
 import './BoardGridStyle.css'
-import {socket} from "../client";
+import {socket} from "../client"
 
-const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color}) => {
-    const [startPieces, setStartPieces] = useState([]);
-    const [validPositions, setValidPositions] = useState([]);
-    const [updatedPieces, setUpdatedPieces] = useState(false);
-    const [joinedColors, setJoinedColors] = useState([]);
+const BoardGrid = ({moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPosition, setCurrentPlayer, setColor, color, modView, gameScreen}) => {
+    const [startPieces, setStartPieces] = useState([])
+    const [validPositions, setValidPositions] = useState([])
+    const [updatedPieces, setUpdatedPieces] = useState(false)
+    const [joinedColors, setJoinedColors] = useState([])
 
+    //TILE_INFO FOR WHEN 2-6 PLAYERS JOIN
     const tileInfo = [
         'color11', 'color1', 'color3', 'megatrends', 'rainbow', 'color4', 'chance', 'color2', 'color7', 'color5', 'rainbow', 'color12', 'megatrends', 'color10', 'color8',
         'color6', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'megatrends', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance',
@@ -19,6 +20,8 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         'color3', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color1',
         'sales', 'rainbow', 'color11', 'color12', 'color2', 'color7', 'megatrends', 'rainbow', 'color9', 'sales', 'color8', 'color6', 'chance', 'rainbow', 'color5'
     ];
+
+    //TILE_INFO FOR WHEN 5 PLAYERS JOIN
     const tileInfo2 = [
         'sales','color1','color5','megatrends','rainbow','color4','chance', 'color2', 'color1', 'sales','rainbow', 'color3','megatrends','color4','color2',
         'color3','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
@@ -29,8 +32,9 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         'color4','blank', 'blank', 'blank', 'blank','blank', 'blank', 'color3', 'blank', 'blank','blank','blank','blank','blank','color4',
         'color5', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
         'sales', 'rainbow', 'color5', 'chance', 'color2','color1', 'megatrends', 'rainbow', 'color5', 'sales','color2','color3', 'chance', 'rainbow', 'color5'
-    ];
+    ]
 
+    //CO-ORDINATES FOR PAWN MOVEMENT
     const possiblePositions = [
         "1-9", "2-9", "3-9", "4-9", "5-9", "6-9", "7-9", "8-9", "9-9", "10-9", "11-9", "12-9", "13-9", "14-9", "15-9",
         "1-8", "", "", "", "", "", "", "8-8", "", "", "", "", "", "", "15-8",
@@ -41,34 +45,69 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         "1-3", "", "", "", "", "", "", "8-3", "", "", "", "", "", "", "15-3",
         "1-2", "", "", "", "", "", "", "8-2", "", "", "", "", "", "", "15-2",
         "1-1", "2-1", "3-1", "4-1", "5-1", "6-1", "7-1", "8-1", "9-1", "10-1", "11-1", "12-1", "13-1", "14-1", "15-1",
-    ];
+    ]
 
-    const tiles = [];
+    //EMPTY ARRAY NECESSARY FOR RENDERING TILES
+    const tiles = []
 
     const renderStartPieces = () => {
         if (!updatedPieces) {
-            socket.emit('get_pieces', 'player')
-            socket.emit('get_data', 'leaderboard_update');
-            socket.emit('get_playerstrategy', 'player');
-            setUpdatedPieces(true);
+            if (modView) {
+                socket.emit('get_pieces', 'mod')
+                setUpdatedPieces(true)
+            } else {
+                socket.emit('get_pieces', 'player')
+                socket.emit('get_data', 'leaderboard_update')
+                socket.emit('get_playerstrategy', 'player')
+                setUpdatedPieces(true)
+            }
         }
-        return startPieces.map((piece, index) => (
-            <div key={index} className={`startpieces piece${piece} ${selectedPawn && selectedPawn.id !== piece ? 'black-border-piece' : ''}`} id={`${piece}`}>
-                {selectedPawn && selectedPawn.id === piece && <div className="gradient-background round-border"></div>}
-            </div>
-        ));
-    };
+
+        return startPieces.map((piece, index) => {
+            const isSelected = selectedPawn && selectedPawn.id !== piece
+            const pieceClasses = `startpieces piece${piece} ${isSelected ? 'black-border-piece' : ''}`
+            return (
+                <div key={index}
+                     className={pieceClasses}
+                     id={`${piece}`}>
+                    {selectedPawn && selectedPawn.id === piece &&
+                        <div className="gradient-background round-border"></div>}
+                </div>
+            )
+        })
+    }
 
     const sendQuestionRequest = (colorTile) => {
-        socket.emit("send_question_request", { questionColor: colorTile, userColor: color });
-    };
+        socket.emit("send_question_request", { questionColor: colorTile, userColor: color })
+    }
 
     useEffect(() => {
+        const handleTileClick = event => {
+            const targetTile = event.target.closest('.tile')
+            if (startPieces.includes(event.target.id)) {
+                event.target.classList.add('highlight')
+            } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
+                const newPosition = targetTile.getAttribute('pos')
+                if (validPositions.includes(newPosition) && !moveMade) {
+                    if (selectedPawn instanceof HTMLElement) {
+                        event.target.appendChild(selectedPawn)
+                        const color = targetTile.className.split(' ')[1]
+                        sendQuestionRequest(color)
+                        setMoveMade(true)
+                        document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'))
+                        socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id})
+                    } else {
+                        console.error("Selected pawn is not a valid DOM element")
+                    }
+                }
+            }
+        }
+
         socket.on("update_valid_positions", (data) => {
-            setValidPositions(data);
-        });
+            setValidPositions(data)
+        })
         socket.on("add_piece", (data) => {
-            let joinedColorsArray = [];
+            let joinedColorsArray = []
             const colorMap = {
                 "world": "green",
                 "lunar": "yellow",
@@ -77,60 +116,37 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
                 "klaphatten": "purple",
                 "safeline": "red"
             }
-            joinedColorsArray = data.map(color => colorMap[color]);
-            
+            joinedColorsArray = data.map(color => colorMap[color])
             setStartPieces(data)
-            setJoinedColors(joinedColorsArray);
-        });
-
-        socket.on("register_currentplayer", (data) => {
-            setCurrentPlayer(data.strategy)
-            setColor(data.color);
-        });
+            setJoinedColors(joinedColorsArray)
+        })
 
         socket.on("update_position", (data) => {
-            const newPosition = data.newPosition;
-            const selectedPawnName = data.selectedPawn;
-            const selectedPawnElement = document.getElementById(selectedPawnName);
+            const newPosition = data.newPosition
+            const selectedPawnName = data.selectedPawn
+            const selectedPawnElement = document.getElementById(selectedPawnName)
             if (selectedPawnElement && validPositions.includes(newPosition)) {
-                const newTile = document.querySelector(`.tile[pos="${newPosition}"]`);
-                newTile.appendChild(selectedPawnElement);
-                setPosition(newPosition);
-                document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
+                const newTile = document.querySelector(`.tile[pos="${newPosition}"]`)
+                newTile.appendChild(selectedPawnElement)
+                setPosition(newPosition)
+                document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'))
             }
-        });
-        const boardGrid = document.querySelector('.board-grid');
+        })
 
-        const handleClick = event => {
-            const targetTile = event.target.closest('.tile');
-            if (startPieces.includes(event.target.id)) {
-                event.target.classList.add('highlight');
-                // setSelectedPawn(event.target);
-
-            } else if (targetTile && validPositions.includes(targetTile.getAttribute('pos'))) {
-                const newPosition = targetTile.getAttribute('pos');
-                if (validPositions.includes(newPosition) && !moveMade) {
-                    if (selectedPawn instanceof HTMLElement) {
-                        event.target.appendChild(selectedPawn);
-                        const color = targetTile.className.split(' ')[1];
-                        sendQuestionRequest(color);
-                        setMoveMade(true);
-                        document.querySelectorAll('.tile').forEach(tile => tile.classList.remove('blink'));
-                        // setPosition(newPosition);
-                        socket.emit("update_position", {newPosition: newPosition, selectedPawn: selectedPawn.id});
-                    } else {
-                        console.error("Selected pawn is not a valid DOM element");
-                    }
-                }
+        if (gameScreen){
+            socket.on("register_currentplayer", (data) => {
+                setCurrentPlayer(data.strategy)
+                setColor(data.color)
+            })
+            const boardGrid = document.querySelector('.board-grid')
+            boardGrid.addEventListener('click', handleTileClick)
+            return () => {
+                boardGrid.removeEventListener('click', handleTileClick)
             }
-        };
-        boardGrid.addEventListener('click', handleClick);
-        return () => {
-            boardGrid.removeEventListener('click', handleClick);
-        };
-    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor, color]);
+        }
+    }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor, color, gameScreen])
 
-    const totalTiles = tileInfo.length;
+    const totalTiles = tileInfo.length
     for (let i = 0; i < totalTiles; i++) {
         const position = possiblePositions[i];
         const isHighlighted = validPositions.includes(position);
@@ -160,6 +176,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
             currentColor = currentTileInfo[i];
         }
 
+
         const tileClass = `tile ${currentColor} ${isHighlighted ? 'blink' : ''}`
         if (tileInfo[i] === 'start') {
             tiles.push(
@@ -175,8 +192,7 @@ const BoardGrid = ({ moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPo
         <div className='board-grid'>
             {tiles}
         </div>
-    );
-};
+    )
+}
 
-
-export default BoardGrid;
+export default BoardGrid

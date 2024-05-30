@@ -39,7 +39,7 @@ export function HomeScreen() {
     return (
         <div className='wrapper'>
             <div className="row" id="data-container">
-                <img className="logoGif" src='/Logo.gif'/>
+                <img className="logoGif" src='/Logo.gif' alt='Logo'/>
                 <input
                     type="button"
                     className="Qbutton"

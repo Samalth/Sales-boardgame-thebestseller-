@@ -34,7 +34,8 @@
     "setTurnText": "It's {{data}}'s turn to roll the dice and answer a question",
     "rollDice": "Roll the dice",
     "leaderboard": "Leaderboard",
-    "modWait": "Waiting for player to submit an answer"
+    "modWait": "Waiting for player to submit an answer",
+    "setRoundText": "Round {{data.currentRound}} of {{data.totalRounds}}"
   },
   "PopUps": {
     "question": "Question:",
