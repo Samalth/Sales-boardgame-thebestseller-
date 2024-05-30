@@ -4,12 +4,17 @@ import './settings.css';
 import home from '../Assets/back-button.png'
 import {socket} from '../client'
 import {useTranslation} from "react-i18next";
+import { useLanguageManager } from '../Translations/LanguageManager';
+import den_flag from '../Assets/den_flag.png';
+import uk_flag from '../Assets/uk_flag.png';
+import nl_flag from '../Assets/nl_flag.png';
 
 export function ModSettings() {
   const [playerCount, setPlayerCount] = useState(6);
   const [roundsCount, setRoundsCount] = useState(5);
   const navigate = useNavigate();
   const {t,i18n} = useTranslation('global');
+  const { handleChangeLanguage } = useLanguageManager();
 
   const createRoom = () => {
     socket.emit("create_room", { playerCount, roundsCount });
@@ -86,6 +91,11 @@ export function ModSettings() {
           <button type="submit" className="continueButton" > {t("ModSettings.continue")} </button>
         </div>
       </form>
+        <div className="row languages3">
+          <img className='flagImg3' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+          <img className='flagImg3' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+          <img className='flagImg3' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+        </div>
         </div>
   );
 }

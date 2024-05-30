@@ -4,6 +4,10 @@ import {socket} from '../client'
 import React, { useEffect, useState } from "react"
 import back from "../Assets/back-button.png";
 import {useTranslation} from "react-i18next";
+import den_flag from "../Assets/den_flag.png";
+import uk_flag from "../Assets/uk_flag.png";
+import nl_flag from "../Assets/nl_flag.png";
+import { useLanguageManager } from '../Translations/LanguageManager';
 
 export function Gamepin() {
     const [gamepin, setGamepin] = useState('');
@@ -12,6 +16,7 @@ export function Gamepin() {
     const [playerNeeded, setPlayerNeeded] = useState(0);
     const [errorCode, setErrorCode] = useState('');
     const {t,i18n} = useTranslation('global');
+    const { handleChangeLanguage } = useLanguageManager();
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
@@ -82,6 +87,11 @@ export function Gamepin() {
                     <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
                 </div>
                 <div className="row">{errorCode}</div>
+            <div className="row languages2">
+                <img className='flagImg2' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+                <img className='flagImg2' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+                <img className='flagImg2' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+            </div>
         </div>
 );
 }

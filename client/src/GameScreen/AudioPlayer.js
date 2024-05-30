@@ -34,7 +34,6 @@ const AudioPlayer = () => {
                     alt={isPlaying ? musicOn : musicOff}
                 />
             </button>
-        // </div>
     );
 };
 

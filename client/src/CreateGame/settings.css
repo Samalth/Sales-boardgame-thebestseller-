@@ -90,5 +90,19 @@
 
 }
 
+.flagImg3{
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 50%;
+}
+
+.languages3{
+    position: absolute;
+    bottom: 0;
+    right: 2.4%;
+    gap: 15%;
+}
+
 
 

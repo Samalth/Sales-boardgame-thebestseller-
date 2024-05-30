@@ -1,10 +1,14 @@
+.parentContainer {
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+}
+
 .joinscreen-row{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
 }
-
 
 .input, select{
     position: absolute;
@@ -69,4 +73,18 @@ label{
 }
 .droppurple{
     color:#A83E8A
+}
+
+.flagImg2{
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 50%;
+}
+
+.languages2{
+    position: absolute;
+    bottom: 0;
+    right: 2.4%;
+    gap: 15%;
 }
