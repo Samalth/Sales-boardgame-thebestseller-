@@ -37,8 +37,8 @@ export function HomeScreen() {
     }
 
     return (
-        <div className='wrapper'>
-            <div className="row" id="data-container">
+        <div className='parent-container-home'>
+            <div className="logoRow">
                 <img className="logoGif" src='/Logo.gif' alt='Logo'/>
                 <input
                     type="button"
@@ -47,11 +47,11 @@ export function HomeScreen() {
                     onClick={handleGuide}
                 />
             </div>
-            <div className="row">
-                <button type="submit" className="homeGameButton" onClick={handleJoinGame} > {t("HomeScreen.join")} </button>
+            <div className="homeButtonRow">
+                <button type="submit" className="homeGameButton homeButtonLeft" onClick={handleJoinGame} > {t("HomeScreen.join")} </button>
                 <button type="submit" className="homeGameButton" onClick={handleCreateGame} > {t("HomeScreen.create")} </button>
             </div>
-            <div className="row languages">
+            <div className="languageRow">
                 <img className='flagImg' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')}/>
                 <img className='flagImg' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')}/>
                 <img className='flagImg' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')}/>
