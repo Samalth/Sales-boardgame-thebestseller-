@@ -14,7 +14,7 @@ export function ModSettings() {
   const [roundsCount, setRoundsCount] = useState(5);
   const navigate = useNavigate();
   const {t,i18n} = useTranslation('global');
-  const { handleChangeLanguage } = useLanguageManager();
+  const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
   const createRoom = () => {
     socket.emit("create_room", { playerCount, roundsCount });
@@ -68,7 +68,8 @@ export function ModSettings() {
 
   return (
       <div className="settings-wrapper">
-      <form onSubmit={handleSubmit}>
+        <button className="Qbutton" onClick={handleGuide}>?</button>
+        <form onSubmit={handleSubmit}>
         <button className='Home' type="button" onClick={handleHome}>
           <img src={home} alt='Home' className='home-image'/>
         </button>

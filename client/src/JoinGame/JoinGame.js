@@ -16,7 +16,7 @@ export function JoinGame() {
     const [information, setInformation] = useState("");
     const navigate = useNavigate();
     const {t,i18n} = useTranslation('global');
-    const { handleChangeLanguage } = useLanguageManager();
+    const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
     const setName = (username) => {
         if (!username) {
@@ -45,6 +45,7 @@ export function JoinGame() {
   }
     return (
         <div className="parentContainer">
+            <button className="Qbutton" onClick={handleGuide}>?</button>
             <button className='Home' type="button" onClick={handleHome}>
                 <img src={home} alt='Home' className='home-image'/>
             </button>

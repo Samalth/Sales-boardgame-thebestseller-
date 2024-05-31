@@ -212,3 +212,36 @@
 path {
     position: relative;
 }
+
+.flagImg6{
+    right: -20%;
+    margin-top: 8%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}
+
+.flagImg7{
+    right: -20%;
+    margin-top: 2%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}
+
+.flagImg8{
+    right: -20%;
+    margin-top: 2%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}

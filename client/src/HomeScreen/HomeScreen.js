@@ -10,7 +10,7 @@ import { useLanguageManager } from '../Translations/LanguageManager';
 export function HomeScreen() {
     const navigate = useNavigate();
     const { t } = useTranslation('global');
-    const { language, handleChangeLanguage } = useLanguageManager();
+    const { language, handleChangeLanguage, handleGuide } = useLanguageManager();
 
     const handleCreateGame = () => {
         navigate('/configuration');
@@ -20,26 +20,11 @@ export function HomeScreen() {
         navigate('/joinGame');
     };
 
-    const handleGuide = () => {
-        const guideMapping = {
-            en: '/GuideEN.pdf',
-            nl: '/GuideNL.pdf',
-            dk: '/GuideDK.pdf',
-        };
-        const pdfPath = guideMapping[language];
-        window.open(pdfPath, '_blank');
-    };
-
     return (
         <div className='wrapper'>
             <div className="row" id="data-container">
                 <img className="logoGif" src='/Logo.gif' alt='Logo'/>
-                <input
-                    type="button"
-                    className="Qbutton"
-                    value="?"
-                    onClick={handleGuide}
-                />
+                <button className="Qbutton" onClick={handleGuide}>?</button>
             </div>
             <div className="row">
                 <button type="submit" className="homeGameButton" onClick={handleJoinGame}>{t("HomeScreen.join")}</button>

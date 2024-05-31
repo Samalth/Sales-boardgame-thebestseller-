@@ -16,7 +16,7 @@ export function Gamepin() {
     const [playerNeeded, setPlayerNeeded] = useState(0);
     const [errorCode, setErrorCode] = useState('');
     const {t,i18n} = useTranslation('global');
-    const { handleChangeLanguage } = useLanguageManager();
+    const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
     useEffect(() => {
         socket.on("send_gamepin", (data) => {
@@ -69,6 +69,7 @@ export function Gamepin() {
 
     return (
         <div className="parent-container">
+            <button className="Qbutton" onClick={handleGuide}>?</button>
             <button className='Home' type="button" onClick={handleBack}>
                 <img src={back} alt='Home' className='home-image'/>
             </button>

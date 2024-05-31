@@ -7,6 +7,10 @@ import LeaderBoard from "../GameScreen/LeaderBoard";
 import ModeratorPopUps from "../GameScreen/ModeratorPopUps";
 import BoardGrid from "../GameScreen/BoardGrid";
 import {useTranslation} from "react-i18next";
+import { useLanguageManager } from '../Translations/LanguageManager';
+import den_flag from '../Assets/den_flag.png';
+import uk_flag from '../Assets/uk_flag.png';
+import nl_flag from '../Assets/nl_flag.png';
 
 export function ModView() {
     const { t, i18n } = useTranslation('global');
@@ -29,6 +33,7 @@ export function ModView() {
     const [currentRound, setCurrentRound] = useState(0)
     const [totalRounds, setTotalRounds] = useState(0)
     const [roundText, setRoundText] = useState('')
+    const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
     const handleUpdatePoints = (points) => {
         setSelectedPoints(points);
@@ -99,6 +104,7 @@ export function ModView() {
     return (
         <>
             <div className={showPopup ? 'appBlurred' : 'playboard'}>
+                <button className="Qbutton2" onClick={handleGuide}>?</button>
                 <div className='roundscounter'>{roundText}</div>
                 <BoardGrid
                     moveMade={moveMade}
@@ -115,6 +121,9 @@ export function ModView() {
                 <LeaderBoard
                     sortedUserData={sortedUserData}
                     playerName={playerName}/>
+                <div><img className='flagImg6' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} /></div>
+                <div><img className='flagImg7' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} /></div>
+                <div> <img className='flagImg8' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} /></div>
             </div>
                 <ModeratorPopUps
                     answer={answer}
