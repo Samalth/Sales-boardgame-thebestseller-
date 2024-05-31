@@ -23,8 +23,8 @@
   },
 
   "GamePin": {
-    "gamepin": "Room code:",
-    "players": "Players joined:",
+    "gamepin": "Room code",
+    "players": "Players joined",
     "start": "Start!",
     "home": "Home"
   },

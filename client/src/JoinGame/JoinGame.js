@@ -9,7 +9,7 @@ export function JoinGame() {
     const [gamepin, setGamepin] = useState("");
     const [username, setUsername] = useState("");
     const [strategy, setStrategy] = useState("");
-    const [information, setInformation] = useState("");
+    const [information, setInformation] = useState("‎ ");
     const navigate = useNavigate();
     const {t,i18n} = useTranslation('global');
 
@@ -39,25 +39,28 @@ export function JoinGame() {
     navigate('/home')
   }
     return (
-        <div className="parent-container">
+        <div className="parent-container-joingame">
             <button className='Home' type="button" onClick={handleHome}>
                 <img src={home} alt='Home' className='home-image'/>
             </button>
-            <div className='joinscreen-row error'>{information}</div>
-            <div className="joinscreen-row gamepin">
-                <label>{t("JoinGame.gamepin")}</label>
-                <input type="text" className='input' value={gamepin} placeholder={t("JoinGame.gamePlaceholder")}
-                       onChange={event => setGamepin(event.target.value)}/>
+
+            <div className='errorJoingame'>{information}</div>
+
+            <div className="gamepinJoingame">
+                <label className='joingameLabel gamepinJoingameLabel'>{t("JoinGame.gamepin")}</label>
+                <input type="text" className='inputJoingame gamepinJoingameInput' value={gamepin} placeholder={t("JoinGame.gamePlaceholder")}
+                    onChange={event => setGamepin(event.target.value)}/>
             </div>
-            <div className="joinscreen-row strategy">
-                <label htmlFor="strategy">{t("JoinGame.strategy")}</label>
+
+            <div className="strategyJoingame">
+                <label className='joingameLabel strategyJoingameLabel' htmlFor="strategy">{t("JoinGame.strategy")}</label>
                 <select className={`${
                     strategy === 'Lunar' ? 'dropyellow' :
-                        strategy === 'Top of the World' ? 'dropgreen' :
-                            strategy === 'Safeline' ? 'dropred' :
-                                strategy === 'Jysk Telepartner' ? 'droporange' :
-                                    strategy === 'Domino House' ? 'dropblue' :
-                                        strategy === 'Klaphatten' ? 'droppurple' : ''}`}
+                    strategy === 'Top of the World' ? 'dropgreen' :
+                    strategy === 'Safeline' ? 'dropred' :
+                    strategy === 'Jysk Telepartner' ? 'droporange' :
+                    strategy === 'Domino House' ? 'dropblue' :
+                    strategy === 'Klaphatten' ? 'droppurple' : ''} selectJoingame strategyJoingameSelect`}
                         name="strategy" id="strategy" onChange={event => setStrategy(event.target.value)}>
                     <option value="" hidden="hidden">{t("JoinGame.strategyPlaceholder")}</option>
                     <option className='dropyellow' value="Lunar">1. Lunar</option>
@@ -68,15 +71,15 @@ export function JoinGame() {
                     <option className='droppurple' value="Klaphatten">6. Klaphatten</option>
                 </select>
             </div>
-            <div className="joinscreen-row name">
-                <label htmlFor="fullName">{t("JoinGame.username")}</label>
-                <input type="text" id="fullName" className='input' name="fullName" value={username}
-                       placeholder={t("JoinGame.namePlaceholder")} onChange={event => setUsername(event.target.value)}/>
+            <div className="nameJoingame">
+                <label className='joingameLabel nameJoingameLabel' htmlFor="fullName">{t("JoinGame.username")}</label>
+                <input type="text" id="fullName" className='inputJoingame nameJoingameInput' name="fullName" value={username}
+                    placeholder={t("JoinGame.namePlaceholder")} onChange={event => setUsername(event.target.value)}/>
             </div>
-            <div className="joinscreen-row">
-                <button type="submit" className="startgame button"
-                       onClick={() => setName(username, gamepin, strategy)} > {t("JoinGame.start")} </button>
+            <div className="buttonRowJoingame">
+                <button type="submit" className="startgame button" onClick={() => setName(username, gamepin, strategy)}>{t("JoinGame.start")}</button>
             </div>
         </div>
+
     );
 }

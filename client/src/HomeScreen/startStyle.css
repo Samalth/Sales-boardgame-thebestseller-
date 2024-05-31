@@ -15,11 +15,6 @@
 	right: 0;
 }
 
-
-.homeButtonLeft {
-	margin-right: 8vw;
-}
-
 .homeGameButton {
 	border-radius: 10px;
 	font-size: 100%;
@@ -30,12 +25,27 @@
 	font-family: 'Itim', Arial, sans-serif;
 	width: 22vw;
 	height: 8vh;
-	font-size: calc(8vh * 0.6)
+	font-size: min(calc(8vh * 0.6), calc(22vw * 0.15));
 }
 
 .homeGameButton:hover {
 	background-color: #3f6072;
 	font-weight: bold;
+}
+
+.homeButtonRow{
+	display: grid;
+	grid-template: 1fr / 1fr 1fr;
+}
+
+.homeButtonLeft {
+	margin-right: 4vw;
+	grid-area: 1 / 1 / 1 / 1;
+}
+
+.homeButtonRight {
+	margin-left: 4vw;
+	grid-area: 1 / 2 / 1 / 2;
 }
 
 .Qbutton {
@@ -69,5 +79,26 @@
 
 .logoGif {
 	width: 60vh;
-	height: auto;
+}
+
+@media (max-width: 800px) {
+	.logoGif{
+		width: 50vw;
+	}
+
+	.homeGameButton {
+		width: 30vw;
+		height: 15vh;
+		font-size: calc(8vh * 0.6);
+	}
+
+	.Qbutton {
+		width: 10vh;
+		height: 10vh;
+		font-size: calc(8vh * 0.8);
+	}
+
+	.flagImg{
+		width: 10vh;
+	}
 }

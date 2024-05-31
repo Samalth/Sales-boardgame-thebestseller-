@@ -1,72 +1,90 @@
-.joinscreen-row{
+.parent-container-joingame {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding: 40px;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
 }
 
+.gamepinJoingame, .strategyJoingame, .nameJoingame {
+    display: grid;
+    grid-template: 1fr / 0.5fr 1fr 0.2fr 1fr 0.5fr;
+}
 
-.input, select{
-    position: absolute;
-    left: 50%;
-    font-size: 36px;
+.gamepinJoingameLabel, .strategyJoingameLabel, .nameJoingameLabel {
+    grid-area: 1 / 2 / 1 / 2;
+}
+
+.gamepinJoingameInput, .strategyJoingameSelect, .nameJoingameInput {
+    grid-area: 1 / 4 / 1 / 4;
+}
+
+@media (max-width: 800px) {
+    .gamepinJoingame, .strategyJoingame, .nameJoingame {
+        grid-template: 1fr 1fr / 1fr;
+    }
+
+    .gamepinJoingameLabel, .strategyJoingameLabel, .nameJoingameLabel {
+        grid-area: 1 / 1 / 1 / 1;
+    }
+
+    .gamepinJoingameInput, .strategyJoingameSelect, .nameJoingameInput {
+        grid-area: 2 / 1 / 2 / 1;
+    }
+}
+
+.errorJoingame, .joingameLabel {
+    color: #F9E513;
+    font-size: calc(8vh * 0.6);
+}
+
+.inputJoingame, .selectJoingame {
     font-family: itim;
     border-radius: 10px;
     border: 3px solid white;
-    width: 400px;
-    margin-left: 1%;
+    width: 40vw;
+    min-width: 350px;
+    height: 6vh;
+    font-size: min(calc(6vh * 0.6), calc(40vw * 0.15));
 }
 
-select{
-    width: 410px;
+select {
     cursor: pointer;
 }
 
-.gamepin{
-    margin-top: 8%;
-}
-
-label{
-    position: absolute;
-    left: 600px;
-    font-size: 48px;
-}
-
-.startgame{
+.startgame {
     border: 3px solid white;
     background-color: #195678;
-    width: 40%;
-    height: 8%;
-    line-height: 35px;
     color: #F9E513;
     border-radius: 10px;
-    font-size: 75%;
     font-family: itim;
-    bottom: 30%;
     cursor: pointer;
-    position: absolute;
+    width: 30vw;
+    height: 8vh;
+    font-size: min(calc(8vh * 0.6), calc(30vw * 0.15));
 }
 
-.startgame:hover{
+.startgame:hover {
     background-color: #3f6072;
     font-weight: bold;
 }
 
-.dropyellow{
-    color:#DAB24B
+.dropyellow {
+    color: #DAB24B;
 }
-.dropblue{
-    color:#47A1C8
+.dropblue {
+    color: #47A1C8;
 }
-.dropred{
-    color:#BA4040   
+.dropred {
+    color: #BA4040;
 }
-.dropgreen{
-    color:#53A65B
+.dropgreen {
+    color: #53A65B;
 }
-.droporange{
-    color:#C66732
+.droporange {
+    color: #C66732;
 }
-.droppurple{
-    color:#A83E8A
+.droppurple {
+    color: #A83E8A;
 }
