@@ -7,32 +7,8 @@ const BoardGrid = ({moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPos
     const [validPositions, setValidPositions] = useState([])
     const [updatedPieces, setUpdatedPieces] = useState(false)
     const [joinedColors, setJoinedColors] = useState([])
-
-    //TILE_INFO FOR WHEN 2-6 PLAYERS JOIN
-    const tileInfo = [
-        'sales', 'color1', 'color3', 'megatrends', 'rainbow', 'color4', 'chance', 'color2', 'color7', 'sales', 'rainbow', 'color12', 'megatrends', 'color10', 'color8',
-        'color6', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'megatrends', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance',
-        'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color9', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color11',
-        'color5', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'rainbow',
-        'rainbow', 'sales', 'color8', 'chance', 'color1', 'megatrends', 'color10', 'start', 'rainbow', 'sales', 'color4', 'megatrends', 'color7', 'color6', 'sales',
-        'megatrends', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'sales', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color9',
-        'color10', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color12', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'color4',
-        'color3', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'chance', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'megatrends',
-        'sales', 'rainbow', 'color11', 'chance', 'color2', 'color7', 'megatrends', 'rainbow', 'color9', 'sales', 'color8', 'color6', 'chance', 'rainbow', 'color5'
-    ]
-
-    //TILE_INFO FOR WHEN 5 PLAYERS JOIN
-    const tileInfo2 = [
-        'sales','color1','color5','megatrends','rainbow','color4','chance', 'color2', 'color1', 'sales','rainbow', 'color3','megatrends','color4','color2',
-        'color3','blank','blank','blank', 'blank','blank', 'blank', 'megatrends', 'blank', 'blank','blank', 'blank', 'blank', 'blank','chance',
-        'chance','blank','blank','blank','blank','blank', 'blank', 'color5', 'blank','blank','blank', 'blank', 'blank','blank','color5',
-        'color5','blank','blank','blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank','rainbow',
-        'rainbow','sales','color2','chance', 'color1','megatrends', 'color4', 'start', 'rainbow', 'sales','color4', 'megatrends', 'color1','color3', 'sales',
-        'megatrends','blank','blank', 'blank', 'blank','blank', 'blank', 'sales', 'blank', 'blank','blank', 'blank', 'blank','blank', 'color5',
-        'color4','blank', 'blank', 'blank', 'blank','blank', 'blank', 'color3', 'blank', 'blank','blank','blank','blank','blank','color4',
-        'color5', 'blank', 'blank', 'blank', 'blank','blank', 'blank', 'chance', 'blank', 'blank','blank', 'blank', 'blank','blank', 'megatrends',
-        'sales', 'rainbow', 'color5', 'chance', 'color2','color1', 'megatrends', 'rainbow', 'color5', 'sales','color2','color3', 'chance', 'rainbow', 'color5'
-    ]
+    const [tileInfo, setTileInfo] = useState([])
+    const [tileInfo2, setTileInfo2] = useState([])
 
     //CO-ORDINATES FOR PAWN MOVEMENT
     const possiblePositions = [
@@ -103,6 +79,14 @@ const BoardGrid = ({moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPos
             }
         }
 
+        socket.on('send_tileInfo', (data) => {
+            setTileInfo(data)
+        })
+
+        socket.on('send_tileInfo2', (data) => {
+            setTileInfo2(data)
+        })
+
         socket.on("update_valid_positions", (data) => {
             setValidPositions(data)
         })
@@ -138,12 +122,17 @@ const BoardGrid = ({moveMade, setMoveMade, setSelectedPawn, selectedPawn, setPos
                 setColor(data.color)
             })
             const boardGrid = document.querySelector('.board-grid')
-            boardGrid.addEventListener('click', handleTileClick)
-            return () => {
-                boardGrid.removeEventListener('click', handleTileClick)
+            if (boardGrid !== null){
+                boardGrid.addEventListener('click', handleTileClick)
             }
         }
     }, [moveMade, validPositions, selectedPawn, setMoveMade, setPosition, setSelectedPawn, setCurrentPlayer, setColor, color, gameScreen])
+
+    if (tileInfo.length === 0 || tileInfo2.length === 0){
+        socket.emit('get_tileInfo')
+        socket.emit('get_tileInfo2')
+        return <div> Loading...</div>
+    }
 
     const totalTiles = tileInfo.length
     for (let i = 0; i < totalTiles; i++) {
