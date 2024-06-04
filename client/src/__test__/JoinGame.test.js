@@ -3,7 +3,6 @@ import '@testing-library/jest-dom'
 import {render, screen, fireEvent} from "@testing-library/react";
 import {I18nextProvider} from "react-i18next";
 import i18next from "i18next";
-import {socket} from "../client";
 import i18n from './i18nTest' // !IMPORTANT! USED IN THE VIRTUAL RENDER
 import {BrowserRouter, useNavigate} from "react-router-dom";
 import {JoinGame} from "../JoinGame/JoinGame";
