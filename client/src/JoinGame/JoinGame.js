@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react"
 import {socket} from '../client'
 import {useTranslation} from "react-i18next";
 import home from "../Assets/back-button.png";
+import { useLanguageManager } from '../Translations/LanguageManager';
+import den_flag from '../Assets/den_flag.png';
+import uk_flag from '../Assets/uk_flag.png';
+import nl_flag from '../Assets/nl_flag.png';
 
 export function JoinGame() {
     const [gamepin, setGamepin] = useState("");
@@ -12,6 +16,7 @@ export function JoinGame() {
     const [information, setInformation] = useState("");
     const navigate = useNavigate();
     const {t,i18n} = useTranslation('global');
+    const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
     const setName = (username) => {
         if (!username) {
@@ -39,7 +44,8 @@ export function JoinGame() {
     navigate('/home')
   }
     return (
-        <div className="parent-container">
+        <div className="parentContainer">
+            <button className="Qbutton" onClick={handleGuide}>?</button>
             <button className='Home' type="button" onClick={handleHome}>
                 <img src={home} alt='Home' className='home-image'/>
             </button>
@@ -77,6 +83,12 @@ export function JoinGame() {
                 <button type="submit" className="startgame button"
                        onClick={() => setName(username, gamepin, strategy)} > {t("JoinGame.start")} </button>
             </div>
+            <div className="row languages4">
+                <img className='flagImg4' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+                <img className='flagImg4' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+                <img className='flagImg4' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+            </div>
         </div>
+
     );
 }

@@ -62,4 +62,17 @@ output{
     margin-left: 30%;
 }
 
+.flagImg4{
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 50%;
+}
+
+.languages4{
+    position: absolute;
+    bottom: 0;
+    right: 2.4%;
+    gap: 15%;
+}
 
