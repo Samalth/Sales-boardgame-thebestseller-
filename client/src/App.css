@@ -1,9 +1,3 @@
-*,
-* ::before,
-* ::after{
-  box-sizing: border-box;
-}
-
 *{
   margin: 0;
   padding: 0;
@@ -12,12 +6,11 @@
 .App {
   font-family: 'Itim', Arial, sans-serif;
   text-align: center;
-  max-width: 90%;
-  margin-inline: auto;
+  width: 100vw;
+  height: 100vh;
 }
 
 body {
-  font-size: 60px;
   z-index: 1;
   background: url('./Assets/money-background.png');
 }

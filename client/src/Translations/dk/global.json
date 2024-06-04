@@ -23,8 +23,8 @@
 },
 
   "GamePin": {
-    "gamepin": "Værelseskode:",
-    "players": "Spillere kom med:",
+    "gamepin": "Værelseskode",
+    "players": "Spillere kom med",
     "start": "Start Spil!",
     "home": "Startskærmen"
   },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './settings.css';
+import './backButton.css'
 import home from '../Assets/back-button.png'
 import {socket} from '../client'
 import {useTranslation} from "react-i18next";
@@ -67,36 +68,37 @@ export function ModSettings() {
   };
 
   return (
-      <div className="settings-wrapper">
-        <button className="Qbutton" onClick={handleGuide}>?</button>
-        <form onSubmit={handleSubmit}>
-        <button className='Home' type="button" onClick={handleHome}>
-          <img src={home} alt='Home' className='home-image'/>
-        </button>
-        <div className="row">
-          <div className="settings text">{t("ModSettings.players")}</div>
-          <div className="player minus" onClick={decrementPlayerCount}>-</div>
-          <input id="playerCount" name="playerCount" className="player count" value={playerCount} onChange={handlePlayerCountChange}/>
-          <div className="player plus" onClick={incrementPlayerCount}>+</div>
-        </div>
+      <div className="parent-container-settings">
+          <button className="Qbutton" onClick={handleGuide}>?</button>
+          <form className='form-container-settings' onSubmit={handleSubmit}>
+          <button className='Home' type="button" onClick={handleHome}>
+            <img src={home} alt='Home' className='home-image'/>
+          </button>
 
-        <div className="row">
-          <div className="settings text">{t("ModSettings.rounds")}</div>
-          <div className="rounds minus" onClick={decrementRoundsCount}>-</div>
-          <input id="roundsCount" name="roundsCount" className="rounds count" value={roundsCount}
-                 onChange={handleRoundsCountChange}/>
-          <div className="rounds plus" onClick={incrementRoundsCount}>+</div>
-        </div>
+          <div className="playerRowSettings">
+            <div className="settings text">{t("ModSettings.players")}</div>
+            <div className="player minus" onClick={decrementPlayerCount}>-</div>
+            <input id="playerCount" name="playerCount" className="player count" value={playerCount} onChange={handlePlayerCountChange}/>
+            <div className="player plus" onClick={incrementPlayerCount}>+</div>
+          </div>
 
-        <div className="row">
-          <button type="submit" className="continueButton" > {t("ModSettings.continue")} </button>
-        </div>
-      </form>
-        <div className="row languages3">
-          <img className='flagImg3' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
-          <img className='flagImg3' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
-          <img className='flagImg3' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
-        </div>
-        </div>
+          <div className="roundsRowSettings">
+            <div className="settings text">{t("ModSettings.rounds")}</div>
+            <div className="rounds minus" onClick={decrementRoundsCount}>-</div>
+            <input id="roundsCount" name="roundsCount" className="rounds count" value={roundsCount}
+                  onChange={handleRoundsCountChange}/>
+            <div className="rounds plus" onClick={incrementRoundsCount}>+</div>
+          </div>
+
+          <div className="buttonRowSettings">
+            <button type="submit" className="continueButton continueSettings" > {t("ModSettings.continue")} </button>
+          </div>
+        </form>
+          <div className="row languages3">
+              <img className='flagImg3' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+              <img className='flagImg3' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+              <img className='flagImg3' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+          </div>
+      </div>
   );
 }

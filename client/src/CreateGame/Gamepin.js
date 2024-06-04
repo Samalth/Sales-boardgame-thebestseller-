@@ -14,7 +14,7 @@ export function Gamepin() {
     const navigate = useNavigate();
     const [playerCount, setPlayerCount] = useState(0);
     const [playerNeeded, setPlayerNeeded] = useState(0);
-    const [errorCode, setErrorCode] = useState('');
+    const [errorCode, setErrorCode] = useState('‎ ');
     const {t,i18n} = useTranslation('global');
     const { handleChangeLanguage, handleGuide } = useLanguageManager();
 
@@ -68,26 +68,25 @@ export function Gamepin() {
     };
 
     return (
-        <div className="parent-container">
+        <div className="parent-container-gamepin">
             <button className="Qbutton" onClick={handleGuide}>?</button>
             <button className='Home' type="button" onClick={handleBack}>
                 <img src={back} alt='Home' className='home-image'/>
             </button>
-                <div className="row gamepin">
-                    <label>{t("GamePin.gamepin")}</label>
-                    <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
-                           onChange={event => setGamepin(event.target.value)}/>
-                </div>
-                <div className="row">
-                    <label>{t("GamePin.players")}</label>
-                    <div className="row gamepin"></div>
-                    <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
-                           onChange={handlePlayerCountChange}/>
-                </div>
-                <div className="row">
-                    <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
-                </div>
-                <div className="row">{errorCode}</div>
+            <div className="gamepinGamepin">
+                <label className='gamepinLabel'>{t("GamePin.gamepin")}</label>
+                <input type="text" className='gamepinGenerate' value={gamepin} onClick={copygamepin} readOnly
+                       onChange={event => setGamepin(event.target.value)}/>
+            </div>
+            <div className="playersJoinedGamepin">
+                <label className='gamepinLabel'>{t("GamePin.players")}</label>
+                <input id="playerCount" name="playerCount" className="joinedPlayers" value={playerCount} readOnly
+                       onChange={handlePlayerCountChange}/>
+            </div>
+            <div className="buttonGamePin">
+                <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
+            </div>
+            <div className="errorGamepin">{errorCode}</div>
             <div className="row languages2">
                 <img className='flagImg2' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
                 <img className='flagImg2' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />

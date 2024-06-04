@@ -23,8 +23,8 @@
 },
 
   "GamePin": {
-    "gamepin": "Room code:",
-    "players": "Toegetreden spelers:",
+    "gamepin": "Room code",
+    "players": "Toegetreden spelers",
     "start": "Start spel!",
     "home": "Startscherm"
   },
