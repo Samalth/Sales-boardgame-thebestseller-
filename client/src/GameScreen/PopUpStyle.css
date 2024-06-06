@@ -5,44 +5,34 @@
     position: absolute;
 }
 
-.questionColorBox .questionWhiteBox {
-    flex: 1;
-}
 
 .questionWhiteBox {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
     background-color: white;
     color: black;
-    position: absolute;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    left: 10%;
-    width: 70%;
-    height: 65%;
-    min-height: 30%;
-    max-height: 70%;
-    bottom: 0px;
-    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 65vh;
+    width: 33vw;
     z-index: 999;
+    font-size: min(calc(65vh * 0.10), calc(33vw * 0.05));
 }
 
 .questionColorBox {
     border: 2px solid white;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
     color: black;
     position: fixed;
     top: 5%;
-    left: 10%;
-    width: 35%;
-    height: 85%;
-    padding: 2%;
+    left: 8%;
+    width: 40vw;
+    height: 90vh;
     border-radius: 5px;
     z-index: 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .questionColorBox.black1{
@@ -64,12 +54,11 @@
 }
 
 .questionLabel{
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
     color: white;
-    left: 10%;
-    margin-top: -3%;
+    align-self: flex-start;
+    margin-left: calc(7vw/2);
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
 }
 
 .answerPopup {
@@ -79,64 +68,52 @@
     position: fixed;
     top: 5%;
     background-color: grey;
-    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    right: 10%;
-    width: 35%;
-    height: 80%;
+    right: 8%;
+    width: 40vw;
+    height: 90vh;
     z-index: 2;
     border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .answerInput {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
     background-color: white;
     color: black;
-    position: absolute;
-    margin-top: 10%;
-    margin-bottom: 5%;
-    left: 10%;
-    width: 70%;
-    height: 65%;
-    min-height: 30%;
-    max-height: 70%;
-    padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    right: 7cm;
     z-index: 1;
-    resize: none;
+    height: 65vh;
+    width: 33vw;
+    font-size: min(calc(65vh * 0.10), calc(33vw * 0.05));
 }
 
 .submitButton {
-    position: absolute;
-    bottom: 10px;
-    left: 140px;
-    right: 140px;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
     background-color: goldenrod;
     border: none;
     outline: none;
     color: black;
-    padding: 15px;
     letter-spacing: 1px;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
     cursor: pointer;
+    width: 20vw;
+    height: 8vh;
+    font-size: min(calc(8vh * 0.6), calc(20vw * 0.10));
+    margin-top: 8vh;
 }
 
 .answerText {
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
     color: white;
-    left: 10%;
-    margin-top: 2%;
+    align-self: flex-start;
+    margin-left: calc(7vw/2);
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
+    margin-top: min(calc(30vh * 0.10), calc(33vw * 0.05));
 }
 
 .popup-blurred {
@@ -195,113 +172,93 @@
 }
 
 .questionLabel2 {
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
     color: white;
-    left: 10%;
-    margin-top: 0%;
+    align-self: flex-start;
+    margin-left: calc(7vw/2);
 }
 
 .questionWhiteBox2 {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 95%;
     text-align: left;
     background-color: white;
     color: black;
-    position: absolute;
-    margin-bottom: 50%;
-    left: 10%;
-    width: 80%;
-    height: 75%;
-    min-height: 30%;
-    max-height: 38%;
-    padding: 1%;
+    height: 30vh;
+    width: 33vw;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    margin-top: 6%;
+    font-size: min(calc(30vh * 0.08), calc(33vw * 0.04));
 }
 
 .answerLabel {
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
     color: white;
-    left: 10%;
-    margin-top: 50%;
+    align-self: flex-start;
+    margin-left: calc(7vw/2);
+    margin-top: min(calc(30vh * 0.10), calc(33vw * 0.05));
 }
 
 .questionWhiteBox3 {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 20px;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
     background-color: white;
     color: black;
-    position: absolute;
-    margin-bottom: 2%;
-    left: 10%;
-    width: 80%;
-    height: 60%;
-    min-height: 30%;
-    max-height: 30%;
-    padding: 20px;
+    height: 30vh;
+    width: 33vw;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    margin-top: 55%;
 }
 
 .assignScoreBox {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 100%;
     color: black;
     position: fixed;
     top: 5%;
     background-color: grey;
-    padding: 2%;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    right: 10%;
-    width: 35%;
-    height: 85%;
+    right: 8%;
+    width: 40vw;
+    height: 90vh;
     z-index: 100;
     border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .correctAnswerText {
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 100%;
     color: white;
-    left: 10%;
-    margin-top: 0%;
+    align-self: flex-start;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
+    margin-left: calc(7vw/2);
+    margin-top: 6vw;
 }
 
 .correctAnswerBox {
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 50%;
     background-color: white;
     color: black;
-    position: absolute;
-    margin-bottom: 60%;
-    left: 10%;
-    width: 70%;
-    height: 65%;
-    min-height: 30%;
-    max-height: 30%;
-    bottom: 0px;
-    padding: 20px;
+    height: 30vh;
+    width: 33vw;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
 
 .assignScoreText {
-    position: absolute;
     font-family: 'Itim', Arial, sans-serif;
-    font-size: 25px;
     color: white;
-    left: 10%;
-    margin-top: 60%;
+    font-size: min(calc(30vh * 0.10), calc(33vw * 0.05));
+    align-self: flex-start;
+    margin-top: min(calc(30vh * 0.10), calc(33vw * 0.05));
+    margin-left: calc(7vw/2);
 }
 
 .scoreButtons button.points.selected {
@@ -316,39 +273,40 @@
     color: black;
     padding: 15px;
     letter-spacing: 1px;
-    border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
+    height: 4.125vw;
+    width: 4.125vw;
     cursor: pointer;
 }
 
 .scoreButtons .points {
-    margin-top: 73%;
     font-family: Itim, Arial, Helvetica, sans-serif;
-    margin-right: 5%;
     background-color: white;
-    border-radius: 50%;
-    width: 9%;
+    border-radius: 100%;
     z-index: 1;
 }
 
-.submitScoreButton{
-    position: absolute;
-    bottom: 10px;
-    left: 140px;
-    right: 140px;
-    margin-bottom: 17%;
+.scoreButtons {
+    margin: 2vh 0 2vh 0;
+    width: 33vw;
+    display: flex;
+    justify-content: space-evenly;
+}
 
+.submitScoreButton{
     background-color: gold;
     border: none;
     outline: none;
     color: black;
-    padding: 15px;
     letter-spacing: 1px;
     border-radius: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-family: itim, Helvetica, sans-serif;
+    width: 20vw;
+    height: 8vh;
     cursor: pointer;
+    font-size: min(calc(8vh * 0.60), calc(20vw * 0.15));
+    margin-top: 10vh;
 }
 .submitScoreButton:hover {
     background-color: goldenrod;
@@ -359,7 +317,6 @@
     background-size: cover;
     border-radius: 50%;
     border-color: #2d2f30;
-    width: 18%;
     height: 6vw;
 }
 
@@ -367,7 +324,6 @@
     background-image: url('../Assets/LUNAR.png');
     background-size: cover;
     border-radius: 50%;
-    width: 18%;
     height: 6vw;
 }
 
@@ -375,7 +331,6 @@
     background-image: url('../Assets/DominoHouse.png');
     background-size: cover;
     border-radius: 50%;
-    width: 18%;
     height: 6vw;
 }
 
@@ -383,7 +338,6 @@
     background-image: url('../Assets/SAFELINE.png');
     background-size: cover;
     border-radius: 50%;
-    width: 18%;
     height: 6vw;
 }
 
@@ -391,7 +345,6 @@
     background-image: url('../Assets/JYSKTelepartner.png');
     background-size: cover;
     border-radius: 50%;
-    width: 18%;
     height: 6vw;
 }
 
@@ -399,6 +352,5 @@
     background-image: url('../Assets/Klaphatten.png');
     background-size: cover;
     border-radius: 50%;
-    width: 18%;
     height: 6vw;
 }
