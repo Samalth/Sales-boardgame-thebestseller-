@@ -62,7 +62,8 @@ module.exports = function (io){
 
             'send_question_request': async (data) => {
                 const availableColors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
-                const { question, answer } = await databaseQuestion(data.questionColor);
+                const language = userLogger('getLanguage', socket.id)
+                const { question, answer } = await databaseQuestion(data.questionColor, sort = language);
                 const room = userLogger('getRoom', socket.id);
                 let popupColor
                 if (data.questionColor === 'rainbow') {
@@ -98,6 +99,10 @@ module.exports = function (io){
                 const room = userLogger('getRoom', socket.id);
                 socket.to(room).emit('receive_answer', answerText);
                 socket.emit('receive_answer', answerText);
+            },
+
+            'change_language' : (data) => {
+                userLogger('updateLanguage', socket.id, data)
             },
 
             'send_points' : (data) => {
