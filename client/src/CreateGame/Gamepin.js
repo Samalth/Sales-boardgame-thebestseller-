@@ -36,7 +36,7 @@ export function Gamepin() {
     }, []);
 
     const handleGame = () => {
-        if (playerCount === playerNeeded) {
+        if (playerCount <= playerNeeded) {
             socket.emit('start_turn', 'data')
             navigate('/modview');
         } else if (playerCount < playerNeeded) {

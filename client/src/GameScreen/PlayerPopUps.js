@@ -39,7 +39,7 @@ const PlayerPopUps = ({ gamePaused, gamePaused2, question, textBoxContent, handl
                     </div>
                     <div className="answerPopup">
                         <div className='answerText'> {t("PopUps.playerAnswer")} </div>
-                        <textarea className={'answerInput'} value={textBoxContent} placeholder={t("PopUps.playerHolder")} onChange={handleTextBoxChange} />
+                        <textarea className={'answerInput'} value={textBoxContent} placeholder={t("PopUps.playerHolder")} onChange={handleTextBoxChange} onPaste={(e) => e.preventDefault()}/>
                         <button className={'submitButton'} onClick={handleSubmitAnswer}>{t("PopUps.submitAns")}</button>
                     </div>
                 </div>
