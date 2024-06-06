@@ -80,7 +80,7 @@
     color: #F9E513;
     border-radius: 10px;
     cursor: pointer;
-    width: 40vw;
+    width: 30vw;
     height: 10vh;
     font-size: min(calc(10vh * 0.6), calc(40vw * 0.15));
 }
@@ -123,13 +123,7 @@
 .flagImg3 {
     border-radius: 10px;
     cursor: pointer;
-    width: 50%;
-    height: 50%;
-}
-
-.languages3 {
-    position: absolute;
-    bottom: 0;
-    right: 2.4%;
-    gap: 15%;
+    width: 5vw;
+    height: auto;
+    margin-right: 1vw;
 }

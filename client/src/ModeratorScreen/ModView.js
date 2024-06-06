@@ -121,9 +121,10 @@ export function ModView() {
                 <LeaderBoard
                     sortedUserData={sortedUserData}
                     playerName={playerName}/>
+                {/*flags use audio.css*/}
                 <div><img className='flagImg6' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} /></div>
                 <div><img className='flagImg7' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} /></div>
-                <div> <img className='flagImg8' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} /></div>
+                <div><img className='flagImg8' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} /></div>
             </div>
                 <ModeratorPopUps
                     answer={answer}

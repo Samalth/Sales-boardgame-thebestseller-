@@ -9,20 +9,13 @@
 	height: 100%;
 }
 
-.languageRow {
-	position: absolute;
-	bottom: 1vh;
-	right: 0;
-}
-
 .homeGameButton {
 	border-radius: 10px;
-	font-size: 100%;
+	font-family: 'Itim', Arial, sans-serif;
 	cursor: pointer;
 	background-color: #195678;
 	color: #F9E513;
 	border-color: white;
-	font-family: 'Itim', Arial, sans-serif;
 	width: 22vw;
 	height: 8vh;
 	font-size: min(calc(8vh * 0.6), calc(22vw * 0.15));
@@ -67,6 +60,12 @@
 .Qbutton:hover {
 	background-color: #3f6072;
 	font-weight: bold;
+}
+
+.languageRow {
+	position: absolute;
+	bottom: 1vh;
+	right: 0;
 }
 
 .flagImg{

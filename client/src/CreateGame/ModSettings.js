@@ -94,7 +94,7 @@ export function ModSettings() {
             <button type="submit" className="continueButton continueSettings" > {t("ModSettings.continue")} </button>
           </div>
         </form>
-          <div className="row languages3">
+          <div className="languageRow">
               <img className='flagImg3' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
               <img className='flagImg3' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
               <img className='flagImg3' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />

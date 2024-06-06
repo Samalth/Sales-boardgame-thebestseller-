@@ -84,10 +84,10 @@ export function JoinGame() {
             <div className="buttonRowJoingame">
                 <button type="submit" className="startgame button" onClick={() => setName(username, gamepin, strategy)}>{t("JoinGame.start")}</button>
             </div>
-            <div className="row languages4">
-                <img className='flagImg4' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
-                <img className='flagImg4' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
-                <img className='flagImg4' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+            <div className="languageRow">
+                <img className='flagImg2' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+                <img className='flagImg2' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+                <img className='flagImg2' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
             </div>
         </div>
 

@@ -87,10 +87,10 @@ export function Gamepin() {
                 <button type="submit" className="gamePinButton" onClick={handleGame} > {t("GamePin.start")} </button>
             </div>
             <div className="errorGamepin">{errorCode}</div>
-            <div className="row languages2">
-                <img className='flagImg2' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
-                <img className='flagImg2' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
-                <img className='flagImg2' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
+            <div className="languageRow">
+                <img className='flagImg4' id='DEN' src={den_flag} alt='Danish' onClick={() => handleChangeLanguage('dk')} />
+                <img className='flagImg4' id='EN' src={uk_flag} alt='English' onClick={() => handleChangeLanguage('en')} />
+                <img className='flagImg4' id='NL' src={nl_flag} alt='Dutch' onClick={() => handleChangeLanguage('nl')} />
             </div>
         </div>
 );

@@ -1,6 +1,6 @@
 .audioButton {
-    right: -20%;
-    margin-top: 8%;
+    right: -14.8%;
+    margin-top: 7%;
     background-color: #195678;
     border-color: white;
     color: gold;
@@ -15,17 +15,6 @@
 .audioImage {
     width: 90%;
     height: 90%;
-}
-
-.flagImg5{
-    right: -20%;
-    margin-top: 2%;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 2cm;
-    height: 2cm;
-    text-align: center;
-    position: relative;
 }
 
 .Qbutton2 {
@@ -47,4 +36,48 @@
 .Qbutton2:hover {
     background-color: #3f6072;
     font-weight: bold;
+}
+
+.flagImg5{
+    right: -14.8%;
+    margin-top: 2%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}
+
+.flagImg6{
+    right: -14.8%;
+    margin-top: 7%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}
+
+.flagImg7{
+    right: -14.8%;
+    margin-top: 2%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
+}
+
+.flagImg8{
+    right: -14.8%;
+    margin-top: 2%;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 2cm;
+    height: 2cm;
+    text-align: center;
+    position: relative;
 }
