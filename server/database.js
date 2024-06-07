@@ -2,18 +2,15 @@ const mysql = require('mysql');
 
 // MySQL Connection
 const connection = mysql.createConnection(
-//     {
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "thebestseller"
-// }
-{
-    host: "localhost",
-    user: "deb148678_thebestseller",
-    password: "password",
-    database: "deb148678_thebestseller"
-});
+    {host: "localhost",
+    user: "root",
+    password: "",
+    database: "thebestseller"});
+    // VOOR DEPLOYMENT
+    // {host: "localhost",
+    // user: "deb148678_thebestseller",
+    // password: "password",
+    // database: "deb148678_thebestseller"});
 connection.connect();
 
 const questionIDs = {
