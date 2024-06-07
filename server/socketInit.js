@@ -7,6 +7,7 @@ module.exports = function(server) {
             methods: ['GET', 'POST']
         }
     });
+    // VOOR DEPLOYMENT
     // return new Server(server, {
     //     connectionStateRecovery: true,
     //     path: '/server',

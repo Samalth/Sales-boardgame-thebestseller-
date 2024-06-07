@@ -26,15 +26,17 @@ i18next
                 global: global_dk
             }
         }
-    });
+    }).then(r => {
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+        <LanguageManagerProvider>
+            <I18nextProvider i18n={i18next}>
+                <App />
+            </I18nextProvider>
+        </LanguageManagerProvider>
+    );
+});
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-            <LanguageManagerProvider>
-                <I18nextProvider i18n={i18next}>
-                    <App />
-                </I18nextProvider>
-            </LanguageManagerProvider>
-);
+
 
 reportWebVitals();
