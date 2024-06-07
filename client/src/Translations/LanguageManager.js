@@ -9,9 +9,10 @@ export const LanguageManagerProvider = ({ children }) => {
     const [language, setLanguage] = useState('en');
 
     const handleChangeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-        setLanguage(lng);
-        socket.emit('change_language', lng);
+        i18n.changeLanguage(lng).then(r => {
+            setLanguage(lng);
+            socket.emit('change_language', lng);
+        });
     };
 
     const handleGuide = () => {
