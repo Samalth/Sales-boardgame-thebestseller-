@@ -4,7 +4,7 @@ The files are split in a client side and a server side, to run both (so you can 
 - Type "cd server" in the first console window
 - Type "cd client" in the second console window
 
-Secondly, make sure NodeJS is installed in both folders (skip this step if it is already installed).
+Secondly, make sure NodeJS (https://nodejs.org/en/download/) is installed and install all the packages from the package.json (skip this step if it is already installed).
 Enter this in both the terminal/CMD windows:
 - Type "npm install" in the 'server' window
 - Type "npm install" in the 'client' window 
@@ -23,9 +23,10 @@ IMPORTANT: do not change the name of any file within this project unless you kno
 In the phpMyAdmin you will see that the database you just named "thebestseller" is now standing at the bottom of a row of some other automatically created databases
 8. Click on the new database and on the almost top of your screen you will see some options, one of them is called import, click on it
 9. After you get to the import screen, click on 'choose file' and select the .CSV file
-10. scroll down to the bottom of the import screen and you'll see a switch with the text "first line ..." switch this box to on 
+10. Scroll down to the options and change 'Columns seperated by' from ',' to a ';'.
+11. Next scroll down to the bottom of the import screen and you'll see a switch with the text "first line ..." switch this box to on 
 IMPORTANT: do not click other buttons or switches in the import screen unless you know what you are doing!
-11. At the bottom of the page you will see a button called "import" click it and your database is ready
+12. At the bottom of the page you will see a button called "import" click it and your database is ready
 IMPORTANT for anyone wanting to change the database, if the database is not started with the correct configurations (read database.js) the server will not start
 
 Lastly, you should start both sides (client and server) of the project:
