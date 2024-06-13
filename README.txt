@@ -1,4 +1,7 @@
-**How to run ENG:**
+# Project sales-boardgame "the bestseller"
+This project was dedicated to my team and I by Danish clients from the Copenhagen Business School via the Dutch Hogeschool Utrecht.
+
+##How to run ENG:
 First split the terminal or open a second terminal window.
 The files are split in a client side and a server side, to run both (so you can start the application correctly):
 - Type "cd server" in the first console window
@@ -34,7 +37,7 @@ Lastly, you should start both sides (client and server) of the project:
 - Type "npm start" in the 'client' window
 
 
-IMPORTANT NOTE:
+##IMPORTANT NOTE:
 Everytime your pc is restarted or something in this category, you will need to do the following things again to start the project:
 Database:
 1. Startup XAMPP
@@ -50,9 +53,16 @@ Client:
 9. Type "npm start" to run the application
 
 
-
-
-
 IMPORTANT when pushing codes, the following file and folder must not be pushed:
 - 'package-lock.json' (file in server and client)
 - 'node_modules' (folder in server and client)
+
+
+##Copyright
+ IMPORTANT:
+ This project may not be used for commercial gains.
+ All rights to the intellectual property and creative content within this project are reserved.
+ Unauthorized use, reproduction, or distribution of any part of this project for commercial purposes is strictly prohibited.
+ The project is intended solely for educational and personal use.
+ For permissions beyond the scope of this license, please contact the project contributors.
+
