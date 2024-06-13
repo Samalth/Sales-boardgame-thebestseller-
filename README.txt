@@ -66,3 +66,14 @@ IMPORTANT when pushing codes, the following file and folder must not be pushed:
  The project is intended solely for educational and personal use.
  For permissions beyond the scope of this license, please contact the project contributors.
 
+###Contact Information about this repository:
+Sam T (gitCustodian and developer)
+- Samalthcode@gmail.com
+Samuel (lead-developer)
+- NO CONTACT INFO
+Noordin M (designer and developer)
+- NO CONTACT INFO
+Susmita D (productowner and developer)
+- NO CONTACT INFO
+Kees v.d. Z (Scrum Master and developer)
+- NO CONTACT INFO
