@@ -1,6 +1,30 @@
 # Project sales-boardgame "the bestseller"
 This project was dedicated to my team and I by Danish clients from the Copenhagen Business School via the Dutch Hogeschool Utrecht.
 
+##Contents
+-General information
+
+- Techstack
+
+- How to run? (ENG)
+install guide and starting guide
+
+- Copyright info
+
+- Contact info
+
+
+
+##General information
+This project was dedicated to my team and I by Danish clients from the Copenhagen Business School via the Dutch Hogeschool Utrecht.
+This is a questions based digital boardgame, created for a sales educational course for students in the Netherlands and in Denmark.
+In the "diagrams" folder in the project files, you could see a sequence diagram that explains the flow of most of the information in our project, note that this is not complete and some of the information that is written in the diagram hasn't been implemented.
+Ownership of the code and project is devided between the developers who made the project (all code made until 01-07-2024), de Dutch Hogeschool Utrecht (to date) and the Danish Copenhagen Buisiness (to date) school.
+More about this in "Copyright".
+
+##techstack
+See component diagram for the complete techstack.
+
 ##How to run ENG:
 First split the terminal or open a second terminal window.
 The files are split in a client side and a server side, to run both (so you can start the application correctly):
